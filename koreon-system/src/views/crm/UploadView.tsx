@@ -2,7 +2,7 @@ import React, { useState, useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { Upload, FileText, Loader2, CheckCircle2, AlertCircle, ArrowRight, User, Hash, Phone, DollarSign, Calendar, Settings } from 'lucide-react';
 import { motion } from 'motion/react';
-import { formatCurrency, cn } from '../utils/utils';
+import { formatCurrency, cn } from '../../utils/utils';
 import { GoogleGenAI, Type } from "@google/genai";
 
 interface UploadViewProps {
@@ -133,7 +133,7 @@ export default function UploadView({ onComplete }: UploadViewProps) {
           <CheckCircle2 size={48} />
         </motion.div>
         <h2 className="text-2xl font-bold">Contrato Processado!</h2>
-        <p className="text-slate-500">Cliente, contrato e parcelas criados com sucesso.</p>
+        <p className="text-[#98989d]">Cliente, contrato e parcelas criados com sucesso.</p>
       </div>
     );
   }
@@ -142,7 +142,7 @@ export default function UploadView({ onComplete }: UploadViewProps) {
     <div className="max-w-4xl mx-auto space-y-8">
       <div className="text-center">
         <h2 className="text-2xl font-bold">Upload de Contrato</h2>
-        <p className="text-slate-500">Arraste o contrato (PDF ou Imagem) para extração automática via IA.</p>
+        <p className="text-[#98989d]">Arraste o contrato (PDF ou Imagem) para extração automática via IA.</p>
       </div>
 
       {status === 'idle' && (
@@ -150,7 +150,7 @@ export default function UploadView({ onComplete }: UploadViewProps) {
           {...getRootProps()} 
           className={cn(
             "border-2 border-dashed rounded-3xl p-12 transition-all cursor-pointer flex flex-col items-center justify-center space-y-4",
-            isDragActive ? "border-indigo-500 bg-indigo-50" : "border-slate-200 hover:border-indigo-400 hover:bg-slate-50"
+            isDragActive ? "border-indigo-500 bg-indigo-50" : "border-[#333336] hover:border-indigo-400 hover:bg-[#0f0f11]"
           )}
         >
           <input {...getInputProps()} />
@@ -159,7 +159,7 @@ export default function UploadView({ onComplete }: UploadViewProps) {
           </div>
           <div className="text-center">
             <p className="font-semibold text-lg">{file ? file.name : "Clique ou arraste o arquivo aqui"}</p>
-            <p className="text-sm text-slate-400">Suporta PDF, JPG, PNG até 10MB</p>
+            <p className="text-sm text-[#98989d]">Suporta PDF, JPG, PNG até 10MB</p>
           </div>
           {file && (
             <button 
@@ -178,14 +178,14 @@ export default function UploadView({ onComplete }: UploadViewProps) {
           <Loader2 className="animate-spin text-indigo-600" size={48} />
           <div className="text-center">
             <h3 className="text-xl font-bold">Analisando Contrato...</h3>
-            <p className="text-slate-500">Nossa IA está extraindo os dados do documento.</p>
+            <p className="text-[#98989d]">Nossa IA está extraindo os dados do documento.</p>
           </div>
         </div>
       )}
 
       {status === 'reviewing' && extractedData && (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-6">
+          <div className="bg-[#1c1c1e] p-6 rounded-2xl border border-[#333336] shadow-sm space-y-6">
             <h3 className="font-bold text-lg flex items-center gap-2">
               <FileText className="text-indigo-600" size={20} />
               Dados Extraídos
@@ -194,9 +194,9 @@ export default function UploadView({ onComplete }: UploadViewProps) {
             <div className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1">
-                  <label className="text-xs text-slate-400 uppercase font-bold">Data do Contrato</label>
-                  <div className="flex items-center gap-2 p-2 bg-slate-50 rounded-lg border border-slate-100">
-                    <Calendar size={14} className="text-slate-400" />
+                  <label className="text-xs text-[#98989d] uppercase font-bold">Data do Contrato</label>
+                  <div className="flex items-center gap-2 p-2 bg-[#0f0f11] rounded-lg border border-[#333336]">
+                    <Calendar size={14} className="text-[#98989d]" />
                     <input 
                       type="date"
                       className="bg-transparent text-sm font-medium w-full focus:outline-none" 
@@ -206,9 +206,9 @@ export default function UploadView({ onComplete }: UploadViewProps) {
                   </div>
                 </div>
                 <div className="space-y-1">
-                  <label className="text-xs text-slate-400 uppercase font-bold">Nome do Cliente</label>
-                  <div className="flex items-center gap-2 p-2 bg-slate-50 rounded-lg border border-slate-100">
-                    <User size={14} className="text-slate-400" />
+                  <label className="text-xs text-[#98989d] uppercase font-bold">Nome do Cliente</label>
+                  <div className="flex items-center gap-2 p-2 bg-[#0f0f11] rounded-lg border border-[#333336]">
+                    <User size={14} className="text-[#98989d]" />
                     <input 
                       className="bg-transparent text-sm font-medium w-full focus:outline-none" 
                       value={extractedData.nome || ''} 
@@ -220,9 +220,9 @@ export default function UploadView({ onComplete }: UploadViewProps) {
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1">
-                  <label className="text-xs text-slate-400 uppercase font-bold">CPF</label>
-                  <div className="flex items-center gap-2 p-2 bg-slate-50 rounded-lg border border-slate-100">
-                    <Hash size={14} className="text-slate-400" />
+                  <label className="text-xs text-[#98989d] uppercase font-bold">CPF</label>
+                  <div className="flex items-center gap-2 p-2 bg-[#0f0f11] rounded-lg border border-[#333336]">
+                    <Hash size={14} className="text-[#98989d]" />
                     <input 
                       className="bg-transparent text-sm font-medium w-full focus:outline-none" 
                       value={extractedData.cpf || ''} 
@@ -231,9 +231,9 @@ export default function UploadView({ onComplete }: UploadViewProps) {
                   </div>
                 </div>
                 <div className="space-y-1">
-                  <label className="text-xs text-slate-400 uppercase font-bold">Telefone</label>
-                  <div className="flex items-center gap-2 p-2 bg-slate-50 rounded-lg border border-slate-100">
-                    <Phone size={14} className="text-slate-400" />
+                  <label className="text-xs text-[#98989d] uppercase font-bold">Telefone</label>
+                  <div className="flex items-center gap-2 p-2 bg-[#0f0f11] rounded-lg border border-[#333336]">
+                    <Phone size={14} className="text-[#98989d]" />
                     <input 
                       className="bg-transparent text-sm font-medium w-full focus:outline-none" 
                       value={extractedData.telefone || ''} 
@@ -245,9 +245,9 @@ export default function UploadView({ onComplete }: UploadViewProps) {
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1">
-                  <label className="text-xs text-slate-400 uppercase font-bold">Valor Total</label>
-                  <div className="flex items-center gap-2 p-2 bg-slate-50 rounded-lg border border-slate-100">
-                    <DollarSign size={14} className="text-slate-400" />
+                  <label className="text-xs text-[#98989d] uppercase font-bold">Valor Total</label>
+                  <div className="flex items-center gap-2 p-2 bg-[#0f0f11] rounded-lg border border-[#333336]">
+                    <DollarSign size={14} className="text-[#98989d]" />
                     <input 
                       type="number"
                       className="bg-transparent text-sm font-medium w-full focus:outline-none" 
@@ -257,9 +257,9 @@ export default function UploadView({ onComplete }: UploadViewProps) {
                   </div>
                 </div>
                 <div className="space-y-1">
-                  <label className="text-xs text-slate-400 uppercase font-bold">Entrada</label>
-                  <div className="flex items-center gap-2 p-2 bg-slate-50 rounded-lg border border-slate-100">
-                    <DollarSign size={14} className="text-slate-400" />
+                  <label className="text-xs text-[#98989d] uppercase font-bold">Entrada</label>
+                  <div className="flex items-center gap-2 p-2 bg-[#0f0f11] rounded-lg border border-[#333336]">
+                    <DollarSign size={14} className="text-[#98989d]" />
                     <input 
                       type="number"
                       className="bg-transparent text-sm font-medium w-full focus:outline-none" 
@@ -272,9 +272,9 @@ export default function UploadView({ onComplete }: UploadViewProps) {
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1">
-                  <label className="text-xs text-slate-400 uppercase font-bold">Parcelas</label>
-                  <div className="flex items-center gap-2 p-2 bg-slate-50 rounded-lg border border-slate-100">
-                    <Calendar size={14} className="text-slate-400" />
+                  <label className="text-xs text-[#98989d] uppercase font-bold">Parcelas</label>
+                  <div className="flex items-center gap-2 p-2 bg-[#0f0f11] rounded-lg border border-[#333336]">
+                    <Calendar size={14} className="text-[#98989d]" />
                     <input 
                       type="number"
                       className="bg-transparent text-sm font-medium w-full focus:outline-none" 
@@ -284,9 +284,9 @@ export default function UploadView({ onComplete }: UploadViewProps) {
                   </div>
                 </div>
                 <div className="space-y-1">
-                  <label className="text-xs text-slate-400 uppercase font-bold">Valor da Parcela</label>
-                  <div className="flex items-center gap-2 p-2 bg-slate-50 rounded-lg border border-slate-100">
-                    <DollarSign size={14} className="text-slate-400" />
+                  <label className="text-xs text-[#98989d] uppercase font-bold">Valor da Parcela</label>
+                  <div className="flex items-center gap-2 p-2 bg-[#0f0f11] rounded-lg border border-[#333336]">
+                    <DollarSign size={14} className="text-[#98989d]" />
                     <input 
                       type="number"
                       className="bg-transparent text-sm font-medium w-full focus:outline-none" 
@@ -299,9 +299,9 @@ export default function UploadView({ onComplete }: UploadViewProps) {
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1">
-                  <label className="text-xs text-slate-400 uppercase font-bold">Tipo de Serviço</label>
-                  <div className="flex items-center gap-2 p-2 bg-slate-50 rounded-lg border border-slate-100">
-                    <Settings size={14} className="text-slate-400" />
+                  <label className="text-xs text-[#98989d] uppercase font-bold">Tipo de Serviço</label>
+                  <div className="flex items-center gap-2 p-2 bg-[#0f0f11] rounded-lg border border-[#333336]">
+                    <Settings size={14} className="text-[#98989d]" />
                     <select 
                       className="bg-transparent text-sm font-medium w-full focus:outline-none" 
                       value={extractedData.tipo_servico || ''} 
@@ -317,9 +317,9 @@ export default function UploadView({ onComplete }: UploadViewProps) {
                   </div>
                 </div>
                 <div className="space-y-1">
-                  <label className="text-xs text-slate-400 uppercase font-bold">Data de Conclusão</label>
-                  <div className="flex items-center gap-2 p-2 bg-slate-50 rounded-lg border border-slate-100">
-                    <Calendar size={14} className="text-slate-400" />
+                  <label className="text-xs text-[#98989d] uppercase font-bold">Data de Conclusão</label>
+                  <div className="flex items-center gap-2 p-2 bg-[#0f0f11] rounded-lg border border-[#333336]">
+                    <Calendar size={14} className="text-[#98989d]" />
                     <input 
                       type="date"
                       className="bg-transparent text-sm font-medium w-full focus:outline-none" 
@@ -330,10 +330,10 @@ export default function UploadView({ onComplete }: UploadViewProps) {
                 </div>
               </div>
 
-              <div className="space-y-1 pt-4 border-t border-slate-100">
-                <label className="text-xs text-slate-400 uppercase font-bold">Quem indicou?</label>
+              <div className="space-y-1 pt-4 border-t border-[#333336]">
+                <label className="text-xs text-[#98989d] uppercase font-bold">Quem indicou?</label>
                 <select 
-                  className="w-full p-2 bg-slate-50 rounded-lg border border-slate-100 text-sm focus:outline-none"
+                  className="w-full p-2 bg-[#0f0f11] rounded-lg border border-[#333336] text-sm focus:outline-none"
                   value={referrerId}
                   onChange={e => setReferrerId(e.target.value)}
                 >

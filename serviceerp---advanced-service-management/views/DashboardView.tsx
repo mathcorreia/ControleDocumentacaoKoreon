@@ -5,7 +5,7 @@ import {
   CheckCircle2, Clock, DollarSign, ArrowRight, ShieldAlert, Zap, Ban, TrendingDown
 } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell, PieChart, Pie } from 'recharts';
-import { StatusServico, StatusPagamento, NivelRisco } from '../types';
+import { StatusServico, StatusPagamento, NivelRisco } from '../../types';
 
 interface DashboardProps {
   db: any;
@@ -36,15 +36,15 @@ const DashboardView: React.FC<DashboardProps> = ({ db }) => {
   return (
     <div className="space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-500">
       {/* RISK COMMAND CENTER (NEW) */}
-      <div className="bg-white p-8 rounded-[45px] border-2 border-red-50 shadow-xl">
+      <div className="bg-[#1c1c1e] p-8 rounded-[45px] border-2 border-red-50 shadow-xl">
         <div className="flex items-center gap-3 mb-8">
            <ShieldAlert className="text-red-600" size={28} />
-           <h2 className="text-2xl font-black text-slate-800 tracking-tighter uppercase">Risk Command Center</h2>
+           <h2 className="text-2xl font-black text-white tracking-tighter uppercase">Risk Command Center</h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             <RiskMetric label="Alto Risco (Bloqueados)" value={highRiskCount} icon={Ban} color="text-red-600" bg="bg-red-50" />
             <RiskMetric label="Receita em Risco (Atraso)" value={`R$ ${revenueAtRisk.toLocaleString('pt-BR')}`} icon={TrendingDown} color="text-amber-600" bg="bg-amber-50" />
-            <RiskMetric label="Serviços Suspensos" value={blockedServicesCount} icon={Lock} color="text-slate-600" bg="bg-slate-50" />
+            <RiskMetric label="Serviços Suspensos" value={blockedServicesCount} icon={Lock} color="text-slate-600" bg="bg-[#0f0f11]" />
             <RiskMetric label="Elegíveis para Upsell" value={upsellEligibleCount} icon={Zap} color="text-emerald-600" bg="bg-emerald-50" />
         </div>
       </div>
@@ -57,8 +57,8 @@ const DashboardView: React.FC<DashboardProps> = ({ db }) => {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
-        <div className="lg:col-span-2 bg-white p-8 rounded-3xl shadow-sm border border-slate-100">
-          <h3 className="text-xl font-black text-slate-800 mb-8 flex items-center gap-3">
+        <div className="lg:col-span-2 bg-[#1c1c1e] p-8 rounded-3xl shadow-sm border border-[#333336]">
+          <h3 className="text-xl font-black text-white mb-8 flex items-center gap-3">
             <TrendingUp size={24} className="text-blue-600" /> Distribuição de Status Operacional
           </h3>
           <div className="h-80">
@@ -76,8 +76,8 @@ const DashboardView: React.FC<DashboardProps> = ({ db }) => {
           </div>
         </div>
         
-        <div className="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 flex flex-col">
-          <h3 className="text-xl font-black text-slate-800 mb-8">Mix de Serviços Ativos</h3>
+        <div className="bg-[#1c1c1e] p-8 rounded-3xl shadow-sm border border-[#333336] flex flex-col">
+          <h3 className="text-xl font-black text-white mb-8">Mix de Serviços Ativos</h3>
           <div className="flex-1 flex flex-col items-center justify-center">
              <ResponsiveContainer width="100%" height={250}>
               <PieChart>
@@ -100,22 +100,22 @@ const DashboardView: React.FC<DashboardProps> = ({ db }) => {
 
 const RiskMetric = ({ label, value, icon: Icon, color, bg }: any) => (
     <div className={`${bg} p-6 rounded-3xl flex items-center gap-4 transition-all hover:scale-105 cursor-default`}>
-        <div className={`w-12 h-12 rounded-2xl bg-white flex items-center justify-center ${color} shadow-sm`}>
+        <div className={`w-12 h-12 rounded-2xl bg-[#1c1c1e] flex items-center justify-center ${color} shadow-sm`}>
             <Icon size={24} />
         </div>
         <div>
-            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{label}</p>
+            <p className="text-[10px] font-black text-[#98989d] uppercase tracking-widest">{label}</p>
             <p className={`text-lg font-black ${color}`}>{value}</p>
         </div>
     </div>
 );
 
 const MetricCard = ({ icon: Icon, label, value, color, urgent }: any) => (
-  <div className={`p-8 rounded-3xl bg-white shadow-sm border-2 transition-all hover:shadow-xl ${urgent ? 'border-red-100' : 'border-white'}`}>
+  <div className={`p-8 rounded-3xl bg-[#1c1c1e] shadow-sm border-2 transition-all hover:shadow-xl ${urgent ? 'border-red-100' : 'border-white'}`}>
     <div className="flex items-start justify-between">
       <div className="space-y-1">
-        <p className="text-[11px] font-black text-slate-400 uppercase tracking-widest">{label}</p>
-        <h4 className="text-3xl font-black text-slate-800">{value}</h4>
+        <p className="text-[11px] font-black text-[#98989d] uppercase tracking-widest">{label}</p>
+        <h4 className="text-3xl font-black text-white">{value}</h4>
       </div>
       <div className={`p-4 rounded-2xl ${color} text-white shadow-lg shadow-current/20`}>
         <Icon size={28} />

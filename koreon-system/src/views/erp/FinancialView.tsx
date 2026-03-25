@@ -5,7 +5,7 @@ import {
   Calendar, CheckCircle2, Clock, AlertCircle, ArrowUpRight, Plus
 } from 'lucide-react';
 /* Fix imports: updated types and enums to match types.ts */
-import { Pagamento as Payment, StatusPagamento as PaymentStatus } from '../types';
+import { Pagamento as Payment, StatusPagamento as PaymentStatus } from '../../types';
 
 interface FinancialViewProps {
   db: any;
@@ -45,7 +45,7 @@ const FinancialView: React.FC<FinancialViewProps> = ({ db }) => {
         <MetricCard title="Overdue Balance" value={overdueAmount} icon={AlertCircle} color="bg-red-500" urgent />
       </div>
 
-      <div className="bg-white rounded-3xl border border-gray-100 shadow-sm overflow-hidden">
+      <div className="bg-[#1c1c1e] rounded-3xl border border-gray-100 shadow-sm overflow-hidden">
         <div className="p-8 border-b border-gray-50 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
           <div>
             <h3 className="text-xl font-bold text-gray-900">Transaction History</h3>
@@ -130,7 +130,7 @@ const FinancialView: React.FC<FinancialViewProps> = ({ db }) => {
 };
 
 const MetricCard = ({ title, value, icon: Icon, color, urgent }: any) => (
-  <div className={`p-8 rounded-3xl bg-white border border-gray-100 shadow-sm relative overflow-hidden group hover:shadow-lg transition-all ${urgent ? 'ring-2 ring-red-50' : ''}`}>
+  <div className={`p-8 rounded-3xl bg-[#1c1c1e] border border-gray-100 shadow-sm relative overflow-hidden group hover:shadow-lg transition-all ${urgent ? 'ring-2 ring-red-50' : ''}`}>
     <div className={`absolute -right-4 -bottom-4 opacity-5 group-hover:scale-110 transition-transform ${color.replace('bg-', 'text-')}`}>
       <Icon size={120} />
     </div>

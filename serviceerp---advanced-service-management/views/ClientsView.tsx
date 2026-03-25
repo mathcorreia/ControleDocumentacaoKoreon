@@ -6,7 +6,7 @@ import {
   Zap, Info, Clock, DollarSign, Briefcase
 } from 'lucide-react';
 /* Fix imports: updated types to match definitions in types.ts */
-import { Cliente as Client, TipoPessoa as PersonType, ServicoContratado as ContractedService, Pagamento as Payment, Documento as Document, StatusPagamento as PaymentStatus } from '../types';
+import { Cliente as Client, TipoPessoa as PersonType, ServicoContratado as ContractedService, Pagamento as Payment, Documento as Document, StatusPagamento as PaymentStatus } from '../../types';
 /* Fix import: renamed getUpsellSuggestions to getSugestoesUpsell as defined in aiService.ts */
 import { getSugestoesUpsell as getUpsellSuggestions } from '../services/aiService';
 
@@ -57,7 +57,7 @@ const ClientsView: React.FC<ClientsViewProps> = ({ db, setDb }) => {
             <ChevronRight size={20} className="rotate-180" /> Back to List
           </button>
           <div className="flex gap-3">
-            <button className="px-4 py-2 bg-white border border-gray-200 rounded-xl text-gray-700 font-medium flex items-center gap-2 hover:bg-gray-50">
+            <button className="px-4 py-2 bg-[#1c1c1e] border border-gray-200 rounded-xl text-gray-700 font-medium flex items-center gap-2 hover:bg-gray-50">
               Edit Profile
             </button>
             <button className="px-4 py-2 bg-blue-600 text-white rounded-xl font-medium shadow-lg shadow-blue-200 flex items-center gap-2 hover:bg-blue-700">
@@ -69,7 +69,7 @@ const ClientsView: React.FC<ClientsViewProps> = ({ db, setDb }) => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Left Column: Client 360 Header */}
           <div className="lg:col-span-1 space-y-6">
-            <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+            <div className="bg-[#1c1c1e] p-6 rounded-2xl shadow-sm border border-gray-100">
               <div className="flex flex-col items-center text-center">
                 <div className="w-24 h-24 bg-blue-50 text-blue-600 rounded-3xl flex items-center justify-center text-3xl font-bold mb-4">
                   {selectedClient.nome.charAt(0)}
@@ -146,7 +146,7 @@ const ClientsView: React.FC<ClientsViewProps> = ({ db, setDb }) => {
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {clientServices.map(service => (
-                  <div key={service.id} className="bg-white p-5 rounded-xl border border-gray-100 shadow-sm">
+                  <div key={service.id} className="bg-[#1c1c1e] p-5 rounded-xl border border-gray-100 shadow-sm">
                     <div className="flex justify-between mb-3">
                       {/* // FIX: Changed service.type to service.tipo to match ServicoContratado interface */}
                       <span className="font-bold text-gray-800">{service.tipo}</span>
@@ -184,7 +184,7 @@ const ClientsView: React.FC<ClientsViewProps> = ({ db, setDb }) => {
               <h3 className="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
                 <DollarSign size={20} className="text-emerald-500" /> Financial Overview
               </h3>
-              <div className="bg-white rounded-xl border border-gray-100 overflow-hidden">
+              <div className="bg-[#1c1c1e] rounded-xl border border-gray-100 overflow-hidden">
                 <table className="w-full text-left text-sm">
                   <thead className="bg-gray-50 text-gray-500 font-medium">
                     <tr>
@@ -223,7 +223,7 @@ const ClientsView: React.FC<ClientsViewProps> = ({ db, setDb }) => {
               </h3>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                 {clientDocs.map(doc => (
-                  <div key={doc.id} className="p-4 bg-white border border-gray-100 rounded-xl flex items-center gap-3 group hover:border-blue-200 transition-all cursor-pointer">
+                  <div key={doc.id} className="p-4 bg-[#1c1c1e] border border-gray-100 rounded-xl flex items-center gap-3 group hover:border-blue-200 transition-all cursor-pointer">
                     <div className="w-10 h-10 bg-indigo-50 text-indigo-600 rounded-lg flex items-center justify-center shrink-0">
                       <FileText size={20} />
                     </div>
@@ -255,11 +255,11 @@ const ClientsView: React.FC<ClientsViewProps> = ({ db, setDb }) => {
             placeholder="Search by name or tax ID..." 
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="pl-10 pr-4 py-2.5 bg-white border border-gray-200 rounded-xl w-full md:w-96 focus:ring-2 focus:ring-blue-500 outline-none shadow-sm"
+            className="pl-10 pr-4 py-2.5 bg-[#1c1c1e] border border-gray-200 rounded-xl w-full md:w-96 focus:ring-2 focus:ring-blue-500 outline-none shadow-sm"
           />
         </div>
         <div className="flex gap-2">
-          <button className="px-4 py-2.5 bg-white border border-gray-200 rounded-xl text-gray-700 font-medium flex items-center gap-2 hover:bg-gray-50 shadow-sm transition-all">
+          <button className="px-4 py-2.5 bg-[#1c1c1e] border border-gray-200 rounded-xl text-gray-700 font-medium flex items-center gap-2 hover:bg-gray-50 shadow-sm transition-all">
             <Filter size={18} /> Filters
           </button>
           <button className="px-4 py-2.5 bg-blue-600 text-white rounded-xl font-bold flex items-center gap-2 hover:bg-blue-700 shadow-lg shadow-blue-200 transition-all">
@@ -274,7 +274,7 @@ const ClientsView: React.FC<ClientsViewProps> = ({ db, setDb }) => {
           <div 
             key={client.id} 
             onClick={() => handleOpenProfile(client)}
-            className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md hover:border-blue-100 transition-all cursor-pointer group"
+            className="bg-[#1c1c1e] p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md hover:border-blue-100 transition-all cursor-pointer group"
           >
             <div className="flex items-start justify-between mb-4">
               <div className="w-12 h-12 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center text-lg font-bold group-hover:bg-blue-600 group-hover:text-white transition-all">
@@ -301,7 +301,7 @@ const ClientsView: React.FC<ClientsViewProps> = ({ db, setDb }) => {
             <div className="flex items-center justify-between border-t border-gray-50 pt-4">
               <div className="flex -space-x-2">
                 {[1,2].map(i => (
-                  <div key={i} className="w-6 h-6 rounded-full border-2 border-white bg-slate-200 flex items-center justify-center text-[10px] text-slate-500 font-bold uppercase ring-1 ring-gray-100">
+                  <div key={i} className="w-6 h-6 rounded-full border-2 border-white bg-slate-200 flex items-center justify-center text-[10px] text-[#98989d] font-bold uppercase ring-1 ring-gray-100">
                     S{i}
                   </div>
                 ))}

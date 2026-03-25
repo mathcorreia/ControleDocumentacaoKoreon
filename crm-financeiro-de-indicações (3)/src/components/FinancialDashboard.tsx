@@ -8,7 +8,7 @@ import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, 
   ResponsiveContainer, LineChart, Line, PieChart, Pie, Cell, Legend
 } from 'recharts';
-import { formatCurrency, cn } from '../utils/utils';
+import { formatCurrency, cn } from '../../utils/utils';
 
 interface FinancialStats {
   grossRevenue: number;
@@ -48,7 +48,7 @@ export default function FinancialDashboard() {
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {[1,2,3,4,5,6,7,8].map(i => (
-          <div key={i} className="h-32 bg-slate-100 animate-pulse rounded-2xl"></div>
+          <div key={i} className="h-32 bg-[#0f0f11] animate-pulse rounded-2xl"></div>
         ))}
       </div>
     );
@@ -70,10 +70,10 @@ export default function FinancialDashboard() {
       <div className="flex items-center justify-between print:hidden">
         <div>
           <h2 className="text-2xl font-bold">Painel Financeiro</h2>
-          <p className="text-slate-500 text-sm">Visão geral da saúde financeira da empresa</p>
+          <p className="text-[#98989d] text-sm">Visão geral da saúde financeira da empresa</p>
         </div>
         <div className="flex items-center gap-3">
-          <button className="p-2 bg-white border border-slate-200 rounded-lg text-slate-600 hover:bg-slate-50 transition-colors">
+          <button className="p-2 bg-[#1c1c1e] border border-[#333336] rounded-lg text-slate-600 hover:bg-[#0f0f11] transition-colors">
             <Filter size={18} />
           </button>
           <button 
@@ -228,12 +228,12 @@ function StatCard({ title, value, icon, trend, trendUp, highlight }: {
   return (
     <div className={cn(
       "p-6 rounded-2xl border transition-all",
-      highlight ? "bg-indigo-600 border-indigo-600 text-white shadow-lg shadow-indigo-200" : "bg-white border-slate-200 shadow-sm"
+      highlight ? "bg-indigo-600 border-indigo-600 text-white shadow-lg shadow-indigo-200" : "bg-[#1c1c1e] border-[#333336] shadow-sm"
     )}>
       <div className="flex items-center justify-between mb-4">
         <div className={cn(
           "p-2 rounded-lg",
-          highlight ? "bg-white/20" : "bg-slate-50"
+          highlight ? "bg-[#1c1c1e]/20" : "bg-[#0f0f11]"
         )}>
           {icon}
         </div>
@@ -249,7 +249,7 @@ function StatCard({ title, value, icon, trend, trendUp, highlight }: {
       </div>
       <p className={cn(
         "text-xs font-bold uppercase tracking-wider mb-1",
-        highlight ? "text-white/70" : "text-slate-400"
+        highlight ? "text-white/70" : "text-[#98989d]"
       )}>
         {title}
       </p>
@@ -260,8 +260,8 @@ function StatCard({ title, value, icon, trend, trendUp, highlight }: {
 
 function ChartCard({ title, children }: { title: string, children: React.ReactNode }) {
   return (
-    <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
-      <h3 className="font-bold text-slate-800 mb-6">{title}</h3>
+    <div className="bg-[#1c1c1e] p-6 rounded-2xl border border-[#333336] shadow-sm">
+      <h3 className="font-bold text-white mb-6">{title}</h3>
       {children}
     </div>
   );

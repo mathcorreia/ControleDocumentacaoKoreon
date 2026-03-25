@@ -71,7 +71,7 @@ const App: React.FC = () => {
             </div>
             {isSidebarOpen && <span className="text-white font-black text-xl tracking-tighter">ServiceERP</span>}
           </div>
-          <button onClick={() => setIsSidebarOpen(!isSidebarOpen)} className="text-slate-400 hover:text-white transition-colors">
+          <button onClick={() => setIsSidebarOpen(!isSidebarOpen)} className="text-[#98989d] hover:text-white transition-colors">
             {isSidebarOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
         </div>
@@ -84,7 +84,7 @@ const App: React.FC = () => {
               className={`w-full flex items-center gap-4 px-4 py-4 rounded-2xl transition-all duration-200 ${
                 activeTab === item.id 
                   ? 'bg-blue-600 text-white shadow-xl shadow-blue-900/40 translate-x-1' 
-                  : 'text-slate-400 hover:bg-slate-800 hover:text-slate-200'
+                  : 'text-[#98989d] hover:bg-slate-800 hover:text-slate-200'
               }`}
             >
               <item.icon size={22} />
@@ -101,7 +101,7 @@ const App: React.FC = () => {
             {isSidebarOpen && (
               <div className="flex-1 overflow-hidden">
                 <p className="text-sm font-bold text-white truncate">Administrador</p>
-                <p className="text-xs text-slate-500 font-medium truncate uppercase tracking-widest">Master CFO</p>
+                <p className="text-xs text-[#98989d] font-medium truncate uppercase tracking-widest">Master CFO</p>
               </div>
             )}
           </div>
@@ -111,9 +111,9 @@ const App: React.FC = () => {
       {/* Main Content */}
       <main className="flex-1 flex flex-col overflow-hidden">
         {/* Top Header */}
-        <header className="h-20 bg-white border-b border-gray-100 px-10 flex items-center justify-between sticky top-0 z-10 shadow-sm">
+        <header className="h-20 bg-[#1c1c1e] border-b border-gray-100 px-10 flex items-center justify-between sticky top-0 z-10 shadow-sm">
           <div>
-            <h1 className="text-2xl font-black text-slate-800 tracking-tight">
+            <h1 className="text-2xl font-black text-white tracking-tight">
               {navItems.find(i => i.id === activeTab)?.label}
             </h1>
           </div>
@@ -123,21 +123,21 @@ const App: React.FC = () => {
               <input 
                 type="text" 
                 placeholder="Busca global..." 
-                className="pl-12 pr-6 py-3 bg-slate-50 border-none rounded-2xl text-sm w-80 focus:ring-2 focus:ring-blue-500 transition-all outline-none font-medium"
+                className="pl-12 pr-6 py-3 bg-[#0f0f11] border-none rounded-2xl text-sm w-80 focus:ring-2 focus:ring-blue-500 transition-all outline-none font-medium"
               />
             </div>
-            <button className="relative p-3 text-slate-400 hover:text-blue-600 transition-all hover:bg-blue-50 rounded-2xl">
+            <button className="relative p-3 text-[#98989d] hover:text-blue-600 transition-all hover:bg-blue-50 rounded-2xl">
               <Bell size={22} />
               <span className="absolute top-2.5 right-2.5 w-2.5 h-2.5 bg-red-500 rounded-full ring-4 ring-white"></span>
             </button>
-            <button className="p-3 text-slate-400 hover:text-blue-600 transition-all hover:bg-blue-50 rounded-2xl">
+            <button className="p-3 text-[#98989d] hover:text-blue-600 transition-all hover:bg-blue-50 rounded-2xl">
               <Settings size={22} />
             </button>
           </div>
         </header>
 
         {/* View Area */}
-        <div className="flex-1 overflow-y-auto p-10 bg-slate-50/50">
+        <div className="flex-1 overflow-y-auto p-10 bg-[#0f0f11]/50">
           <div className="max-w-7xl mx-auto">
             {renderContent()}
           </div>

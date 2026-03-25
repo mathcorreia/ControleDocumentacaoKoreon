@@ -6,7 +6,7 @@ import {
   ChevronRight, ArrowUpRight, ShieldCheck, Landmark,
   X, Briefcase, Target, PieChart, BarChart3, Info
 } from 'lucide-react';
-import { TipoServicoStrict, StatusFornecedor } from '../types';
+import { TipoServicoStrict, StatusFornecedor } from '../../types';
 
 interface AdvancedFornecedor {
   id: string;
@@ -64,16 +64,16 @@ const FornecedoresView: React.FC<{ db: any }> = ({ db }) => {
 
   return (
     <div className="space-y-8 animate-in fade-in duration-500 pb-20">
-      <div className="flex gap-2 p-1.5 bg-slate-200/50 w-fit rounded-[24px] border border-slate-100 shadow-sm">
+      <div className="flex gap-2 p-1.5 bg-slate-200/50 w-fit rounded-[24px] border border-[#333336] shadow-sm">
         <button 
           onClick={() => setActiveSubTab('gestao')}
-          className={`px-6 py-3 rounded-[20px] text-[10px] font-black uppercase tracking-widest flex items-center gap-3 transition-all ${activeSubTab === 'gestao' ? 'bg-white text-blue-600 shadow-xl' : 'text-slate-500'}`}
+          className={`px-6 py-3 rounded-[20px] text-[10px] font-black uppercase tracking-widest flex items-center gap-3 transition-all ${activeSubTab === 'gestao' ? 'bg-[#1c1c1e] text-blue-600 shadow-xl' : 'text-[#98989d]'}`}
         >
           <Briefcase size={16} /> Gestão de Fornecedores
         </button>
         <button 
           onClick={() => setActiveSubTab('analise')}
-          className={`px-6 py-3 rounded-[20px] text-[10px] font-black uppercase tracking-widest flex items-center gap-3 transition-all ${activeSubTab === 'analise' ? 'bg-white text-blue-600 shadow-xl' : 'text-slate-500'}`}
+          className={`px-6 py-3 rounded-[20px] text-[10px] font-black uppercase tracking-widest flex items-center gap-3 transition-all ${activeSubTab === 'analise' ? 'bg-[#1c1c1e] text-blue-600 shadow-xl' : 'text-[#98989d]'}`}
         >
           <BarChart3 size={16} /> Análise de Performance
         </button>
@@ -89,7 +89,7 @@ const FornecedoresView: React.FC<{ db: any }> = ({ db }) => {
                 placeholder="Buscar fornecedor por nome ou CNPJ..." 
                 value={busca}
                 onChange={(e) => setBusca(e.target.value)}
-                className="w-full pl-14 pr-8 py-4 bg-white border-2 border-slate-100 rounded-[25px] outline-none focus:border-blue-500/50 font-bold transition-all shadow-sm"
+                className="w-full pl-14 pr-8 py-4 bg-[#1c1c1e] border-2 border-[#333336] rounded-[25px] outline-none focus:border-blue-500/50 font-bold transition-all shadow-sm"
               />
             </div>
             <button 
@@ -104,7 +104,7 @@ const FornecedoresView: React.FC<{ db: any }> = ({ db }) => {
             {suppliers.filter(s => s.nome.toLowerCase().includes(busca.toLowerCase()) || s.cnpj.includes(busca)).map(s => {
               const isBlocked = s.custo > s.custoMaximo;
               return (
-                <div key={s.id} className="bg-white p-8 rounded-[40px] border border-slate-100 shadow-sm hover:shadow-2xl hover:border-blue-200 transition-all group relative overflow-hidden">
+                <div key={s.id} className="bg-[#1c1c1e] p-8 rounded-[40px] border border-[#333336] shadow-sm hover:shadow-2xl hover:border-blue-200 transition-all group relative overflow-hidden">
                   {isBlocked && <div className="absolute top-0 right-0 px-6 py-2 bg-red-600 text-white text-[8px] font-black uppercase tracking-[0.2em] rounded-bl-3xl animate-pulse">Bloqueado por Custo Alto</div>}
                   <div className="flex items-start justify-between mb-8">
                     <div className="flex items-center gap-6">
@@ -112,8 +112,8 @@ const FornecedoresView: React.FC<{ db: any }> = ({ db }) => {
                         {s.nome.charAt(0)}
                       </div>
                       <div>
-                        <h3 className="text-xl font-black text-slate-800 tracking-tight">{s.nome}</h3>
-                        <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{s.empresa} • {s.cnpj}</p>
+                        <h3 className="text-xl font-black text-white tracking-tight">{s.nome}</h3>
+                        <p className="text-[10px] font-black text-[#98989d] uppercase tracking-widest">{s.empresa} • {s.cnpj}</p>
                       </div>
                     </div>
                     <button onClick={() => deleteSupplier(s.id)} className="p-3 text-slate-200 hover:text-red-500 transition-all opacity-0 group-hover:opacity-100">
@@ -122,13 +122,13 @@ const FornecedoresView: React.FC<{ db: any }> = ({ db }) => {
                   </div>
 
                   <div className="grid grid-cols-2 gap-4">
-                     <div className="p-5 bg-slate-50 rounded-[24px] border border-slate-100">
-                        <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Custo Atual</p>
-                        <p className={`text-xl font-black ${isBlocked ? 'text-red-600' : 'text-slate-800'}`}>R$ {s.custo.toFixed(2)}</p>
+                     <div className="p-5 bg-[#0f0f11] rounded-[24px] border border-[#333336]">
+                        <p className="text-[9px] font-black text-[#98989d] uppercase tracking-widest mb-1">Custo Atual</p>
+                        <p className={`text-xl font-black ${isBlocked ? 'text-red-600' : 'text-white'}`}>R$ {s.custo.toFixed(2)}</p>
                      </div>
-                     <div className="p-5 bg-slate-50 rounded-[24px] border border-slate-100">
-                        <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Governança</p>
-                        <p className="text-[10px] font-bold text-slate-700">Max: R$ {s.custoMaximo.toFixed(2)}</p>
+                     <div className="p-5 bg-[#0f0f11] rounded-[24px] border border-[#333336]">
+                        <p className="text-[9px] font-black text-[#98989d] uppercase tracking-widest mb-1">Governança</p>
+                        <p className="text-[10px] font-bold text-[#e5e5ea]">Max: R$ {s.custoMaximo.toFixed(2)}</p>
                      </div>
                   </div>
 
@@ -151,29 +151,29 @@ const FornecedoresView: React.FC<{ db: any }> = ({ db }) => {
 
       {showModal && (
         <div className="fixed inset-0 z-[60] flex items-center justify-center bg-slate-900/80 backdrop-blur-sm p-6 overflow-y-auto">
-          <div className="bg-white w-full max-w-2xl rounded-[40px] shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200">
+          <div className="bg-[#1c1c1e] w-full max-w-2xl rounded-[40px] shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200">
              <form onSubmit={handleAddSupplier} className="p-10 space-y-8">
-                <div className="flex justify-between items-center border-b border-slate-100 pb-6">
-                  <h3 className="text-2xl font-black text-slate-800 tracking-tighter uppercase">Novo Fornecedor</h3>
+                <div className="flex justify-between items-center border-b border-[#333336] pb-6">
+                  <h3 className="text-2xl font-black text-white tracking-tighter uppercase">Novo Fornecedor</h3>
                   <button type="button" onClick={() => setShowModal(false)} className="text-slate-300 hover:text-red-500"><X size={32} /></button>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                    <div className="space-y-1">
-                      <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-2">Nome do Fornecedor</label>
-                      <input required onChange={e => setNewSupplier({...newSupplier, nome: e.target.value})} className="w-full px-6 py-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold outline-none focus:border-blue-500 transition-all" />
+                      <label className="text-[10px] font-black text-[#98989d] uppercase tracking-widest ml-2">Nome do Fornecedor</label>
+                      <input required onChange={e => setNewSupplier({...newSupplier, nome: e.target.value})} className="w-full px-6 py-4 bg-[#0f0f11] border-2 border-[#333336] rounded-2xl font-bold outline-none focus:border-blue-500 transition-all" />
                    </div>
                    <div className="space-y-1">
-                      <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-2">Empresa</label>
-                      <input required onChange={e => setNewSupplier({...newSupplier, empresa: e.target.value})} className="w-full px-6 py-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold outline-none focus:border-blue-500 transition-all" />
+                      <label className="text-[10px] font-black text-[#98989d] uppercase tracking-widest ml-2">Empresa</label>
+                      <input required onChange={e => setNewSupplier({...newSupplier, empresa: e.target.value})} className="w-full px-6 py-4 bg-[#0f0f11] border-2 border-[#333336] rounded-2xl font-bold outline-none focus:border-blue-500 transition-all" />
                    </div>
                    <div className="space-y-1">
-                      <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-2">CNPJ</label>
-                      <input required placeholder="00.000.000/0000-00" onChange={e => setNewSupplier({...newSupplier, cnpj: e.target.value})} className="w-full px-6 py-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold outline-none focus:border-blue-500 transition-all" />
+                      <label className="text-[10px] font-black text-[#98989d] uppercase tracking-widest ml-2">CNPJ</label>
+                      <input required placeholder="00.000.000/0000-00" onChange={e => setNewSupplier({...newSupplier, cnpj: e.target.value})} className="w-full px-6 py-4 bg-[#0f0f11] border-2 border-[#333336] rounded-2xl font-bold outline-none focus:border-blue-500 transition-all" />
                    </div>
                    <div className="space-y-1">
-                      <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-2">Tipo de Serviço</label>
-                      <select onChange={e => setNewSupplier({...newSupplier, tipoServico: e.target.value as any})} className="w-full px-6 py-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold outline-none">
+                      <label className="text-[10px] font-black text-[#98989d] uppercase tracking-widest ml-2">Tipo de Serviço</label>
+                      <select onChange={e => setNewSupplier({...newSupplier, tipoServico: e.target.value as any})} className="w-full px-6 py-4 bg-[#0f0f11] border-2 border-[#333336] rounded-2xl font-bold outline-none">
                          {Object.values(TipoServicoStrict).map(v => <option key={v} value={v}>{v}</option>)}
                       </select>
                    </div>
@@ -183,24 +183,24 @@ const FornecedoresView: React.FC<{ db: any }> = ({ db }) => {
                    <h4 className="text-xs font-black text-blue-800 uppercase tracking-widest flex items-center gap-2">Modelo de Custo & Governança</h4>
                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div className="space-y-1">
-                        <label className="text-[9px] font-black text-slate-400 uppercase ml-2">Tipo de Cobrança</label>
-                        <select onChange={e => setNewSupplier({...newSupplier, tipoCobranca: e.target.value as any})} className="w-full px-5 py-4 bg-white border border-slate-200 rounded-2xl font-bold">
+                        <label className="text-[9px] font-black text-[#98989d] uppercase ml-2">Tipo de Cobrança</label>
+                        <select onChange={e => setNewSupplier({...newSupplier, tipoCobranca: e.target.value as any})} className="w-full px-5 py-4 bg-[#1c1c1e] border border-[#333336] rounded-2xl font-bold">
                            <option value="Preço por nome">Preço por nome</option>
                            <option value="Preço fixo">Preço fixo</option>
                            <option value="Preço variável">Preço variável</option>
                         </select>
                       </div>
                       <div className="space-y-1">
-                        <label className="text-[9px] font-black text-slate-400 uppercase ml-2">Custo Atual (R$)</label>
-                        <input required type="number" onChange={e => setNewSupplier({...newSupplier, custo: Number(e.target.value)})} className="w-full px-5 py-4 bg-white border border-slate-200 rounded-2xl font-bold" />
+                        <label className="text-[9px] font-black text-[#98989d] uppercase ml-2">Custo Atual (R$)</label>
+                        <input required type="number" onChange={e => setNewSupplier({...newSupplier, custo: Number(e.target.value)})} className="w-full px-5 py-4 bg-[#1c1c1e] border border-[#333336] rounded-2xl font-bold" />
                       </div>
                       <div className="space-y-1">
-                        <label className="text-[9px] font-black text-slate-400 uppercase ml-2">Custo Mínimo (R$)</label>
-                        <input required type="number" onChange={e => setNewSupplier({...newSupplier, custoMinimo: Number(e.target.value)})} className="w-full px-5 py-4 bg-white border border-slate-200 rounded-2xl font-bold" />
+                        <label className="text-[9px] font-black text-[#98989d] uppercase ml-2">Custo Mínimo (R$)</label>
+                        <input required type="number" onChange={e => setNewSupplier({...newSupplier, custoMinimo: Number(e.target.value)})} className="w-full px-5 py-4 bg-[#1c1c1e] border border-[#333336] rounded-2xl font-bold" />
                       </div>
                       <div className="space-y-1">
-                        <label className="text-[9px] font-black text-slate-400 uppercase ml-2">Custo Máximo (R$)</label>
-                        <input required type="number" onChange={e => setNewSupplier({...newSupplier, custoMaximo: Number(e.target.value)})} className="w-full px-5 py-4 bg-white border border-slate-200 rounded-2xl font-bold" />
+                        <label className="text-[9px] font-black text-[#98989d] uppercase ml-2">Custo Máximo (R$)</label>
+                        <input required type="number" onChange={e => setNewSupplier({...newSupplier, custoMaximo: Number(e.target.value)})} className="w-full px-5 py-4 bg-[#1c1c1e] border border-[#333336] rounded-2xl font-bold" />
                       </div>
                    </div>
                 </div>
@@ -243,13 +243,13 @@ const PerformanceAnalise = ({ db, suppliers }: { db: any, suppliers: AdvancedFor
   return (
     <div className="space-y-10 animate-in slide-in-from-right-10 duration-500">
        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          <div className="lg:col-span-2 bg-white rounded-[45px] border border-slate-100 shadow-sm overflow-hidden">
+          <div className="lg:col-span-2 bg-[#1c1c1e] rounded-[45px] border border-[#333336] shadow-sm overflow-hidden">
              <div className="p-10 border-b border-slate-50">
-                <h3 className="text-xl font-black text-slate-800">Ranking de Lucratividade Operacional</h3>
-                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mt-1">Comparativo de Margem Real por Fornecedor</p>
+                <h3 className="text-xl font-black text-white">Ranking de Lucratividade Operacional</h3>
+                <p className="text-[10px] font-black text-[#98989d] uppercase tracking-widest mt-1">Comparativo de Margem Real por Fornecedor</p>
              </div>
              <table className="w-full text-left">
-                <thead className="bg-slate-50 text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                <thead className="bg-[#0f0f11] text-[10px] font-black text-[#98989d] uppercase tracking-widest">
                    <tr>
                       <th className="px-10 py-6">Fornecedor</th>
                       <th className="px-10 py-6 text-center">Procedimentos</th>
@@ -258,20 +258,20 @@ const PerformanceAnalise = ({ db, suppliers }: { db: any, suppliers: AdvancedFor
                       <th className="px-10 py-6 text-right">Saúde</th>
                    </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-50">
+                <tbody className="divide-y divide-[#333336]">
                    {performanceData.map(p => (
-                     <tr key={p.id} className="hover:bg-slate-50/50 group transition-all">
+                     <tr key={p.id} className="hover:bg-[#0f0f11]/50 group transition-all">
                         <td className="px-10 py-7">
                            <div className="flex items-center gap-4">
                               <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center font-black">{p.nome.charAt(0)}</div>
-                              <span className="text-sm font-black text-slate-800">{p.nome}</span>
+                              <span className="text-sm font-black text-white">{p.nome}</span>
                            </div>
                         </td>
-                        <td className="px-10 py-7 text-center font-bold text-slate-500">{p.executionCount}</td>
-                        <td className="px-10 py-7 text-center font-black text-slate-800">R$ {p.totalCost.toLocaleString('pt-BR')}</td>
+                        <td className="px-10 py-7 text-center font-bold text-[#98989d]">{p.executionCount}</td>
+                        <td className="px-10 py-7 text-center font-black text-white">R$ {p.totalCost.toLocaleString('pt-BR')}</td>
                         <td className="px-10 py-7 text-center">
                            <p className="text-sm font-black text-emerald-600">R$ {p.grossMargin.toLocaleString('pt-BR')}</p>
-                           <p className="text-[9px] font-bold text-slate-400">{p.marginPercent.toFixed(1)}%</p>
+                           <p className="text-[9px] font-bold text-[#98989d]">{p.marginPercent.toFixed(1)}%</p>
                         </td>
                         <td className="px-10 py-7 text-right">
                            {p.marginPercent > 30 ? (
@@ -300,19 +300,19 @@ const PerformanceAnalise = ({ db, suppliers }: { db: any, suppliers: AdvancedFor
                            <span className="text-emerald-400 text-xs font-black">{p.marginPercent.toFixed(1)}% ROI</span>
                         </div>
                         <p className="text-lg font-black">{p.nome}</p>
-                        <p className="text-[10px] font-bold text-slate-400 uppercase">{p.tipoServico}</p>
+                        <p className="text-[10px] font-bold text-[#98989d] uppercase">{p.tipoServico}</p>
                      </div>
                    ))}
                 </div>
              </div>
 
-             <div className="bg-white p-8 rounded-[40px] border border-red-100 shadow-sm">
+             <div className="bg-[#1c1c1e] p-8 rounded-[40px] border border-red-100 shadow-sm">
                 <h3 className="text-lg font-black text-red-600 mb-6 flex items-center gap-2"><AlertTriangle size={20} /> Alertas de Risco</h3>
                 <div className="space-y-4">
                    {suppliers.filter(s => s.custo > s.custoMaximo).map(s => (
                      <div key={s.id} className="p-4 bg-red-50 border border-red-100 rounded-2xl animate-pulse">
                         <p className="text-[10px] font-black text-red-600 uppercase tracking-widest">Fornecedor Bloqueado</p>
-                        <p className="text-xs font-bold text-slate-700">{s.nome}: Custo de R$ {s.custo} excede teto operacional.</p>
+                        <p className="text-xs font-bold text-[#e5e5ea]">{s.nome}: Custo de R$ {s.custo} excede teto operacional.</p>
                      </div>
                    ))}
                    {suppliers.filter(s => s.custo > s.custoMaximo).length === 0 && (

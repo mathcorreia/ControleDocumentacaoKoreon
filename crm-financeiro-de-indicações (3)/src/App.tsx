@@ -84,11 +84,11 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC] flex text-slate-900 font-sans">
+    <div className="min-h-screen bg-[#F8FAFC] flex text-white font-sans">
       {/* Sidebar */}
       <aside 
         className={cn(
-          "bg-white border-r border-slate-200 transition-all duration-300 flex flex-col z-50",
+          "bg-[#1c1c1e] border-r border-[#333336] transition-all duration-300 flex flex-col z-50",
           isSidebarOpen ? "w-64" : "w-20"
         )}
       >
@@ -104,7 +104,7 @@ export default function App() {
           )}
           <button 
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-            className="p-2 hover:bg-slate-100 rounded-lg text-slate-500"
+            className="p-2 hover:bg-[#0f0f11] rounded-lg text-[#98989d]"
           >
             {isSidebarOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
@@ -119,12 +119,12 @@ export default function App() {
                 "w-full flex items-center p-3 rounded-xl transition-all group",
                 activeTab === item.id 
                   ? "bg-indigo-50 text-indigo-600 shadow-sm" 
-                  : "text-slate-500 hover:bg-slate-50 hover:text-slate-900"
+                  : "text-[#98989d] hover:bg-[#0f0f11] hover:text-white"
               )}
             >
               <item.icon size={22} className={cn(
                 "transition-colors",
-                activeTab === item.id ? "text-indigo-600" : "text-slate-400 group-hover:text-slate-600"
+                activeTab === item.id ? "text-indigo-600" : "text-[#98989d] group-hover:text-slate-600"
               )} />
               {isSidebarOpen && (
                 <span className="ml-3 font-medium">{item.label}</span>
@@ -133,9 +133,9 @@ export default function App() {
           ))}
         </nav>
 
-        <div className="p-4 border-t border-slate-100">
+        <div className="p-4 border-t border-[#333336]">
           <div className={cn(
-            "flex items-center p-2 rounded-xl bg-slate-50",
+            "flex items-center p-2 rounded-xl bg-[#0f0f11]",
             !isSidebarOpen && "justify-center"
           )}>
             <div className="w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center text-white font-bold text-xs">
@@ -144,7 +144,7 @@ export default function App() {
             {isSidebarOpen && (
               <div className="ml-3 overflow-hidden">
                 <p className="text-sm font-semibold truncate">Admin</p>
-                <p className="text-xs text-slate-500 truncate">admin@crm.com</p>
+                <p className="text-xs text-[#98989d] truncate">admin@crm.com</p>
               </div>
             )}
           </div>
@@ -154,20 +154,20 @@ export default function App() {
       {/* Main Content */}
       <main className="flex-1 flex flex-col min-w-0 h-screen overflow-hidden">
         {/* Header */}
-        <header className="h-16 bg-white border-bottom border-slate-200 px-8 flex items-center justify-between shrink-0">
+        <header className="h-16 bg-[#1c1c1e] border-bottom border-[#333336] px-8 flex items-center justify-between shrink-0">
           <div className="relative w-96">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-[#98989d]" size={18} />
             <input 
               type="text"
               placeholder="Buscar cliente, CPF ou telefone..."
-              className="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all text-sm"
+              className="w-full pl-10 pr-4 py-2 bg-[#0f0f11] border border-[#333336] rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all text-sm"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
           </div>
           
           <div className="flex items-center gap-4">
-            <button className="p-2 text-slate-500 hover:bg-slate-100 rounded-lg relative">
+            <button className="p-2 text-[#98989d] hover:bg-[#0f0f11] rounded-lg relative">
               <div className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full border-2 border-white"></div>
               <AlertCircle size={20} />
             </button>

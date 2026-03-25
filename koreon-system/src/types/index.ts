@@ -1,5 +1,5 @@
 // ==========================================
-// TIPOS DO CRM (Originais)
+// TIPOS DO CRM 
 // ==========================================
 
 export interface DashboardStats {
@@ -15,10 +15,10 @@ export interface DashboardStats {
 export interface Client {
   id: string;
   name: string;
-  nome?: string; // Adicionado para compatibilidade com o ERP
+  nome?: string; 
   phone: string;
   cpf: string;
-  documento?: string; // Adicionado para compatibilidade com o ERP
+  documento?: string; 
   status: string;
   totalContracted: number;
   paid: number;
@@ -26,6 +26,9 @@ export interface Client {
   createdAt: string;
   services?: ClientService[];
   referralReceived?: Referral;
+  riskScore?: number;
+  riskLevel?: NivelRisco;
+  prioridade?: PrioridadeOperacional;
 }
 
 export interface Affiliate {
@@ -124,7 +127,7 @@ export interface Referral {
 }
 
 // ==========================================
-// TIPOS DO ERP (Adicionados para a Fusão)
+// TIPOS DO ERP
 // ==========================================
 
 export enum TipoServicoStrict {
@@ -148,8 +151,31 @@ export enum TipoDocumento {
   OUTROS = 'Outros'
 }
 
+export enum StatusFornecedor {
+  ATIVO = 'Ativo',
+  INATIVO = 'Inativo',
+  BLOQUEADO = 'Bloqueado',
+  EM_AVALIACAO = 'Em Avaliação'
+}
+
+export enum NivelRisco {
+  BAIXO = 'Baixo',
+  MEDIO = 'Médio',
+  ALTO = 'Alto',
+  CRITICO = 'Crítico'
+}
+
+export enum PrioridadeOperacional {
+  BAIXA = 'Baixa',
+  NORMAL = 'Normal',
+  ALTA = 'Alta',
+  URGENTE = 'Urgente',
+  CONGELADO = 'Congelado'
+}
+
 export type StatusLista = 'Em andamento' | '100% Baixado' | 'Reprotocolo';
 export type StatusServico = 'Pendente' | 'Em Andamento' | 'Concluído' | 'Cancelado';
+export type StatusPagamento = 'Pendente' | 'Pago' | 'Atrasado';
 
 export interface ListaProcessual {
   id: string;
@@ -178,6 +204,7 @@ export interface ClientePorLista {
   servicoId: string;
   observacoesIndividuais?: string;
   situacao?: string;
+  nadaConstaAnexado?: boolean;
 }
 
 export interface Documento {
@@ -188,13 +215,38 @@ export interface Documento {
   nomeArquivo: string;
   dataUpload: string;
   url?: string;
+  conteudoBase64?: string;
+  tipoMime?: string;
+  tamanhoArquivo?: number;
 }
 
 export interface ServicoContratado {
   id: string;
   clienteId: string;
   tipo: string;
+  valorContratado?: number;
+  formaPagamento?: string;
+  qtdParcelas?: number;
+  dataContrato?: string;
+  prazoAcordado?: string;
+  obsTecnicas?: string;
   responsavel?: string;
   progresso?: number;
-  status?: StatusServico;
+  status?: StatusServico | string;
 }
+
+export interface Pagamento {
+  id: string;
+  clienteId: string;
+  servicoId: string;
+  valorTotal: number;
+  numParcela: number;
+  qtdParcelas: number;
+  valorParcela: number;
+  dataVencimento: string;
+  status: StatusPagamento | string;
+  comprovanteId?: string;
+}
+
+// --- ALIAS DE COMPATIBILIDADE CRM <-> ERP ---
+export interface Cliente extends Client {}

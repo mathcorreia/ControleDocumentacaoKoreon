@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { List, FileSpreadsheet, Plus, TrendingUp, DollarSign } from 'lucide-react';
-import { NameList } from '../types';
-import { formatCurrency } from '../utils/utils';
+import { NameList } from '../../types';
+import { formatCurrency } from '../../utils/utils';
 
 export default function ListsView() {
   const [lists, setLists] = useState<NameList[]>([]);
@@ -26,24 +26,24 @@ export default function ListsView() {
         </button>
       </div>
 
-      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+      <div className="bg-[#1c1c1e] rounded-2xl border border-[#333336] shadow-sm overflow-hidden">
         <table className="w-full text-left border-collapse">
           <thead>
-            <tr className="bg-slate-50 border-b border-slate-200">
-              <th className="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-wider">Nome da Lista</th>
-              <th className="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-wider">Qtd Nomes</th>
-              <th className="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-wider">Custo Lista</th>
-              <th className="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-wider">Custo Marketing</th>
-              <th className="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-wider">Custo p/ Nome</th>
-              <th className="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-wider">Data</th>
+            <tr className="bg-[#0f0f11] border-b border-[#333336]">
+              <th className="px-6 py-4 text-xs font-bold text-[#98989d] uppercase tracking-wider">Nome da Lista</th>
+              <th className="px-6 py-4 text-xs font-bold text-[#98989d] uppercase tracking-wider">Qtd Nomes</th>
+              <th className="px-6 py-4 text-xs font-bold text-[#98989d] uppercase tracking-wider">Custo Lista</th>
+              <th className="px-6 py-4 text-xs font-bold text-[#98989d] uppercase tracking-wider">Custo Marketing</th>
+              <th className="px-6 py-4 text-xs font-bold text-[#98989d] uppercase tracking-wider">Custo p/ Nome</th>
+              <th className="px-6 py-4 text-xs font-bold text-[#98989d] uppercase tracking-wider">Data</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-100">
             {loading ? (
-              [1,2,3].map(i => <tr key={i}><td colSpan={6} className="px-6 py-4 animate-pulse"><div className="h-8 bg-slate-100 rounded"></div></td></tr>)
+              [1,2,3].map(i => <tr key={i}><td colSpan={6} className="px-6 py-4 animate-pulse"><div className="h-8 bg-[#0f0f11] rounded"></div></td></tr>)
             ) : lists.map((list) => (
-              <tr key={list.id} className="hover:bg-slate-50 transition-colors">
-                <td className="px-6 py-4 font-bold text-slate-900">{list.name}</td>
+              <tr key={list.id} className="hover:bg-[#0f0f11] transition-colors">
+                <td className="px-6 py-4 font-bold text-white">{list.name}</td>
                 <td className="px-6 py-4 text-sm font-medium">{list.count}</td>
                 <td className="px-6 py-4 text-sm">{formatCurrency(list.pricePaid)}</td>
                 <td className="px-6 py-4 text-sm">{formatCurrency(list.marketingCost)}</td>
@@ -52,7 +52,7 @@ export default function ListsView() {
                     {formatCurrency(list.costPerName)}
                   </span>
                 </td>
-                <td className="px-6 py-4 text-xs text-slate-400">{new Date(list.createdAt).toLocaleDateString()}</td>
+                <td className="px-6 py-4 text-xs text-[#98989d]">{new Date(list.createdAt).toLocaleDateString()}</td>
               </tr>
             ))}
           </tbody>

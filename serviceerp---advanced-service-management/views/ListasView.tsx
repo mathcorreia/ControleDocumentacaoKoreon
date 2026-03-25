@@ -6,8 +6,8 @@ import {
   Calendar, Users, ArrowUpRight, Zap, AlertTriangle, FileCheck, MessageSquare, X, Info, UserPlus, ArrowLeft,
   Shield, TrendingUp, Briefcase, Globe, FileSpreadsheet, DollarSign, UserCheck, FileX, CheckCircle, Activity, FileText
 } from 'lucide-react';
-import { ListaProcessual, ListaOrgao, StatusOrgao, StatusLista, ClientePorLista, TipoServicoStrict, Cliente, ServicoContratado, StatusServico, Documento, TipoDocumento } from '../types';
-import { vincularClienteAoLote, atualizarStatusOrgaoNoLote } from '../db';
+import { ListaProcessual, ListaOrgao, StatusOrgao, StatusLista, ClientePorLista, TipoServicoStrict, Cliente, ServicoContratado, StatusServico, Documento, TipoDocumento } from '../../types';
+import { vincularClienteAoLote, atualizarStatusOrgaoNoLote } from '../../db';
 
 const FORNECEDORES_LIMPA_NOME = [
   "Aldemir (Impactus, ELO)",
@@ -222,7 +222,7 @@ const ListasView: React.FC<ListasViewProps> = ({ db, setDb }) => {
     switch (tabAtiva) {
       case TipoServicoStrict.LIMPA_NOME:
         return (
-          <tr className="bg-slate-50/50 text-[10px] font-black text-slate-400 uppercase tracking-widest">
+          <tr className="bg-[#0f0f11]/50 text-[10px] font-black text-[#98989d] uppercase tracking-widest">
             {colunasBase}
             <th className="px-6 py-5">Ficha Associativa</th>
             <th className="px-6 py-5">Status Lote</th>
@@ -232,7 +232,7 @@ const ListasView: React.FC<ListasViewProps> = ({ db, setDb }) => {
         );
       default:
         return (
-          <tr className="bg-slate-50/50 text-[10px] font-black text-slate-400 uppercase tracking-widest">
+          <tr className="bg-[#0f0f11]/50 text-[10px] font-black text-[#98989d] uppercase tracking-widest">
             {colunasBase}
             <th className="px-6 py-5">Data Entrada</th>
             <th className="px-6 py-5">Status</th>
@@ -248,8 +248,8 @@ const ListasView: React.FC<ListasViewProps> = ({ db, setDb }) => {
     
     const celulasBase = (
       <>
-        <td className="px-6 py-5 font-black text-slate-800 text-sm whitespace-nowrap">{cliente?.nome}</td>
-        <td className="px-6 py-5 text-xs text-slate-500 font-bold">{cliente?.documento}</td>
+        <td className="px-6 py-5 font-black text-white text-sm whitespace-nowrap">{cliente?.nome}</td>
+        <td className="px-6 py-5 text-xs text-[#98989d] font-bold">{cliente?.documento}</td>
         <td className="px-6 py-5 text-[10px] font-bold text-blue-600 uppercase">{servico?.tipo}</td>
       </>
     );
@@ -257,7 +257,7 @@ const ListasView: React.FC<ListasViewProps> = ({ db, setDb }) => {
     const celulasFim = (
       <>
         <td className="px-6 py-5 text-xs font-bold text-slate-600 uppercase">{servico?.responsavel || 'Sistema'}</td>
-        <td className="px-6 py-5 text-xs text-slate-400 max-w-[200px] truncate italic">{item.observacoesIndividuais}</td>
+        <td className="px-6 py-5 text-xs text-[#98989d] max-w-[200px] truncate italic">{item.observacoesIndividuais}</td>
         <td className="px-6 py-5 text-right">
             <button className="p-2 text-slate-300 hover:text-blue-600 transition-all"><ArrowUpRight size={18} /></button>
         </td>
@@ -268,7 +268,7 @@ const ListasView: React.FC<ListasViewProps> = ({ db, setDb }) => {
       case TipoServicoStrict.LIMPA_NOME:
         const temFicha = db.documentos.some((d: Documento) => d.clienteId === item.clienteId && d.tipo === TipoDocumento.FICHA_ASSOCIATIVA);
         return (
-          <tr key={item.id} className="hover:bg-slate-50/50 transition-all">
+          <tr key={item.id} className="hover:bg-[#0f0f11]/50 transition-all">
             {celulasBase}
             <td className="px-6 py-5">
               {temFicha ? (
@@ -287,13 +287,13 @@ const ListasView: React.FC<ListasViewProps> = ({ db, setDb }) => {
                   Pronto para baixar
                 </span>
               ) : (
-                <span className="px-3 py-1 bg-slate-50 text-slate-400 rounded-full text-[9px] font-black uppercase tracking-widest border border-slate-100">
+                <span className="px-3 py-1 bg-[#0f0f11] text-[#98989d] rounded-full text-[9px] font-black uppercase tracking-widest border border-[#333336]">
                   Pendente
                 </span>
               )}
             </td>
             <td className="px-6 py-5">
-               <div className="w-24 h-1.5 bg-slate-100 rounded-full overflow-hidden">
+               <div className="w-24 h-1.5 bg-[#0f0f11] rounded-full overflow-hidden">
                   <div className="h-full bg-blue-600" style={{ width: `${servico?.progresso || 0}%` }}></div>
                </div>
             </td>
@@ -302,10 +302,10 @@ const ListasView: React.FC<ListasViewProps> = ({ db, setDb }) => {
         );
       default:
         return (
-          <tr key={item.id} className="hover:bg-slate-50/50 transition-all">
+          <tr key={item.id} className="hover:bg-[#0f0f11]/50 transition-all">
             {celulasBase}
-            <td className="px-6 py-5 text-xs text-slate-400 font-bold">{listaSelecionada?.dataInicio}</td>
-            <td className="px-6 py-5"><span className="px-3 py-1 bg-slate-100 rounded-full text-[9px] font-black uppercase text-slate-600">{item.situacao}</span></td>
+            <td className="px-6 py-5 text-xs text-[#98989d] font-bold">{listaSelecionada?.dataInicio}</td>
+            <td className="px-6 py-5"><span className="px-3 py-1 bg-[#0f0f11] rounded-full text-[9px] font-black uppercase text-slate-600">{item.situacao}</span></td>
             {celulasFim}
           </tr>
         );
@@ -329,27 +329,27 @@ const ListasView: React.FC<ListasViewProps> = ({ db, setDb }) => {
         {/* Modal Adicionar Cliente ao Lote */}
         {mostrarModalAddCliente && (
           <div className="fixed inset-0 z-[60] flex items-center justify-center bg-slate-900/80 backdrop-blur-sm p-6">
-             <div className="bg-white w-full max-w-lg rounded-[40px] shadow-2xl p-10 animate-in zoom-in-95 duration-200">
+             <div className="bg-[#1c1c1e] w-full max-w-lg rounded-[40px] shadow-2xl p-10 animate-in zoom-in-95 duration-200">
                 <div className="flex justify-between items-center mb-8">
                   <div>
-                    <h3 className="text-xl font-black text-slate-800">Adicionar à Lista</h3>
-                    <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mt-1">Lote: {listaSelecionada.nome}</p>
+                    <h3 className="text-xl font-black text-white">Adicionar à Lista</h3>
+                    <p className="text-xs font-bold text-[#98989d] uppercase tracking-widest mt-1">Lote: {listaSelecionada.nome}</p>
                   </div>
                   <button onClick={() => setMostrarModalAddCliente(false)} className="text-slate-300 hover:text-red-500"><X size={28} /></button>
                 </div>
 
                 <form onSubmit={handleVincularConfirmado} className="space-y-6">
                    <div className="space-y-2">
-                     <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-2">1. Selecionar Cliente</label>
-                     <select required value={clienteParaVincular} onChange={e => { setClienteParaVincular(e.target.value); setDocIdParaVincular(''); }} className="w-full px-5 py-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold outline-none focus:border-blue-600 text-sm">
+                     <label className="text-[10px] font-black text-[#98989d] uppercase tracking-widest ml-2">1. Selecionar Cliente</label>
+                     <select required value={clienteParaVincular} onChange={e => { setClienteParaVincular(e.target.value); setDocIdParaVincular(''); }} className="w-full px-5 py-4 bg-[#0f0f11] border-2 border-[#333336] rounded-2xl font-bold outline-none focus:border-blue-600 text-sm">
                         <option value="">Selecione um cliente...</option>
                         {clientesDisponiveis.map((c: Cliente) => <option key={c.id} value={c.id}>{c.nome}</option>)}
                      </select>
                    </div>
                    {clienteParaVincular && (
                      <div className="space-y-2 animate-in slide-in-from-top-2">
-                       <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-2">2. Selecionar Ficha Associativa</label>
-                       <select required value={docIdParaVincular} onChange={e => setDocIdParaVincular(e.target.value)} className="w-full px-5 py-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold outline-none focus:border-blue-600 text-sm">
+                       <label className="text-[10px] font-black text-[#98989d] uppercase tracking-widest ml-2">2. Selecionar Ficha Associativa</label>
+                       <select required value={docIdParaVincular} onChange={e => setDocIdParaVincular(e.target.value)} className="w-full px-5 py-4 bg-[#0f0f11] border-2 border-[#333336] rounded-2xl font-bold outline-none focus:border-blue-600 text-sm">
                           <option value="">Selecione a ficha associativa...</option>
                           {documentosFichaDoCliente.map((d: Documento) => (
                             <option key={d.id} value={d.id}>{d.nomeArquivo} ({d.dataUpload})</option>
@@ -378,7 +378,7 @@ const ListasView: React.FC<ListasViewProps> = ({ db, setDb }) => {
         )}
 
         <div className="flex items-center justify-between">
-          <button onClick={() => setListaSelecionada(null)} className="flex items-center gap-2 text-slate-500 hover:text-blue-600 font-bold transition-all">
+          <button onClick={() => setListaSelecionada(null)} className="flex items-center gap-2 text-[#98989d] hover:text-blue-600 font-bold transition-all">
             <ChevronRight size={20} className="rotate-180" /> Voltar para Lotes de {listaSelecionada.tipoServico}
           </button>
           <div className="flex gap-3">
@@ -400,42 +400,42 @@ const ListasView: React.FC<ListasViewProps> = ({ db, setDb }) => {
                 <span className={`px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest ${listaSelecionada.statusGeral === '100% Baixado' ? 'bg-emerald-500' : 'bg-blue-500'} text-white`}>
                   {listaSelecionada.statusGeral}
                 </span>
-                <span className="text-slate-500 text-xs font-bold">• Início: {listaSelecionada.dataInicio}</span>
+                <span className="text-[#98989d] text-xs font-bold">• Início: {listaSelecionada.dataInicio}</span>
               </div>
               <h2 className="text-3xl font-black mb-2">{listaSelecionada.nome}</h2>
-              <p className="text-slate-400 text-sm font-medium italic">{listaSelecionada.observacoes}</p>
+              <p className="text-[#98989d] text-sm font-medium italic">{listaSelecionada.observacoes}</p>
             </div>
             
             <div className="mt-8 grid grid-cols-1 md:grid-cols-4 gap-10 border-t border-slate-800 pt-8">
               <div>
-                <p className="text-[10px] text-slate-500 uppercase font-black tracking-widest mb-1">Total de Inscritos</p>
+                <p className="text-[10px] text-[#98989d] uppercase font-black tracking-widest mb-1">Total de Inscritos</p>
                 <p className="text-lg font-black text-blue-400">{clientesLista.length} Clientes</p>
               </div>
               {listaSelecionada.tipoServico === TipoServicoStrict.LIMPA_NOME && (
                 <>
                   <div>
-                    <p className="text-[10px] text-slate-500 uppercase font-black tracking-widest mb-1">Fornecedor</p>
+                    <p className="text-[10px] text-[#98989d] uppercase font-black tracking-widest mb-1">Fornecedor</p>
                     <p className="text-sm font-black text-white truncate">{listaSelecionada.fornecedor || 'Não definido'}</p>
                   </div>
                   <div>
-                    <p className="text-[10px] text-slate-500 uppercase font-black tracking-widest mb-1">Custo da Ação</p>
+                    <p className="text-[10px] text-[#98989d] uppercase font-black tracking-widest mb-1">Custo da Ação</p>
                     <p className="text-sm font-black text-emerald-400">R$ {listaSelecionada.custoAcao?.toFixed(2)}</p>
                   </div>
                 </>
               )}
               <div>
-                <p className="text-[10px] text-slate-500 uppercase font-black tracking-widest mb-1">Última Movimentação</p>
-                <p className="text-xs font-bold text-slate-400">{listaSelecionada.ultimaAtualizacao}</p>
+                <p className="text-[10px] text-[#98989d] uppercase font-black tracking-widest mb-1">Última Movimentação</p>
+                <p className="text-xs font-bold text-[#98989d]">{listaSelecionada.ultimaAtualizacao}</p>
               </div>
             </div>
           </div>
 
-          <div className="bg-white p-8 rounded-[35px] border border-slate-100 shadow-sm flex flex-col justify-center items-center text-center">
+          <div className="bg-[#1c1c1e] p-8 rounded-[35px] border border-[#333336] shadow-sm flex flex-col justify-center items-center text-center">
              <div className="w-16 h-16 bg-emerald-50 text-emerald-600 rounded-3xl flex items-center justify-center mb-4">
                 <FileCheck size={32} />
              </div>
-             <p className="text-2xl font-black text-slate-800">{clientesLista.filter(c => db.documentos.some((d: any) => d.clienteId === c.clienteId && d.tipo === TipoDocumento.FICHA_ASSOCIATIVA)).length}</p>
-             <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mt-1">Prontos para<br/>Baixar</p>
+             <p className="text-2xl font-black text-white">{clientesLista.filter(c => db.documentos.some((d: any) => d.clienteId === c.clienteId && d.tipo === TipoDocumento.FICHA_ASSOCIATIVA)).length}</p>
+             <p className="text-xs font-bold text-[#98989d] uppercase tracking-widest mt-1">Prontos para<br/>Baixar</p>
           </div>
         </div>
 
@@ -443,7 +443,7 @@ const ListasView: React.FC<ListasViewProps> = ({ db, setDb }) => {
           <section className="space-y-6">
             <div className="flex items-center gap-3">
               <div className="w-1.5 h-6 bg-blue-600 rounded-full"></div>
-              <h3 className="text-xl font-black text-slate-800 tracking-tight">Status Operacional por Órgão</h3>
+              <h3 className="text-xl font-black text-white tracking-tight">Status Operacional por Órgão</h3>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
               {ORGAOS_PADRAO.map(nome => {
@@ -453,22 +453,22 @@ const ListasView: React.FC<ListasViewProps> = ({ db, setDb }) => {
                   <button 
                     key={nome}
                     onClick={() => handleUpdateOrgao(nome, status)}
-                    className={`bg-white p-6 rounded-[28px] border-2 shadow-sm transition-all text-left group hover:-translate-y-1 ${
+                    className={`bg-[#1c1c1e] p-6 rounded-[28px] border-2 shadow-sm transition-all text-left group hover:-translate-y-1 ${
                       status === StatusOrgao.CONCLUIDO ? 'border-emerald-100 bg-emerald-50/20' : 
                       status === StatusOrgao.INICIADO ? 'border-blue-100 bg-blue-50/20' : 'border-slate-50'
                     }`}
                   >
-                    <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-3">{nome}</p>
+                    <p className="text-[9px] font-black text-[#98989d] uppercase tracking-widest mb-3">{nome}</p>
                     <div className="flex items-center justify-between mb-4">
                       <p className={`text-xs font-black uppercase ${
                         status === StatusOrgao.CONCLUIDO ? 'text-emerald-600' : 
-                        status === StatusOrgao.INICIADO ? 'text-blue-600' : 'text-slate-400'
+                        status === StatusOrgao.INICIADO ? 'text-blue-600' : 'text-[#98989d]'
                       }`}>
                         {status}
                       </p>
                       {status === StatusOrgao.CONCLUIDO ? <CheckCircle size={16} className="text-emerald-500" /> : <Activity size={16} className="text-slate-200 group-hover:text-blue-400" />}
                     </div>
-                    <div className="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                    <div className="w-full h-1.5 bg-[#0f0f11] rounded-full overflow-hidden">
                       <div className={`h-full transition-all duration-500 ${status === StatusOrgao.CONCLUIDO ? 'bg-emerald-500' : 'bg-blue-600'}`} style={{ width: `${orgao?.percentualConclusao || 0}%` }}></div>
                     </div>
                   </button>
@@ -480,13 +480,13 @@ const ListasView: React.FC<ListasViewProps> = ({ db, setDb }) => {
 
         <section className="space-y-6">
           <div className="flex items-center justify-between">
-            <h3 className="text-xl font-black text-slate-800 tracking-tight">Clientes no Lote ({listaSelecionada.tipoServico})</h3>
+            <h3 className="text-xl font-black text-white tracking-tight">Clientes no Lote ({listaSelecionada.tipoServico})</h3>
           </div>
-          <div className="bg-white rounded-[35px] border border-slate-100 shadow-sm overflow-hidden">
+          <div className="bg-[#1c1c1e] rounded-[35px] border border-[#333336] shadow-sm overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full text-left">
                 <thead>{renderCabecalhoTabela()}</thead>
-                <tbody className="divide-y divide-slate-50">
+                <tbody className="divide-y divide-[#333336]">
                   {clientesLista.length > 0 ? clientesLista.map((item) => renderLinhaTabela(item)) : (
                     <tr><td colSpan={15} className="px-8 py-10 text-center text-slate-300 font-bold uppercase text-xs">O lote está vazio.</td></tr>
                   )}
@@ -501,10 +501,10 @@ const ListasView: React.FC<ListasViewProps> = ({ db, setDb }) => {
 
   return (
     <div className="space-y-10 animate-in fade-in duration-500">
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 border-b border-slate-100 pb-6">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 border-b border-[#333336] pb-6">
         <div className="space-y-1">
-          <h2 className="text-3xl font-black text-slate-800 tracking-tighter">Listas Processuais</h2>
-          <p className="text-sm text-slate-400 font-bold italic">Segregação estrita por categoria de serviço operacional</p>
+          <h2 className="text-3xl font-black text-white tracking-tighter">Listas Processuais</h2>
+          <p className="text-sm text-[#98989d] font-bold italic">Segregação estrita por categoria de serviço operacional</p>
         </div>
         <button onClick={handleOpenCriarModal} className="px-8 py-4 bg-blue-600 text-white rounded-[24px] font-black text-sm flex items-center gap-3 shadow-xl shadow-blue-500/20 hover:bg-blue-700 transition-all">
           <Plus size={24} /> Criar Novo Lote de {tabAtiva}
@@ -514,18 +514,18 @@ const ListasView: React.FC<ListasViewProps> = ({ db, setDb }) => {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide">
           {[{ id: TipoServicoStrict.LIMPA_NOME, icon: Shield }, { id: TipoServicoStrict.SCORE, icon: TrendingUp }, { id: TipoServicoStrict.RATING, icon: Briefcase }, { id: TipoServicoStrict.JUSBRASIL, icon: Globe }].map((item) => (
-            <button key={item.id} onClick={() => setTabAtiva(item.id)} className={`px-8 py-4 rounded-3xl font-black text-[11px] uppercase tracking-[0.2em] transition-all whitespace-nowrap flex items-center gap-3 ${tabAtiva === item.id ? 'bg-slate-900 text-white shadow-2xl translate-y-[-4px] ring-4 ring-slate-900/10' : 'bg-white text-slate-400 border border-slate-100 hover:bg-slate-50'}`}>
+            <button key={item.id} onClick={() => setTabAtiva(item.id)} className={`px-8 py-4 rounded-3xl font-black text-[11px] uppercase tracking-[0.2em] transition-all whitespace-nowrap flex items-center gap-3 ${tabAtiva === item.id ? 'bg-slate-900 text-white shadow-2xl translate-y-[-4px] ring-4 ring-slate-900/10' : 'bg-[#1c1c1e] text-[#98989d] border border-[#333336] hover:bg-[#0f0f11]'}`}>
               <item.icon size={18} /> {item.id}
             </button>
           ))}
         </div>
 
-        <div className="flex gap-2 bg-slate-100 p-1.5 rounded-2xl">
+        <div className="flex gap-2 bg-[#0f0f11] p-1.5 rounded-2xl">
           {['Em andamento', '100% Baixado', 'Reprotocolo'].map(st => (
             <button 
               key={st}
               onClick={() => setStatusFiltro(st as any)}
-              className={`px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${statusFiltro === st ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}
+              className={`px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${statusFiltro === st ? 'bg-[#1c1c1e] text-blue-600 shadow-sm' : 'text-[#98989d] hover:text-slate-600'}`}
             >
               {st}
             </button>
@@ -537,24 +537,24 @@ const ListasView: React.FC<ListasViewProps> = ({ db, setDb }) => {
         {listasFiltradas.length > 0 ? listasFiltradas.map((lista: ListaProcessual) => {
           const countClientes = (db.clientesPorLista || []).filter((c: ClientePorLista) => c.listaId === lista.id).length;
           return (
-            <div key={lista.id} onClick={() => setListaSelecionada(lista)} className="bg-white p-10 rounded-[45px] border border-slate-100 shadow-sm hover:shadow-2xl hover:border-blue-200 hover:-translate-y-2 transition-all cursor-pointer group flex flex-col h-full">
+            <div key={lista.id} onClick={() => setListaSelecionada(lista)} className="bg-[#1c1c1e] p-10 rounded-[45px] border border-[#333336] shadow-sm hover:shadow-2xl hover:border-blue-200 hover:-translate-y-2 transition-all cursor-pointer group flex flex-col h-full">
               <div className="flex items-center justify-between mb-8">
                 <div className="p-4 bg-blue-50 text-blue-600 rounded-[24px] group-hover:bg-blue-600 group-hover:text-white transition-all shadow-inner"><Layers size={28} /></div>
-                <span className={`px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest ${lista.statusGeral === '100% Baixado' ? 'bg-emerald-50 text-emerald-600' : 'bg-slate-50 text-slate-400'}`}>
+                <span className={`px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest ${lista.statusGeral === '100% Baixado' ? 'bg-emerald-50 text-emerald-600' : 'bg-[#0f0f11] text-[#98989d]'}`}>
                   {lista.statusGeral}
                 </span>
               </div>
-              <h3 className="text-2xl font-black text-slate-800 mb-3 tracking-tighter group-hover:text-blue-600 transition-colors">{lista.nome}</h3>
-              <p className="text-sm text-slate-400 font-medium mb-4 leading-relaxed line-clamp-2">{lista.observacoes}</p>
-              {lista.fornecedor && <div className="mb-6 flex items-center gap-2 text-[10px] font-black text-slate-400 uppercase tracking-widest"><Briefcase size={12} className="text-blue-500" /> {lista.fornecedor}</div>}
+              <h3 className="text-2xl font-black text-white mb-3 tracking-tighter group-hover:text-blue-600 transition-colors">{lista.nome}</h3>
+              <p className="text-sm text-[#98989d] font-medium mb-4 leading-relaxed line-clamp-2">{lista.observacoes}</p>
+              {lista.fornecedor && <div className="mb-6 flex items-center gap-2 text-[10px] font-black text-[#98989d] uppercase tracking-widest"><Briefcase size={12} className="text-blue-500" /> {lista.fornecedor}</div>}
               <div className="pt-8 border-t border-slate-50 flex items-center justify-between mt-auto">
-                <div><p className="text-[10px] text-slate-400 uppercase font-black mb-1">Clientes</p><p className="text-sm font-black text-slate-700">{countClientes} inscritos</p></div>
+                <div><p className="text-[10px] text-[#98989d] uppercase font-black mb-1">Clientes</p><p className="text-sm font-black text-[#e5e5ea]">{countClientes} inscritos</p></div>
                 <div className="flex items-center gap-2 text-blue-600 font-black text-[10px] uppercase tracking-widest">Ver Lista <ChevronRight size={18} className="group-hover:translate-x-2 transition-all" /></div>
               </div>
             </div>
           );
         }) : (
-          <div className="col-span-full p-20 border-2 border-dashed border-slate-100 rounded-[50px] text-center">
+          <div className="col-span-full p-20 border-2 border-dashed border-[#333336] rounded-[50px] text-center">
             <Info size={48} className="mx-auto text-slate-200 mb-6" />
             <p className="text-slate-300 font-black uppercase text-sm tracking-[0.3em]">Nenhum lote {statusFiltro.toLowerCase()} encontrado</p>
           </div>
@@ -563,34 +563,34 @@ const ListasView: React.FC<ListasViewProps> = ({ db, setDb }) => {
 
       {mostrarModalCriar && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/70 backdrop-blur-md p-6">
-          <div className="bg-white w-full max-w-xl rounded-[40px] shadow-2xl p-10 animate-in zoom-in-95 duration-200">
+          <div className="bg-[#1c1c1e] w-full max-w-xl rounded-[40px] shadow-2xl p-10 animate-in zoom-in-95 duration-200">
              {!isConfirmingCreation ? (
                <>
-                 <div className="flex justify-between items-center mb-10"><h3 className="text-2xl font-black text-slate-800">Novo Lote Processual</h3><button onClick={() => setMostrarModalCriar(false)} className="text-slate-300 hover:text-red-500"><X size={32} /></button></div>
+                 <div className="flex justify-between items-center mb-10"><h3 className="text-2xl font-black text-white">Novo Lote Processual</h3><button onClick={() => setMostrarModalCriar(false)} className="text-slate-300 hover:text-red-500"><X size={32} /></button></div>
                  <form onSubmit={handleInitialSubmit} className="space-y-6">
-                    <div className="space-y-2"><label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] ml-2">Nome Identificador do Lote</label><input required placeholder="Ex: Lote Especial Jan/2025" value={novaLista.nome} onChange={e => setNovaLista({...novaLista, nome: e.target.value})} className="w-full px-6 py-4 bg-slate-50 border-2 border-slate-100 rounded-2xl outline-none focus:border-blue-600 font-bold" /></div>
+                    <div className="space-y-2"><label className="text-[10px] font-black text-[#98989d] uppercase tracking-[0.2em] ml-2">Nome Identificador do Lote</label><input required placeholder="Ex: Lote Especial Jan/2025" value={novaLista.nome} onChange={e => setNovaLista({...novaLista, nome: e.target.value})} className="w-full px-6 py-4 bg-[#0f0f11] border-2 border-[#333336] rounded-2xl outline-none focus:border-blue-600 font-bold" /></div>
                     {tabAtiva === TipoServicoStrict.LIMPA_NOME && (
                       <div className="grid grid-cols-2 gap-4">
-                        <div className="space-y-2"><label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] ml-2">Fornecedor</label><select value={novaLista.fornecedor} onChange={e => setNovaLista({...novaLista, fornecedor: e.target.value})} className="w-full px-6 py-4 bg-slate-50 border-2 border-slate-100 rounded-2xl outline-none font-bold">{FORNECEDORES_LIMPA_NOME.map(f => <option key={f} value={f}>{f}</option>)}</select></div>
-                        <div className="space-y-2"><label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] ml-2">Custo da Ação (R$)</label><input type="number" step="0.01" value={novaLista.custoAcao} onChange={e => setNovaLista({...novaLista, custoAcao: Number(e.target.value)})} className="w-full px-6 py-4 bg-slate-50 border-2 border-slate-100 rounded-2xl outline-none font-bold" /></div>
+                        <div className="space-y-2"><label className="text-[10px] font-black text-[#98989d] uppercase tracking-[0.2em] ml-2">Fornecedor</label><select value={novaLista.fornecedor} onChange={e => setNovaLista({...novaLista, fornecedor: e.target.value})} className="w-full px-6 py-4 bg-[#0f0f11] border-2 border-[#333336] rounded-2xl outline-none font-bold">{FORNECEDORES_LIMPA_NOME.map(f => <option key={f} value={f}>{f}</option>)}</select></div>
+                        <div className="space-y-2"><label className="text-[10px] font-black text-[#98989d] uppercase tracking-[0.2em] ml-2">Custo da Ação (R$)</label><input type="number" step="0.01" value={novaLista.custoAcao} onChange={e => setNovaLista({...novaLista, custoAcao: Number(e.target.value)})} className="w-full px-6 py-4 bg-[#0f0f11] border-2 border-[#333336] rounded-2xl outline-none font-bold" /></div>
                       </div>
                     )}
-                    <div className="space-y-2"><label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] ml-2">Tipo de Serviço (MANDATÓRIO)</label><select value={novaLista.tipoServico} onChange={e => setNovaLista({...novaLista, tipoServico: e.target.value as TipoServicoStrict})} className="w-full px-6 py-4 bg-slate-50 border-2 border-slate-100 rounded-2xl outline-none font-bold">{Object.values(TipoServicoStrict).map(v => <option key={v} value={v}>{v}</option>)}</select></div>
-                    <div className="space-y-2"><label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] ml-2">Descrição / Observações</label><textarea value={novaLista.observacoes} onChange={e => setNovaLista({...novaLista, observacoes: e.target.value})} className="w-full px-6 py-4 bg-slate-50 border-2 border-slate-100 rounded-2xl outline-none font-bold" rows={2}></textarea></div>
+                    <div className="space-y-2"><label className="text-[10px] font-black text-[#98989d] uppercase tracking-[0.2em] ml-2">Tipo de Serviço (MANDATÓRIO)</label><select value={novaLista.tipoServico} onChange={e => setNovaLista({...novaLista, tipoServico: e.target.value as TipoServicoStrict})} className="w-full px-6 py-4 bg-[#0f0f11] border-2 border-[#333336] rounded-2xl outline-none font-bold">{Object.values(TipoServicoStrict).map(v => <option key={v} value={v}>{v}</option>)}</select></div>
+                    <div className="space-y-2"><label className="text-[10px] font-black text-[#98989d] uppercase tracking-[0.2em] ml-2">Descrição / Observações</label><textarea value={novaLista.observacoes} onChange={e => setNovaLista({...novaLista, observacoes: e.target.value})} className="w-full px-6 py-4 bg-[#0f0f11] border-2 border-[#333336] rounded-2xl outline-none font-bold" rows={2}></textarea></div>
                     <button type="submit" className="w-full py-5 bg-blue-600 text-white font-black uppercase text-xs tracking-[0.3em] rounded-3xl shadow-xl shadow-blue-500/30 hover:bg-blue-700 transition-all">Revisar Lote</button>
                  </form>
                </>
              ) : (
                <div className="space-y-10 animate-in fade-in zoom-in-95">
-                 <div className="flex items-center gap-4 border-b border-slate-100 pb-6"><button onClick={() => setIsConfirmingCreation(false)} className="p-2 text-slate-400 hover:text-blue-600 transition-all"><ArrowLeft size={24} /></button><div><h3 className="text-xl font-black text-slate-800">Confirmar Novo Lote</h3><p className="text-xs font-bold text-slate-400 uppercase tracking-widest">Confira os detalhes antes de criar</p></div></div>
-                 <div className="bg-slate-50 p-8 rounded-3xl space-y-6 border border-slate-100">
-                    <div><p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Identificador</p><p className="text-lg font-black text-slate-800">{novaLista.nome}</p></div>
-                    <div className="grid grid-cols-2 gap-4"><div><p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Categoria</p><p className="text-sm font-black text-blue-600 uppercase">{novaLista.tipoServico}</p></div><div><p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Data de Início</p><p className="text-sm font-black text-slate-700">{new Date(novaLista.dataInicio).toLocaleDateString('pt-BR')}</p></div></div>
+                 <div className="flex items-center gap-4 border-b border-[#333336] pb-6"><button onClick={() => setIsConfirmingCreation(false)} className="p-2 text-[#98989d] hover:text-blue-600 transition-all"><ArrowLeft size={24} /></button><div><h3 className="text-xl font-black text-white">Confirmar Novo Lote</h3><p className="text-xs font-bold text-[#98989d] uppercase tracking-widest">Confira os detalhes antes de criar</p></div></div>
+                 <div className="bg-[#0f0f11] p-8 rounded-3xl space-y-6 border border-[#333336]">
+                    <div><p className="text-[9px] font-black text-[#98989d] uppercase tracking-widest mb-1">Identificador</p><p className="text-lg font-black text-white">{novaLista.nome}</p></div>
+                    <div className="grid grid-cols-2 gap-4"><div><p className="text-[9px] font-black text-[#98989d] uppercase tracking-widest mb-1">Categoria</p><p className="text-sm font-black text-blue-600 uppercase">{novaLista.tipoServico}</p></div><div><p className="text-[9px] font-black text-[#98989d] uppercase tracking-widest mb-1">Data de Início</p><p className="text-sm font-black text-[#e5e5ea]">{new Date(novaLista.dataInicio).toLocaleDateString('pt-BR')}</p></div></div>
                     {novaLista.tipoServico === TipoServicoStrict.LIMPA_NOME && (
-                      <div className="grid grid-cols-2 gap-4 pt-4 border-t border-slate-200"><div><p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Fornecedor</p><p className="text-sm font-black text-slate-700">{novaLista.fornecedor}</p></div><div><p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Custo Total</p><p className="text-sm font-black text-emerald-600">R$ {novaLista.custoAcao?.toFixed(2)}</p></div></div>
+                      <div className="grid grid-cols-2 gap-4 pt-4 border-t border-[#333336]"><div><p className="text-[9px] font-black text-[#98989d] uppercase tracking-widest mb-1">Fornecedor</p><p className="text-sm font-black text-[#e5e5ea]">{novaLista.fornecedor}</p></div><div><p className="text-[9px] font-black text-[#98989d] uppercase tracking-widest mb-1">Custo Total</p><p className="text-sm font-black text-emerald-600">R$ {novaLista.custoAcao?.toFixed(2)}</p></div></div>
                     )}
                  </div>
-                 <div className="flex gap-4"><button onClick={() => setIsConfirmingCreation(false)} className="flex-1 py-5 bg-white border-2 border-slate-100 text-slate-400 font-black uppercase text-xs tracking-widest rounded-3xl hover:bg-slate-50 transition-all">Editar Dados</button><button onClick={handleFinalConfirmCreation} className="flex-[2] py-5 bg-emerald-500 text-white font-black uppercase text-xs tracking-widest rounded-3xl shadow-xl shadow-emerald-500/20 hover:bg-emerald-600 transition-all flex items-center justify-center gap-3"><CheckCircle2 size={20} /> Criar Lote Agora</button></div>
+                 <div className="flex gap-4"><button onClick={() => setIsConfirmingCreation(false)} className="flex-1 py-5 bg-[#1c1c1e] border-2 border-[#333336] text-[#98989d] font-black uppercase text-xs tracking-widest rounded-3xl hover:bg-[#0f0f11] transition-all">Editar Dados</button><button onClick={handleFinalConfirmCreation} className="flex-[2] py-5 bg-emerald-500 text-white font-black uppercase text-xs tracking-widest rounded-3xl shadow-xl shadow-emerald-500/20 hover:bg-emerald-600 transition-all flex items-center justify-center gap-3"><CheckCircle2 size={20} /> Criar Lote Agora</button></div>
                </div>
              )}
           </div>

@@ -4,7 +4,7 @@ import {
   Search, Filter, Download, ExternalLink,
   CreditCard, Banknote, Receipt
 } from 'lucide-react';
-import { formatCurrency, cn } from '../utils/utils';
+import { formatCurrency, cn } from '../../utils/utils';
 
 interface Commission {
   id: string;
@@ -70,72 +70,72 @@ export default function CommissionManager() {
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-2xl font-bold">Gerenciador de Comissões</h2>
-          <p className="text-slate-500 text-sm">Controle de pagamentos para afiliados e indicadores</p>
+          <p className="text-[#98989d] text-sm">Controle de pagamentos para afiliados e indicadores</p>
         </div>
-        <button className="flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 text-slate-700 rounded-lg hover:bg-slate-50 transition-colors font-medium">
+        <button className="flex items-center gap-2 px-4 py-2 bg-[#1c1c1e] border border-[#333336] text-[#e5e5ea] rounded-lg hover:bg-[#0f0f11] transition-colors font-medium">
           <Download size={18} />
           Exportar Lista
         </button>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+        <div className="bg-[#1c1c1e] p-6 rounded-2xl border border-[#333336] shadow-sm">
           <div className="flex items-center gap-3 mb-4">
             <div className="p-2 bg-amber-50 text-amber-600 rounded-lg">
               <Clock size={20} />
             </div>
-            <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">Total Pendente</p>
+            <p className="text-xs font-bold text-[#98989d] uppercase tracking-wider">Total Pendente</p>
           </div>
           <h3 className="text-2xl font-bold text-amber-600">{formatCurrency(totalPending)}</h3>
         </div>
-        <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+        <div className="bg-[#1c1c1e] p-6 rounded-2xl border border-[#333336] shadow-sm">
           <div className="flex items-center gap-3 mb-4">
             <div className="p-2 bg-emerald-50 text-emerald-600 rounded-lg">
               <CheckCircle2 size={20} />
             </div>
-            <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">Total Pago</p>
+            <p className="text-xs font-bold text-[#98989d] uppercase tracking-wider">Total Pago</p>
           </div>
           <h3 className="text-2xl font-bold text-emerald-600">{formatCurrency(totalPaid)}</h3>
         </div>
-        <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+        <div className="bg-[#1c1c1e] p-6 rounded-2xl border border-[#333336] shadow-sm">
           <div className="flex items-center gap-3 mb-4">
             <div className="p-2 bg-indigo-50 text-indigo-600 rounded-lg">
               <UserCheck size={20} />
             </div>
-            <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">Comissões Geradas</p>
+            <p className="text-xs font-bold text-[#98989d] uppercase tracking-wider">Comissões Geradas</p>
           </div>
           <h3 className="text-2xl font-bold text-indigo-600">{commissions.length}</h3>
         </div>
       </div>
 
-      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+      <div className="bg-[#1c1c1e] rounded-2xl border border-[#333336] shadow-sm overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="bg-slate-50 border-bottom border-slate-100">
-                <th className="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-wider">Afiliado / Indicador</th>
-                <th className="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-wider">Cliente Indicado</th>
-                <th className="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-wider">Valor</th>
-                <th className="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-wider">Status</th>
-                <th className="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-wider">Pagamento</th>
-                <th className="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-wider text-right">Ação</th>
+              <tr className="bg-[#0f0f11] border-bottom border-[#333336]">
+                <th className="px-6 py-4 text-xs font-bold text-[#98989d] uppercase tracking-wider">Afiliado / Indicador</th>
+                <th className="px-6 py-4 text-xs font-bold text-[#98989d] uppercase tracking-wider">Cliente Indicado</th>
+                <th className="px-6 py-4 text-xs font-bold text-[#98989d] uppercase tracking-wider">Valor</th>
+                <th className="px-6 py-4 text-xs font-bold text-[#98989d] uppercase tracking-wider">Status</th>
+                <th className="px-6 py-4 text-xs font-bold text-[#98989d] uppercase tracking-wider">Pagamento</th>
+                <th className="px-6 py-4 text-xs font-bold text-[#98989d] uppercase tracking-wider text-right">Ação</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
               {loading ? (
                 [1,2,3,4,5].map(i => (
                   <tr key={i} className="animate-pulse">
-                    <td colSpan={6} className="px-6 py-4"><div className="h-8 bg-slate-50 rounded"></div></td>
+                    <td colSpan={6} className="px-6 py-4"><div className="h-8 bg-[#0f0f11] rounded"></div></td>
                   </tr>
                 ))
               ) : commissions.map((comm) => (
-                <tr key={comm.id} className="hover:bg-slate-50 transition-colors">
+                <tr key={comm.id} className="hover:bg-[#0f0f11] transition-colors">
                   <td className="px-6 py-4">
                     <div className="flex items-center gap-3">
                       <div className="w-8 h-8 rounded-full bg-indigo-50 flex items-center justify-center text-indigo-600 font-bold text-xs">
                         {(comm.affiliate?.name || comm.referrer?.name || '?')[0]}
                       </div>
-                      <p className="text-sm font-bold text-slate-800">
+                      <p className="text-sm font-bold text-white">
                         {comm.affiliate?.name || comm.referrer?.name || 'Sistema'}
                       </p>
                     </div>
@@ -146,7 +146,7 @@ export default function CommissionManager() {
                   <td className="px-6 py-4">
                     <div className="space-y-1">
                       <p className="text-sm font-bold text-indigo-600">{formatCurrency(comm.commission)}</p>
-                      <p className="text-[10px] text-slate-400 uppercase font-bold tracking-wider">
+                      <p className="text-[10px] text-[#98989d] uppercase font-bold tracking-wider">
                         {comm.commissionType === 'upfront' ? 'À Vista' : `${comm.commissionInstallments}x`}
                       </p>
                     </div>
@@ -166,12 +166,12 @@ export default function CommissionManager() {
                           <CreditCard size={12} />
                           <span className="text-xs font-medium">{comm.paymentMethod}</span>
                         </div>
-                        <p className="text-[10px] text-slate-400">
+                        <p className="text-[10px] text-[#98989d]">
                           {comm.paidAt ? new Date(comm.paidAt).toLocaleDateString('pt-BR') : '-'}
                         </p>
                       </div>
                     ) : (
-                      <span className="text-xs text-slate-400 italic">Aguardando</span>
+                      <span className="text-xs text-[#98989d] italic">Aguardando</span>
                     )}
                   </td>
                   <td className="px-6 py-4 text-right">
@@ -184,7 +184,7 @@ export default function CommissionManager() {
                         {paying === comm.id ? 'Processando...' : 'Marcar como Pago'}
                       </button>
                     ) : (
-                      <button className="p-2 text-slate-400 hover:text-indigo-600 transition-colors">
+                      <button className="p-2 text-[#98989d] hover:text-indigo-600 transition-colors">
                         <Receipt size={18} />
                       </button>
                     )}

@@ -5,7 +5,7 @@ import {
   Clock, AlertCircle, Wallet, DollarSign,
   Filter, Download
 } from 'lucide-react';
-import { formatCurrency, cn } from '../utils/utils';
+import { formatCurrency, cn } from '../../utils/utils';
 
 interface CalendarData {
   receivables: any[];
@@ -115,7 +115,7 @@ export default function AccountsCalendar() {
       {/* Next Month Quick Preview */}
       <div className="bg-indigo-600 rounded-2xl p-4 text-white flex items-center justify-between shadow-lg shadow-indigo-100">
         <div className="flex items-center gap-4">
-          <div className="p-3 bg-white/20 rounded-xl">
+          <div className="p-3 bg-[#1c1c1e]/20 rounded-xl">
             <CalendarIcon size={24} />
           </div>
           <div>
@@ -134,7 +134,7 @@ export default function AccountsCalendar() {
           </div>
           <button 
             onClick={() => setCurrentDate(nextMonthDate)}
-            className="bg-white text-indigo-600 px-4 py-2 rounded-xl text-sm font-bold hover:bg-indigo-50 transition-colors"
+            className="bg-[#1c1c1e] text-indigo-600 px-4 py-2 rounded-xl text-sm font-bold hover:bg-indigo-50 transition-colors"
           >
             Ver Detalhes
           </button>
@@ -143,35 +143,35 @@ export default function AccountsCalendar() {
 
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div className="flex items-center gap-4">
-          <div className="flex items-center gap-2 bg-white border border-slate-200 rounded-xl p-1 shadow-sm">
-            <button onClick={handlePrevMonth} className="p-2 hover:bg-slate-50 rounded-lg transition-colors">
+          <div className="flex items-center gap-2 bg-[#1c1c1e] border border-[#333336] rounded-xl p-1 shadow-sm">
+            <button onClick={handlePrevMonth} className="p-2 hover:bg-[#0f0f11] rounded-lg transition-colors">
               <ChevronLeft size={20} />
             </button>
             <div className="px-4 py-1 flex flex-col items-center min-w-[120px]">
               <span className="text-sm font-bold capitalize">{monthName}</span>
-              <span className="text-[10px] text-slate-400 font-bold">{year}</span>
+              <span className="text-[10px] text-[#98989d] font-bold">{year}</span>
             </div>
-            <button onClick={handleNextMonth} className="p-2 hover:bg-slate-50 rounded-lg transition-colors">
+            <button onClick={handleNextMonth} className="p-2 hover:bg-[#0f0f11] rounded-lg transition-colors">
               <ChevronRight size={20} />
             </button>
           </div>
 
-          <div className="flex items-center gap-2 p-1 bg-slate-100 rounded-xl">
+          <div className="flex items-center gap-2 p-1 bg-[#0f0f11] rounded-xl">
             <button 
               onClick={() => setFilter('all')}
-              className={cn("px-4 py-1.5 rounded-lg text-xs font-bold transition-all", filter === 'all' ? "bg-white text-indigo-600 shadow-sm" : "text-slate-500")}
+              className={cn("px-4 py-1.5 rounded-lg text-xs font-bold transition-all", filter === 'all' ? "bg-[#1c1c1e] text-indigo-600 shadow-sm" : "text-[#98989d]")}
             >
               Todos
             </button>
             <button 
               onClick={() => setFilter('receivables')}
-              className={cn("px-4 py-1.5 rounded-lg text-xs font-bold transition-all", filter === 'receivables' ? "bg-white text-emerald-600 shadow-sm" : "text-slate-500")}
+              className={cn("px-4 py-1.5 rounded-lg text-xs font-bold transition-all", filter === 'receivables' ? "bg-[#1c1c1e] text-emerald-600 shadow-sm" : "text-[#98989d]")}
             >
               Receber
             </button>
             <button 
               onClick={() => setFilter('payables')}
-              className={cn("px-4 py-1.5 rounded-lg text-xs font-bold transition-all", filter === 'payables' ? "bg-white text-rose-600 shadow-sm" : "text-slate-500")}
+              className={cn("px-4 py-1.5 rounded-lg text-xs font-bold transition-all", filter === 'payables' ? "bg-[#1c1c1e] text-rose-600 shadow-sm" : "text-[#98989d]")}
             >
               Pagar
             </button>
@@ -180,44 +180,44 @@ export default function AccountsCalendar() {
 
         <div className="flex items-center gap-6">
           <div className="text-right">
-            <p className="text-[10px] text-slate-400 uppercase font-bold tracking-wider">A Receber</p>
+            <p className="text-[10px] text-[#98989d] uppercase font-bold tracking-wider">A Receber</p>
             <p className="text-lg font-bold text-emerald-600">{formatCurrency(totalReceivable)}</p>
           </div>
-          <div className="text-right border-l border-slate-100 pl-6">
-            <p className="text-[10px] text-slate-400 uppercase font-bold tracking-wider">A Pagar</p>
+          <div className="text-right border-l border-[#333336] pl-6">
+            <p className="text-[10px] text-[#98989d] uppercase font-bold tracking-wider">A Pagar</p>
             <p className="text-lg font-bold text-rose-600">{formatCurrency(totalPayable)}</p>
           </div>
-          <div className="text-right border-l border-slate-100 pl-6">
-            <p className="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Saldo Previsto</p>
+          <div className="text-right border-l border-[#333336] pl-6">
+            <p className="text-[10px] text-[#98989d] uppercase font-bold tracking-wider">Saldo Previsto</p>
             <p className="text-lg font-bold text-indigo-600">{formatCurrency(totalReceivable - totalPayable)}</p>
           </div>
         </div>
       </div>
 
-      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+      <div className="bg-[#1c1c1e] rounded-2xl border border-[#333336] shadow-sm overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="bg-slate-50 border-b border-slate-100">
-                <th className="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-wider">Data Venc.</th>
-                <th className="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-wider">Tipo</th>
-                <th className="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-wider">Descrição / Cliente</th>
-                <th className="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-wider">Categoria</th>
-                <th className="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-wider">Status</th>
-                <th className="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-wider text-right">Valor</th>
-                <th className="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-wider text-right">Ações</th>
+              <tr className="bg-[#0f0f11] border-b border-[#333336]">
+                <th className="px-6 py-4 text-xs font-bold text-[#98989d] uppercase tracking-wider">Data Venc.</th>
+                <th className="px-6 py-4 text-xs font-bold text-[#98989d] uppercase tracking-wider">Tipo</th>
+                <th className="px-6 py-4 text-xs font-bold text-[#98989d] uppercase tracking-wider">Descrição / Cliente</th>
+                <th className="px-6 py-4 text-xs font-bold text-[#98989d] uppercase tracking-wider">Categoria</th>
+                <th className="px-6 py-4 text-xs font-bold text-[#98989d] uppercase tracking-wider">Status</th>
+                <th className="px-6 py-4 text-xs font-bold text-[#98989d] uppercase tracking-wider text-right">Valor</th>
+                <th className="px-6 py-4 text-xs font-bold text-[#98989d] uppercase tracking-wider text-right">Ações</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
               {loading ? (
                 [1,2,3,4,5].map(i => (
                   <tr key={i} className="animate-pulse">
-                    <td colSpan={7} className="px-6 py-4"><div className="h-10 bg-slate-50 rounded-lg"></div></td>
+                    <td colSpan={7} className="px-6 py-4"><div className="h-10 bg-[#0f0f11] rounded-lg"></div></td>
                   </tr>
                 ))
               ) : filteredItems.length === 0 ? (
                 <tr>
-                  <td colSpan={7} className="px-6 py-12 text-center text-slate-400">
+                  <td colSpan={7} className="px-6 py-12 text-center text-[#98989d]">
                     Nenhum lançamento para este período.
                   </td>
                 </tr>
@@ -227,12 +227,12 @@ export default function AccountsCalendar() {
                 
                 return (
                   <tr key={item.id} className={cn(
-                    "hover:bg-slate-50 transition-colors",
+                    "hover:bg-[#0f0f11] transition-colors",
                     isOverdue && item.status === 'pendente' ? "bg-rose-50/30" : ""
                   )}>
                     <td className="px-6 py-4">
                       <div className="flex flex-col">
-                        <span className="text-sm font-bold text-slate-700">
+                        <span className="text-sm font-bold text-[#e5e5ea]">
                           {new Date(item.date).toLocaleDateString('pt-BR')}
                         </span>
                         {isOverdue && (
@@ -251,16 +251,16 @@ export default function AccountsCalendar() {
                     </td>
                     <td className="px-6 py-4">
                       <div className="flex flex-col">
-                        <span className="text-sm font-bold text-slate-900">
+                        <span className="text-sm font-bold text-white">
                           {item.description || item.contract?.client?.name || 'Lançamento'}
                         </span>
                         {isReceivable && (
-                          <span className="text-[10px] text-slate-400">Parcela #{item.number}</span>
+                          <span className="text-[10px] text-[#98989d]">Parcela #{item.number}</span>
                         )}
                       </div>
                     </td>
                     <td className="px-6 py-4">
-                      <span className="text-xs text-slate-500 capitalize">{item.category || 'Geral'}</span>
+                      <span className="text-xs text-[#98989d] capitalize">{item.category || 'Geral'}</span>
                     </td>
                     <td className="px-6 py-4">
                       <span className={cn(

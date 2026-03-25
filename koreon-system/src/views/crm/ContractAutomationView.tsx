@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { useDropzone } from 'react-dropzone';
 import { GoogleGenAI, Type } from "@google/genai";
 import html2pdf from 'html2pdf.js';
-import { cn, formatCurrency } from '../utils/utils';
+import { cn, formatCurrency } from '../../utils/utils';
 
 // Initialize Gemini
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY || '' });
@@ -201,8 +201,8 @@ export default function ContractAutomationView() {
     <div className="space-y-8 max-w-5xl mx-auto">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold text-slate-900">Automação de Contratos</h2>
-          <p className="text-slate-500 text-sm">Envie documentos para preenchimento automático do contrato.</p>
+          <h2 className="text-2xl font-bold text-white">Automação de Contratos</h2>
+          <p className="text-[#98989d] text-sm">Envie documentos para preenchimento automático do contrato.</p>
         </div>
         <div className="flex gap-3">
           {showPreview && (
@@ -230,8 +230,8 @@ export default function ContractAutomationView() {
         {/* Left Column: Upload and Form */}
         <div className="lg:col-span-1 space-y-6">
           {/* Upload Section */}
-          <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
-            <h3 className="font-bold text-slate-900 mb-4 flex items-center gap-2">
+          <div className="bg-[#1c1c1e] p-6 rounded-2xl border border-[#333336] shadow-sm">
+            <h3 className="font-bold text-white mb-4 flex items-center gap-2">
               <Upload size={18} className="text-indigo-600" />
               Upload de Documentos
             </h3>
@@ -239,7 +239,7 @@ export default function ContractAutomationView() {
               {...getRootProps()} 
               className={cn(
                 "border-2 border-dashed rounded-xl p-8 text-center transition-all cursor-pointer",
-                isDragActive ? "border-indigo-500 bg-indigo-50" : "border-slate-200 hover:border-indigo-400"
+                isDragActive ? "border-indigo-500 bg-indigo-50" : "border-[#333336] hover:border-indigo-400"
               )}
             >
               <input {...getInputProps()} />
@@ -247,17 +247,17 @@ export default function ContractAutomationView() {
                 <div className="w-12 h-12 bg-indigo-50 rounded-full flex items-center justify-center text-indigo-600 mb-3">
                   <Upload size={24} />
                 </div>
-                <p className="text-sm font-medium text-slate-700">Arraste RG, CNH ou Comprovante</p>
-                <p className="text-xs text-slate-400 mt-1">PDF, JPG ou PNG</p>
+                <p className="text-sm font-medium text-[#e5e5ea]">Arraste RG, CNH ou Comprovante</p>
+                <p className="text-xs text-[#98989d] mt-1">PDF, JPG ou PNG</p>
               </div>
             </div>
 
             {files.length > 0 && (
               <div className="mt-4 space-y-2">
                 {files.map((file, idx) => (
-                  <div key={idx} className="flex items-center justify-between p-2 bg-slate-50 rounded-lg text-xs">
+                  <div key={idx} className="flex items-center justify-between p-2 bg-[#0f0f11] rounded-lg text-xs">
                     <div className="flex items-center gap-2 truncate">
-                      <FileText size={14} className="text-slate-400" />
+                      <FileText size={14} className="text-[#98989d]" />
                       <span className="truncate">{file.name}</span>
                     </div>
                     <button 
@@ -290,59 +290,59 @@ export default function ContractAutomationView() {
           </div>
 
           {/* Manual Data Form */}
-          <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
-            <h3 className="font-bold text-slate-900 mb-4 flex items-center gap-2">
+          <div className="bg-[#1c1c1e] p-6 rounded-2xl border border-[#333336] shadow-sm">
+            <h3 className="font-bold text-white mb-4 flex items-center gap-2">
               <Info size={18} className="text-indigo-600" />
               Dados Adicionais
             </h3>
             <div className="space-y-4">
               <div>
-                <label className="text-xs font-bold text-slate-400 uppercase mb-1 block">Serviço</label>
+                <label className="text-xs font-bold text-[#98989d] uppercase mb-1 block">Serviço</label>
                 <input 
                   type="text" 
                   value={manualData.servico_especifico}
                   onChange={(e) => setManualData({...manualData, servico_especifico: e.target.value})}
-                  className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
+                  className="w-full px-4 py-2 bg-[#0f0f11] border border-[#333336] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
                 />
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="text-xs font-bold text-slate-400 uppercase mb-1 block">Valor (R$)</label>
+                  <label className="text-xs font-bold text-[#98989d] uppercase mb-1 block">Valor (R$)</label>
                   <input 
                     type="text" 
                     placeholder="Ex: 1500,00"
                     value={manualData.valor_numerico}
                     onChange={(e) => setManualData({...manualData, valor_numerico: e.target.value})}
-                    className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
+                    className="w-full px-4 py-2 bg-[#0f0f11] border border-[#333336] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
                   />
                 </div>
                 <div>
-                  <label className="text-xs font-bold text-slate-400 uppercase mb-1 block">Data</label>
+                  <label className="text-xs font-bold text-[#98989d] uppercase mb-1 block">Data</label>
                   <input 
                     type="text" 
                     value={manualData.data_assinatura}
                     onChange={(e) => setManualData({...manualData, data_assinatura: e.target.value})}
-                    className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
+                    className="w-full px-4 py-2 bg-[#0f0f11] border border-[#333336] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
                   />
                 </div>
               </div>
               <div>
-                <label className="text-xs font-bold text-slate-400 uppercase mb-1 block">Valor por Extenso</label>
+                <label className="text-xs font-bold text-[#98989d] uppercase mb-1 block">Valor por Extenso</label>
                 <input 
                   type="text" 
                   placeholder="Ex: Um mil e quinhentos reais"
                   value={manualData.valor_extenso}
                   onChange={(e) => setManualData({...manualData, valor_extenso: e.target.value})}
-                  className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
+                  className="w-full px-4 py-2 bg-[#0f0f11] border border-[#333336] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
                 />
               </div>
               <div>
-                <label className="text-xs font-bold text-slate-400 uppercase mb-1 block">Forma de Pagamento</label>
+                <label className="text-xs font-bold text-[#98989d] uppercase mb-1 block">Forma de Pagamento</label>
                 <input 
                   type="text" 
                   value={manualData.forma_pagamento}
                   onChange={(e) => setManualData({...manualData, forma_pagamento: e.target.value})}
-                  className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
+                  className="w-full px-4 py-2 bg-[#0f0f11] border border-[#333336] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
                 />
               </div>
             </div>
@@ -350,8 +350,8 @@ export default function ContractAutomationView() {
 
           {/* Automation Report */}
           {automationReport.length > 0 && (
-            <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
-              <h3 className="font-bold text-slate-900 mb-4">Relatório de Automação</h3>
+            <div className="bg-[#1c1c1e] p-6 rounded-2xl border border-[#333336] shadow-sm">
+              <h3 className="font-bold text-white mb-4">Relatório de Automação</h3>
               <div className="space-y-3">
                 {automationReport.map((item, idx) => (
                   <div key={idx} className="flex items-center justify-between text-sm">
@@ -376,9 +376,9 @@ export default function ContractAutomationView() {
 
         {/* Right Column: Preview */}
         <div className="lg:col-span-2">
-          <div className="bg-white rounded-2xl border border-slate-200 shadow-lg overflow-hidden flex flex-col h-[800px]">
-            <div className="p-4 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
-              <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">Visualização do Contrato</span>
+          <div className="bg-[#1c1c1e] rounded-2xl border border-[#333336] shadow-lg overflow-hidden flex flex-col h-[800px]">
+            <div className="p-4 bg-[#0f0f11] border-b border-[#333336] flex items-center justify-between">
+              <span className="text-xs font-bold text-[#98989d] uppercase tracking-widest">Visualização do Contrato</span>
               <div className="flex gap-2">
                 <div className="w-3 h-3 rounded-full bg-red-400"></div>
                 <div className="w-3 h-3 rounded-full bg-amber-400"></div>
@@ -386,10 +386,10 @@ export default function ContractAutomationView() {
               </div>
             </div>
             
-            <div className="flex-1 overflow-y-auto p-8 bg-slate-100">
+            <div className="flex-1 overflow-y-auto p-8 bg-[#0f0f11]">
               <div 
                 ref={contractRef}
-                className="bg-white shadow-2xl mx-auto p-12 text-slate-900 font-serif leading-relaxed text-sm"
+                className="bg-[#1c1c1e] shadow-2xl mx-auto p-12 text-white font-serif leading-relaxed text-sm"
                 style={{ width: '210mm', minHeight: '297mm', fontFamily: "'Montserrat', sans-serif" }}
               >
                 {/* Contract Content Start */}

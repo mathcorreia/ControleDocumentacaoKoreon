@@ -10,7 +10,7 @@ import {
   ResponsiveContainer, AreaChart, Area, XAxis, YAxis, 
   CartesianGrid, Tooltip, BarChart, Bar, Cell 
 } from 'recharts';
-import { StatusPagamento, Pagamento, TipoServicoStrict, ServicoContratado } from '../types';
+import { StatusPagamento, Pagamento, TipoServicoStrict, ServicoContratado } from '../../types';
 
 interface ContaPagar {
   id: string;
@@ -47,7 +47,7 @@ const FinanceiroCFO: React.FC<{ db: any }> = ({ db }) => {
   return (
     <div className="space-y-8 animate-in fade-in duration-500">
       {/* CFO Sub-Navigation */}
-      <div className="flex gap-2 p-1.5 bg-slate-200/50 w-fit rounded-[24px] border border-slate-100 shadow-sm overflow-x-auto">
+      <div className="flex gap-2 p-1.5 bg-slate-200/50 w-fit rounded-[24px] border border-[#333336] shadow-sm overflow-x-auto">
         <CfoTabButton active={activeSubTab === 'executivo'} onClick={() => setActiveSubTab('executivo')} icon={BarChart3} label="Dashboard Executivo" />
         <CfoTabButton active={activeSubTab === 'monitor'} onClick={() => setActiveSubTab('monitor')} icon={Landmark} label="Monitoramento Financeiro" />
         <CfoTabButton active={activeSubTab === 'faturamento'} onClick={() => setActiveSubTab('faturamento')} icon={TrendingUp} label="Faturamento e Resultados" />
@@ -70,7 +70,7 @@ const CfoTabButton = ({ active, onClick, icon: Icon, label }: any) => (
   <button 
     onClick={onClick}
     className={`px-6 py-3 rounded-[20px] text-[10px] font-black uppercase tracking-widest flex items-center gap-3 transition-all whitespace-nowrap ${
-      active ? 'bg-white text-blue-600 shadow-xl shadow-blue-500/10' : 'text-slate-500 hover:text-slate-700'
+      active ? 'bg-[#1c1c1e] text-blue-600 shadow-xl shadow-blue-500/10' : 'text-[#98989d] hover:text-[#e5e5ea]'
     }`}
   >
     <Icon size={16} /> {label}
@@ -92,14 +92,14 @@ const MonitoramentoSubTab = ({ db, expenses, onAdd, onDelete, onToggle }: any) =
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 animate-in slide-in-from-bottom-4 duration-400">
       {/* Accounts Receivable */}
-      <div className="bg-white p-8 rounded-[40px] border border-slate-100 shadow-sm flex flex-col h-full">
+      <div className="bg-[#1c1c1e] p-8 rounded-[40px] border border-[#333336] shadow-sm flex flex-col h-full">
          <div className="flex items-center justify-between mb-8">
-            <h3 className="text-xl font-black text-slate-800 tracking-tighter">Contas a Receber (Contratos)</h3>
+            <h3 className="text-xl font-black text-white tracking-tighter">Contas a Receber (Contratos)</h3>
             <div className="p-3 bg-blue-50 text-blue-600 rounded-2xl"><Landmark size={20} /></div>
          </div>
          <div className="overflow-x-auto flex-1">
             <table className="w-full text-left">
-               <thead className="bg-slate-50 text-[10px] font-black text-slate-400 uppercase tracking-widest">
+               <thead className="bg-[#0f0f11] text-[10px] font-black text-[#98989d] uppercase tracking-widest">
                   <tr>
                     <th className="px-6 py-4">Cliente / Contrato</th>
                     <th className="px-6 py-4">Vencimento</th>
@@ -107,19 +107,19 @@ const MonitoramentoSubTab = ({ db, expenses, onAdd, onDelete, onToggle }: any) =
                     <th className="px-6 py-4 text-right">Status</th>
                   </tr>
                </thead>
-               <tbody className="divide-y divide-slate-50">
+               <tbody className="divide-y divide-[#333336]">
                   {db.pagamentos.slice(-8).reverse().map((p: Pagamento) => {
                     const cliente = db.clientes.find((c: any) => c.id === p.clienteId);
                     const servico = db.servicos.find((s: any) => s.id === p.servicoId);
                     const isLate = p.status !== StatusPagamento.PAGO && new Date(p.dataVencimento) < new Date();
                     return (
-                      <tr key={p.id} className="hover:bg-slate-50/50">
+                      <tr key={p.id} className="hover:bg-[#0f0f11]/50">
                         <td className="px-6 py-4">
-                           <p className="text-sm font-black text-slate-800 line-clamp-1">{cliente?.nome}</p>
-                           <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest">{servico?.tipo}</p>
+                           <p className="text-sm font-black text-white line-clamp-1">{cliente?.nome}</p>
+                           <p className="text-[9px] font-bold text-[#98989d] uppercase tracking-widest">{servico?.tipo}</p>
                         </td>
-                        <td className="px-6 py-4 text-xs font-bold text-slate-500">{new Date(p.dataVencimento).toLocaleDateString('pt-BR')}</td>
-                        <td className="px-6 py-4 text-sm font-black text-slate-800">R$ {p.valorParcela.toLocaleString('pt-BR')}</td>
+                        <td className="px-6 py-4 text-xs font-bold text-[#98989d]">{new Date(p.dataVencimento).toLocaleDateString('pt-BR')}</td>
+                        <td className="px-6 py-4 text-sm font-black text-white">R$ {p.valorParcela.toLocaleString('pt-BR')}</td>
                         <td className="px-6 py-4 text-right">
                            <span className={`px-3 py-1 rounded-full text-[9px] font-black uppercase ${
                              p.status === StatusPagamento.PAGO ? 'bg-emerald-50 text-emerald-600' :
@@ -135,31 +135,31 @@ const MonitoramentoSubTab = ({ db, expenses, onAdd, onDelete, onToggle }: any) =
       </div>
 
       {/* Accounts Payable */}
-      <div className="bg-white p-8 rounded-[40px] border border-slate-100 shadow-sm flex flex-col h-full relative">
+      <div className="bg-[#1c1c1e] p-8 rounded-[40px] border border-[#333336] shadow-sm flex flex-col h-full relative">
          <div className="flex items-center justify-between mb-8">
-            <h3 className="text-xl font-black text-slate-800 tracking-tighter">Contas a Pagar (Custos Op)</h3>
+            <h3 className="text-xl font-black text-white tracking-tighter">Contas a Pagar (Custos Op)</h3>
             <button onClick={() => setShowAdd(true)} className="p-3 bg-slate-900 text-white rounded-2xl hover:bg-blue-600 transition-all shadow-xl shadow-slate-900/10">
                <Plus size={20} />
             </button>
          </div>
 
          {showAdd && (
-            <div className="absolute inset-0 bg-white/95 backdrop-blur-sm z-10 p-10 flex flex-col justify-center rounded-[40px]">
+            <div className="absolute inset-0 bg-[#1c1c1e]/95 backdrop-blur-sm z-10 p-10 flex flex-col justify-center rounded-[40px]">
                <form onSubmit={handleSubmit} className="space-y-6">
-                  <h4 className="text-lg font-black text-slate-800 uppercase tracking-tighter">Lançar Despesa</h4>
-                  <input required placeholder="Descrição" value={form.descricao} onChange={e => setForm({...form, descricao: e.target.value})} className="w-full px-5 py-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold" />
+                  <h4 className="text-lg font-black text-white uppercase tracking-tighter">Lançar Despesa</h4>
+                  <input required placeholder="Descrição" value={form.descricao} onChange={e => setForm({...form, descricao: e.target.value})} className="w-full px-5 py-4 bg-[#0f0f11] border-2 border-[#333336] rounded-2xl font-bold" />
                   <div className="grid grid-cols-2 gap-4">
-                     <input required type="number" placeholder="Valor (R$)" value={form.valor} onChange={e => setForm({...form, valor: e.target.value})} className="px-5 py-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold" />
-                     <input required type="date" value={form.vencimento} onChange={e => setForm({...form, vencimento: e.target.value})} className="px-5 py-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold" />
+                     <input required type="number" placeholder="Valor (R$)" value={form.valor} onChange={e => setForm({...form, valor: e.target.value})} className="px-5 py-4 bg-[#0f0f11] border-2 border-[#333336] rounded-2xl font-bold" />
+                     <input required type="date" value={form.vencimento} onChange={e => setForm({...form, vencimento: e.target.value})} className="px-5 py-4 bg-[#0f0f11] border-2 border-[#333336] rounded-2xl font-bold" />
                   </div>
-                  <select value={form.categoria} onChange={e => setForm({...form, categoria: e.target.value as any})} className="w-full px-5 py-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold">
+                  <select value={form.categoria} onChange={e => setForm({...form, categoria: e.target.value as any})} className="w-full px-5 py-4 bg-[#0f0f11] border-2 border-[#333336] rounded-2xl font-bold">
                      <option value="Fixos">Custos Fixos</option>
                      <option value="Variáveis">Custos Variáveis</option>
                      <option value="Serviços">Custos de Serviços</option>
                      <option value="Marketing">Custos de Marketing</option>
                   </select>
                   <div className="flex gap-4">
-                     <button type="button" onClick={() => setShowAdd(false)} className="flex-1 py-4 bg-slate-100 text-slate-500 font-black uppercase text-xs tracking-widest rounded-2xl">Cancelar</button>
+                     <button type="button" onClick={() => setShowAdd(false)} className="flex-1 py-4 bg-[#0f0f11] text-[#98989d] font-black uppercase text-xs tracking-widest rounded-2xl">Cancelar</button>
                      <button type="submit" className="flex-[2] py-4 bg-blue-600 text-white font-black uppercase text-xs tracking-widest rounded-2xl shadow-xl shadow-blue-500/20">Registrar Saída</button>
                   </div>
                </form>
@@ -168,7 +168,7 @@ const MonitoramentoSubTab = ({ db, expenses, onAdd, onDelete, onToggle }: any) =
 
          <div className="overflow-x-auto flex-1">
             <table className="w-full text-left">
-               <thead className="bg-slate-50 text-[10px] font-black text-slate-400 uppercase tracking-widest">
+               <thead className="bg-[#0f0f11] text-[10px] font-black text-[#98989d] uppercase tracking-widest">
                   <tr>
                     <th className="px-6 py-4">Descrição / Cat</th>
                     <th className="px-6 py-4">Vencimento</th>
@@ -176,18 +176,18 @@ const MonitoramentoSubTab = ({ db, expenses, onAdd, onDelete, onToggle }: any) =
                     <th className="px-6 py-4 text-right">Ação</th>
                   </tr>
                </thead>
-               <tbody className="divide-y divide-slate-50">
+               <tbody className="divide-y divide-[#333336]">
                   {expenses.length > 0 ? expenses.map((e: ContaPagar) => (
-                    <tr key={e.id} className="hover:bg-slate-50/50 group">
+                    <tr key={e.id} className="hover:bg-[#0f0f11]/50 group">
                       <td className="px-6 py-4">
-                         <p className={`text-sm font-black ${e.pago ? 'text-slate-300 line-through' : 'text-slate-800'}`}>{e.descricao}</p>
-                         <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest">{e.categoria}</p>
+                         <p className={`text-sm font-black ${e.pago ? 'text-slate-300 line-through' : 'text-white'}`}>{e.descricao}</p>
+                         <p className="text-[9px] font-bold text-[#98989d] uppercase tracking-widest">{e.categoria}</p>
                       </td>
-                      <td className="px-6 py-4 text-xs font-bold text-slate-500">{new Date(e.vencimento).toLocaleDateString('pt-BR')}</td>
-                      <td className="px-6 py-4 text-sm font-black text-slate-800">R$ {e.valor.toLocaleString('pt-BR')}</td>
+                      <td className="px-6 py-4 text-xs font-bold text-[#98989d]">{new Date(e.vencimento).toLocaleDateString('pt-BR')}</td>
+                      <td className="px-6 py-4 text-sm font-black text-white">R$ {e.valor.toLocaleString('pt-BR')}</td>
                       <td className="px-6 py-4 text-right flex items-center justify-end gap-2 h-full">
                          <button onClick={() => onToggle(e.id)} className={`p-2 rounded-xl transition-all ${e.pago ? 'text-emerald-500 bg-emerald-50' : 'text-slate-300 hover:text-blue-600 hover:bg-blue-50'}`}>
-                            {e.pago ? <CheckCircle2 size={20} /> : <div className="w-5 h-5 rounded-full border-2 border-slate-200" />}
+                            {e.pago ? <CheckCircle2 size={20} /> : <div className="w-5 h-5 rounded-full border-2 border-[#333336]" />}
                          </button>
                          <button onClick={() => onDelete(e.id)} className="p-2 text-slate-200 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-all"><Trash2 size={20} /></button>
                       </td>
@@ -219,8 +219,8 @@ const FaturamentoSubTab = ({ db, expenses }: any) => {
           <MetricBox label="Margem Líquida" value={`${margem.toFixed(1)}%`} icon={PieChart} color="text-indigo-600" bg="bg-indigo-50" />
        </div>
 
-       <div className="bg-white p-10 rounded-[45px] border border-slate-100 shadow-sm">
-          <h3 className="text-xl font-black text-slate-800 mb-10 flex items-center gap-3"><Activity className="text-blue-600" /> Fluxo de Performance Mensal</h3>
+       <div className="bg-[#1c1c1e] p-10 rounded-[45px] border border-[#333336] shadow-sm">
+          <h3 className="text-xl font-black text-white mb-10 flex items-center gap-3"><Activity className="text-blue-600" /> Fluxo de Performance Mensal</h3>
           <div className="h-96">
              <ResponsiveContainer width="100%" height="100%">
                 <AreaChart data={[
@@ -270,8 +270,8 @@ const BoletosSubTab = ({ db }: any) => {
        </div>
 
        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div className="bg-white p-8 rounded-[40px] border border-slate-100 shadow-sm">
-             <h4 className="text-lg font-black text-slate-800 mb-6 flex items-center gap-2"><Clock className="text-amber-500" /> Parcelas em Atraso (&lt; 30d)</h4>
+          <div className="bg-[#1c1c1e] p-8 rounded-[40px] border border-[#333336] shadow-sm">
+             <h4 className="text-lg font-black text-white mb-6 flex items-center gap-2"><Clock className="text-amber-500" /> Parcelas em Atraso (&lt; 30d)</h4>
              <div className="space-y-4">
                 {overdue.filter((p: any) => !delinquent.includes(p)).map((p: any) => (
                    <div key={p.id} className="p-6 bg-amber-50 rounded-[28px] border border-amber-100 flex items-center justify-between">
@@ -284,7 +284,7 @@ const BoletosSubTab = ({ db }: any) => {
                 ))}
              </div>
           </div>
-          <div className="bg-white p-8 rounded-[40px] border border-red-100 shadow-sm">
+          <div className="bg-[#1c1c1e] p-8 rounded-[40px] border border-red-100 shadow-sm">
              <h4 className="text-lg font-black text-red-600 mb-6 flex items-center gap-2"><Flame className="text-red-500" /> Inadimplentes Críticos (&gt; 30d)</h4>
              <div className="space-y-4">
                 {delinquent.map((p: any) => (
@@ -322,9 +322,9 @@ const PerformanceSubTab = ({ db }: any) => {
 
   return (
     <div className="animate-in slide-in-from-bottom-4 duration-400">
-       <div className="bg-white rounded-[45px] border border-slate-100 shadow-sm overflow-hidden">
+       <div className="bg-[#1c1c1e] rounded-[45px] border border-[#333336] shadow-sm overflow-hidden">
           <table className="w-full text-left">
-             <thead className="bg-slate-50 text-[10px] font-black text-slate-400 uppercase tracking-widest">
+             <thead className="bg-[#0f0f11] text-[10px] font-black text-[#98989d] uppercase tracking-widest">
                 <tr>
                    <th className="px-10 py-6">Produto / Serviço</th>
                    <th className="px-10 py-6 text-center">Faturado (Contratos)</th>
@@ -334,19 +334,19 @@ const PerformanceSubTab = ({ db }: any) => {
                    <th className="px-10 py-6 text-right">Performance</th>
                 </tr>
              </thead>
-             <tbody className="divide-y divide-slate-50">
+             <tbody className="divide-y divide-[#333336]">
                 {performanceData.map(p => (
-                  <tr key={p.tipo} className="hover:bg-slate-50/50 group">
+                  <tr key={p.tipo} className="hover:bg-[#0f0f11]/50 group">
                     <td className="px-10 py-7">
                        <div className="flex items-center gap-4">
                           <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${p.margem < 15 ? 'bg-red-50 text-red-600' : 'bg-blue-50 text-blue-600'}`}>
                              <Zap size={18} />
                           </div>
-                          <span className="text-sm font-black text-slate-800">{p.tipo}</span>
+                          <span className="text-sm font-black text-white">{p.tipo}</span>
                        </div>
                     </td>
-                    <td className="px-10 py-7 text-center text-sm font-bold text-slate-500">R$ {p.revTotal.toLocaleString('pt-BR')}</td>
-                    <td className="px-10 py-7 text-center text-sm font-black text-slate-800">R$ {p.revPago.toLocaleString('pt-BR')}</td>
+                    <td className="px-10 py-7 text-center text-sm font-bold text-[#98989d]">R$ {p.revTotal.toLocaleString('pt-BR')}</td>
+                    <td className="px-10 py-7 text-center text-sm font-black text-white">R$ {p.revPago.toLocaleString('pt-BR')}</td>
                     <td className="px-10 py-7 text-center text-sm font-bold text-red-400">R$ {p.custoOp.toLocaleString('pt-BR')}</td>
                     <td className="px-10 py-7 text-center">
                        <span className={`text-sm font-black ${p.margem < 20 ? 'text-red-600' : 'text-emerald-600'}`}>{p.margem.toFixed(1)}%</span>
@@ -377,15 +377,15 @@ const ExecutivoSubTab = ({ db, expenses }: any) => {
   return (
     <div className="space-y-8 animate-in zoom-in-95 duration-500">
        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-          <ExecMetric label="Caixa Atual" value={`R$ ${(faturamento - custos).toLocaleString('pt-BR')}`} icon={LandmarkIcon} color="text-slate-800" bg="bg-white" />
-          <ExecMetric label="Burn Rate Diário" value={`R$ ${burnRateDiario.toFixed(2)}`} icon={Flame} color="text-red-600" bg="bg-white" />
-          <ExecMetric label="Cash Runway" value={`${cashRunway.toFixed(0)} Dias`} icon={Clock} color={cashRunway < 30 ? 'text-red-600' : 'text-emerald-600'} bg="bg-white" />
-          <ExecMetric label="Ponto de Equilíbrio" value={`R$ ${custos.toLocaleString('pt-BR')}`} icon={Target} color="text-blue-600" bg="bg-white" />
+          <ExecMetric label="Caixa Atual" value={`R$ ${(faturamento - custos).toLocaleString('pt-BR')}`} icon={LandmarkIcon} color="text-white" bg="bg-[#1c1c1e]" />
+          <ExecMetric label="Burn Rate Diário" value={`R$ ${burnRateDiario.toFixed(2)}`} icon={Flame} color="text-red-600" bg="bg-[#1c1c1e]" />
+          <ExecMetric label="Cash Runway" value={`${cashRunway.toFixed(0)} Dias`} icon={Clock} color={cashRunway < 30 ? 'text-red-600' : 'text-emerald-600'} bg="bg-[#1c1c1e]" />
+          <ExecMetric label="Ponto de Equilíbrio" value={`R$ ${custos.toLocaleString('pt-BR')}`} icon={Target} color="text-blue-600" bg="bg-[#1c1c1e]" />
        </div>
 
        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          <div className="lg:col-span-2 bg-white p-10 rounded-[45px] border border-slate-100 shadow-sm h-[450px]">
-             <h3 className="text-xl font-black text-slate-800 mb-10 flex items-center gap-3"><LandmarkIcon className="text-blue-600" /> Fluxo de Caixa (Previsão vs Real)</h3>
+          <div className="lg:col-span-2 bg-[#1c1c1e] p-10 rounded-[45px] border border-[#333336] shadow-sm h-[450px]">
+             <h3 className="text-xl font-black text-white mb-10 flex items-center gap-3"><LandmarkIcon className="text-blue-600" /> Fluxo de Caixa (Previsão vs Real)</h3>
              <div className="h-full">
                 <ResponsiveContainer width="100%" height="80%">
                    <BarChart data={[
@@ -416,7 +416,7 @@ const ExecutivoSubTab = ({ db, expenses }: any) => {
                 </div>
              </div>
              <div className="mt-8 p-6 bg-slate-800/50 rounded-3xl border border-slate-700/50">
-                <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest leading-relaxed">
+                <p className="text-[10px] font-black text-[#98989d] uppercase tracking-widest leading-relaxed">
                    Alerta Estratégico: O custo de marketing variou +15% no último período sem crescimento proporcional no faturamento pago. Recomenda-se revisão de CAC.
                 </p>
              </div>
@@ -428,23 +428,23 @@ const ExecutivoSubTab = ({ db, expenses }: any) => {
 
 const MetricBox = ({ label, value, icon: Icon, color, bg }: any) => (
   <div className={`p-8 rounded-[40px] ${bg} flex flex-col items-center text-center gap-3 transition-all hover:scale-105 cursor-default`}>
-     <div className={`w-14 h-14 bg-white rounded-2xl flex items-center justify-center shadow-sm ${color}`}>
+     <div className={`w-14 h-14 bg-[#1c1c1e] rounded-2xl flex items-center justify-center shadow-sm ${color}`}>
         <Icon size={28} />
      </div>
      <div>
-        <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">{label}</p>
+        <p className="text-[10px] font-black text-[#98989d] uppercase tracking-widest mb-1">{label}</p>
         <p className={`text-xl font-black ${color}`}>{value}</p>
      </div>
   </div>
 );
 
 const ExecMetric = ({ label, value, icon: Icon, color, bg }: any) => (
-  <div className={`${bg} p-8 rounded-[40px] border border-slate-100 shadow-sm flex flex-col gap-4`}>
-     <div className={`w-12 h-12 bg-slate-50 rounded-2xl flex items-center justify-center ${color}`}>
+  <div className={`${bg} p-8 rounded-[40px] border border-[#333336] shadow-sm flex flex-col gap-4`}>
+     <div className={`w-12 h-12 bg-[#0f0f11] rounded-2xl flex items-center justify-center ${color}`}>
         <Icon size={24} />
      </div>
      <div>
-        <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">{label}</p>
+        <p className="text-[10px] font-black text-[#98989d] uppercase tracking-widest mb-1">{label}</p>
         <p className={`text-2xl font-black ${color} tracking-tighter`}>{value}</p>
      </div>
   </div>
@@ -452,7 +452,7 @@ const ExecMetric = ({ label, value, icon: Icon, color, bg }: any) => (
 
 const SummaryRow = ({ label, value, urgent }: any) => (
   <div className="flex justify-between items-center">
-     <span className="text-xs font-bold text-slate-500 uppercase tracking-widest">{label}</span>
+     <span className="text-xs font-bold text-[#98989d] uppercase tracking-widest">{label}</span>
      <span className={`text-sm font-black ${urgent ? 'text-red-500' : 'text-emerald-400'}`}>{value}</span>
   </div>
 );

@@ -5,7 +5,7 @@ import {
   Calendar, CheckCircle2, Clock, AlertCircle, ArrowUpRight, Plus, 
   MessageCircle, Send, ShieldAlert, CreditCard, CheckSquare, AlertTriangle
 } from 'lucide-react';
-import { Pagamento, StatusPagamento } from '../types';
+import { Pagamento, StatusPagamento } from '../../types';
 
 interface FinanceiroViewProps {
   db: any;
@@ -75,16 +75,16 @@ const FinanceiroView: React.FC<FinanceiroViewProps> = ({ db }) => {
 
   return (
     <div className="space-y-10 animate-in fade-in duration-500">
-      <div className="flex gap-4 p-1.5 bg-slate-100 w-fit rounded-3xl mb-4">
+      <div className="flex gap-4 p-1.5 bg-[#0f0f11] w-fit rounded-3xl mb-4">
         <button 
           onClick={() => setActiveView('geral')}
-          className={`px-8 py-3 rounded-2xl text-xs font-black uppercase tracking-widest transition-all ${activeView === 'geral' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}
+          className={`px-8 py-3 rounded-2xl text-xs font-black uppercase tracking-widest transition-all ${activeView === 'geral' ? 'bg-[#1c1c1e] text-blue-600 shadow-sm' : 'text-[#98989d] hover:text-slate-600'}`}
         >
           Visão Geral
         </button>
         <button 
           onClick={() => setActiveView('boletos')}
-          className={`px-8 py-3 rounded-2xl text-xs font-black uppercase tracking-widest transition-all ${activeView === 'boletos' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}
+          className={`px-8 py-3 rounded-2xl text-xs font-black uppercase tracking-widest transition-all ${activeView === 'boletos' ? 'bg-[#1c1c1e] text-blue-600 shadow-sm' : 'text-[#98989d] hover:text-slate-600'}`}
         >
           Controle de Boletos / Parcelas
         </button>
@@ -98,11 +98,11 @@ const FinanceiroView: React.FC<FinanceiroViewProps> = ({ db }) => {
             <MetricCard title="Inadimplência Real" value={formatCurrency(totalAtrasado)} icon={AlertCircle} color="bg-red-500" urgent />
           </div>
 
-          <div className="bg-white rounded-[45px] border border-slate-100 shadow-sm overflow-hidden">
+          <div className="bg-[#1c1c1e] rounded-[45px] border border-[#333336] shadow-sm overflow-hidden">
             <div className="p-10 border-b border-slate-50 flex flex-col lg:flex-row lg:items-center justify-between gap-8">
               <div>
-                <h3 className="text-2xl font-black text-slate-800 tracking-tight">Fluxo de Caixa de Contratos</h3>
-                <p className="text-sm text-slate-400 font-bold mt-2 italic">Valores reais extraídos dos contratos individuais persistidos</p>
+                <h3 className="text-2xl font-black text-white tracking-tight">Fluxo de Caixa de Contratos</h3>
+                <p className="text-sm text-[#98989d] font-bold mt-2 italic">Valores reais extraídos dos contratos individuais persistidos</p>
               </div>
               <div className="flex flex-wrap gap-3">
                 {['TODOS', 'Pago', 'Pendente', 'Atrasado'].map(st => (
@@ -110,7 +110,7 @@ const FinanceiroView: React.FC<FinanceiroViewProps> = ({ db }) => {
                     key={st}
                     onClick={() => setFiltro(st as any)}
                     className={`px-6 py-3 rounded-2xl text-xs font-black uppercase tracking-widest transition-all ${
-                      filtro === st ? 'bg-blue-600 text-white shadow-xl shadow-blue-500/20' : 'bg-slate-50 text-slate-400 hover:bg-slate-100'
+                      filtro === st ? 'bg-blue-600 text-white shadow-xl shadow-blue-500/20' : 'bg-[#0f0f11] text-[#98989d] hover:bg-[#0f0f11]'
                     }`}
                   >
                     {st}
@@ -122,7 +122,7 @@ const FinanceiroView: React.FC<FinanceiroViewProps> = ({ db }) => {
             <div className="overflow-x-auto">
               <table className="w-full text-left">
                 <thead>
-                  <tr className="bg-slate-50/50 text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                  <tr className="bg-[#0f0f11]/50 text-[10px] font-black text-[#98989d] uppercase tracking-widest">
                     <th className="px-10 py-6">Cliente</th>
                     <th className="px-10 py-6">Contrato</th>
                     <th className="px-10 py-6">Parcela</th>
@@ -131,17 +131,17 @@ const FinanceiroView: React.FC<FinanceiroViewProps> = ({ db }) => {
                     <th className="px-10 py-6 text-right">Status</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-50">
+                <tbody className="divide-y divide-[#333336]">
                   {pagamentosFiltradosGeral.map((pag: Pagamento) => {
                     const cliente = db.clientes.find((c: any) => c.id === pag.clienteId);
                     const servico = db.servicos.find((s: any) => s.id === pag.servicoId);
                     return (
-                      <tr key={pag.id} className="hover:bg-slate-50/50 transition-all group">
-                        <td className="px-10 py-6 font-black text-slate-800">{cliente?.nome}</td>
+                      <tr key={pag.id} className="hover:bg-[#0f0f11]/50 transition-all group">
+                        <td className="px-10 py-6 font-black text-white">{cliente?.nome}</td>
                         <td className="px-10 py-6 text-[10px] font-black text-blue-600 uppercase tracking-widest">{servico?.tipo}</td>
-                        <td className="px-10 py-6 text-xs font-black text-slate-500">{pag.numParcela} / {pag.qtdParcelas}</td>
-                        <td className="px-10 py-6 font-black text-slate-900">{formatCurrency(pag.valorParcela)}</td>
-                        <td className="px-10 py-6 text-sm font-bold text-slate-400">{pag.dataVencimento}</td>
+                        <td className="px-10 py-6 text-xs font-black text-[#98989d]">{pag.numParcela} / {pag.qtdParcelas}</td>
+                        <td className="px-10 py-6 font-black text-white">{formatCurrency(pag.valorParcela)}</td>
+                        <td className="px-10 py-6 text-sm font-bold text-[#98989d]">{pag.dataVencimento}</td>
                         <td className="px-10 py-6 text-right">
                            {/* // FIX: Removed redundant status check to avoid type overlap error in line 148 */}
                            <span className={`px-4 py-1.5 rounded-full text-[9px] font-black uppercase ${
@@ -170,7 +170,7 @@ const FinanceiroView: React.FC<FinanceiroViewProps> = ({ db }) => {
                   key={t.id} 
                   onClick={() => setFiltroBoleto(t.id as any)}
                   className={`px-8 py-6 rounded-[35px] border-2 transition-all flex items-center gap-4 ${
-                    filtroBoleto === t.id ? 'bg-white border-blue-600 shadow-xl scale-105' : 'bg-slate-50 border-transparent text-slate-400'
+                    filtroBoleto === t.id ? 'bg-[#1c1c1e] border-blue-600 shadow-xl scale-105' : 'bg-[#0f0f11] border-transparent text-[#98989d]'
                   }`}
                 >
                   <t.icon className={filtroBoleto === t.id ? t.color : ''} size={24} />
@@ -179,11 +179,11 @@ const FinanceiroView: React.FC<FinanceiroViewProps> = ({ db }) => {
               ))}
            </div>
 
-           <div className="bg-white rounded-[45px] border border-slate-100 shadow-sm overflow-hidden">
+           <div className="bg-[#1c1c1e] rounded-[45px] border border-[#333336] shadow-sm overflow-hidden">
               <div className="overflow-x-auto">
                 <table className="w-full text-left">
                   <thead>
-                    <tr className="bg-slate-50/50 text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                    <tr className="bg-[#0f0f11]/50 text-[10px] font-black text-[#98989d] uppercase tracking-widest">
                       <th className="px-10 py-6">Cliente</th>
                       <th className="px-10 py-6">Serviço / Parcela</th>
                       <th className="px-10 py-6">Vencimento</th>
@@ -192,22 +192,22 @@ const FinanceiroView: React.FC<FinanceiroViewProps> = ({ db }) => {
                       <th className="px-10 py-6 text-right">Automação Cobrança</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-50">
+                  <tbody className="divide-y divide-[#333336]">
                     {pagamentosBoleto.length > 0 ? pagamentosBoleto.map((p: Pagamento) => {
                       const cliente = db.clientes.find((c: any) => c.id === p.clienteId);
                       const servico = db.servicos.find((s: any) => s.id === p.servicoId);
                       return (
-                        <tr key={p.id} className="hover:bg-slate-50/50 transition-all group">
+                        <tr key={p.id} className="hover:bg-[#0f0f11]/50 transition-all group">
                           <td className="px-10 py-6">
-                             <p className="font-black text-slate-800">{cliente?.nome}</p>
-                             <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">{cliente?.documento}</p>
+                             <p className="font-black text-white">{cliente?.nome}</p>
+                             <p className="text-[10px] text-[#98989d] font-bold uppercase tracking-widest">{cliente?.documento}</p>
                           </td>
                           <td className="px-10 py-6">
                              <p className="text-[10px] font-black text-blue-600 uppercase tracking-widest">{servico?.tipo}</p>
-                             <p className="text-xs font-bold text-slate-500">Parcela {p.numParcela} de {p.qtdParcelas}</p>
+                             <p className="text-xs font-bold text-[#98989d]">Parcela {p.numParcela} de {p.qtdParcelas}</p>
                           </td>
-                          <td className="px-10 py-6 text-sm font-bold text-slate-400">{p.dataVencimento}</td>
-                          <td className="px-10 py-6 font-black text-slate-900">{formatCurrency(p.valorParcela)}</td>
+                          <td className="px-10 py-6 text-sm font-bold text-[#98989d]">{p.dataVencimento}</td>
+                          <td className="px-10 py-6 font-black text-white">{formatCurrency(p.valorParcela)}</td>
                           <td className="px-10 py-6">
                             {p.comprovanteId ? (
                               <span className="flex items-center gap-1.5 text-emerald-600 font-black text-[9px] uppercase">
@@ -249,11 +249,11 @@ const FinanceiroView: React.FC<FinanceiroViewProps> = ({ db }) => {
 };
 
 const MetricCard = ({ title, value, icon: Icon, color, urgent }: any) => (
-  <div className={`p-10 rounded-[50px] bg-white border-2 shadow-sm relative overflow-hidden group hover:shadow-2xl transition-all ${urgent ? 'border-red-100 ring-4 ring-red-50/50' : 'border-white'}`}>
+  <div className={`p-10 rounded-[50px] bg-[#1c1c1e] border-2 shadow-sm relative overflow-hidden group hover:shadow-2xl transition-all ${urgent ? 'border-red-100 ring-4 ring-red-50/50' : 'border-white'}`}>
     <div className="flex items-start justify-between relative z-10">
       <div className="space-y-3">
-        <p className="text-[11px] font-black text-slate-400 uppercase tracking-widest">{title}</p>
-        <h4 className="text-4xl font-black text-slate-800 tracking-tighter">{value}</h4>
+        <p className="text-[11px] font-black text-[#98989d] uppercase tracking-widest">{title}</p>
+        <h4 className="text-4xl font-black text-white tracking-tighter">{value}</h4>
       </div>
       <div className={`w-16 h-16 rounded-[22px] flex items-center justify-center text-white shadow-xl shadow-current/30 ${color}`}>
         <Icon size={32} />

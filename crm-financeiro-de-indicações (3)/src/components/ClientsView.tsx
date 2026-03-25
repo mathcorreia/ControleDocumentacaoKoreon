@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Search, Filter, MoreHorizontal, Phone, Mail, User, Eye, Trash2 } from 'lucide-react';
-import { Client } from '../types';
-import { formatCurrency, formatCPF, formatPhone, cn } from '../utils/utils';
+import { Client } from '../../types';
+import { formatCurrency, formatCPF, formatPhone, cn } from '../../utils/utils';
 import ClientDetailsView from './ClientDetailsView';
 
 interface ClientsViewProps {
@@ -31,47 +31,47 @@ export default function ClientsView({ searchQuery }: ClientsViewProps) {
     <div className="space-y-6">      <div className="flex items-center justify-between">
         <h2 className="text-2xl font-bold">Clientes</h2>
         <div className="flex gap-2">
-          <button className="p-2 bg-white border border-slate-200 rounded-lg text-slate-500 hover:bg-slate-50">
+          <button className="p-2 bg-[#1c1c1e] border border-[#333336] rounded-lg text-[#98989d] hover:bg-[#0f0f11]">
             <Filter size={20} />
           </button>
         </div>
       </div>
 
-      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+      <div className="bg-[#1c1c1e] rounded-2xl border border-[#333336] shadow-sm overflow-hidden">
         <table className="w-full text-left border-collapse">
           <thead>
-            <tr className="bg-slate-50 border-b border-slate-200">
-              <th className="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-wider">Cliente</th>
-              <th className="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-wider">CPF</th>
-              <th className="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-wider">Status</th>
-              <th className="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-wider">Contratado</th>
-              <th className="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-wider">Pago</th>
-              <th className="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-wider">Pendente</th>
-              <th className="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-wider"></th>
+            <tr className="bg-[#0f0f11] border-b border-[#333336]">
+              <th className="px-6 py-4 text-xs font-bold text-[#98989d] uppercase tracking-wider">Cliente</th>
+              <th className="px-6 py-4 text-xs font-bold text-[#98989d] uppercase tracking-wider">CPF</th>
+              <th className="px-6 py-4 text-xs font-bold text-[#98989d] uppercase tracking-wider">Status</th>
+              <th className="px-6 py-4 text-xs font-bold text-[#98989d] uppercase tracking-wider">Contratado</th>
+              <th className="px-6 py-4 text-xs font-bold text-[#98989d] uppercase tracking-wider">Pago</th>
+              <th className="px-6 py-4 text-xs font-bold text-[#98989d] uppercase tracking-wider">Pendente</th>
+              <th className="px-6 py-4 text-xs font-bold text-[#98989d] uppercase tracking-wider"></th>
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-100">
             {loading ? (
               [1,2,3,4,5].map(i => (
                 <tr key={i} className="animate-pulse">
-                  <td colSpan={7} className="px-6 py-4"><div className="h-12 bg-slate-100 rounded-lg"></div></td>
+                  <td colSpan={7} className="px-6 py-4"><div className="h-12 bg-[#0f0f11] rounded-lg"></div></td>
                 </tr>
               ))
             ) : clients.length === 0 ? (
               <tr>
-                <td colSpan={7} className="px-6 py-12 text-center text-slate-400">Nenhum cliente encontrado.</td>
+                <td colSpan={7} className="px-6 py-12 text-center text-[#98989d]">Nenhum cliente encontrado.</td>
               </tr>
             ) : (
               clients.map((client) => (
-                <tr key={client.id} className="hover:bg-slate-50 transition-colors group">
+                <tr key={client.id} className="hover:bg-[#0f0f11] transition-colors group">
                   <td className="px-6 py-4">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 font-bold">
+                      <div className="w-10 h-10 rounded-full bg-[#0f0f11] flex items-center justify-center text-[#98989d] font-bold">
                         {client.name.charAt(0)}
                       </div>
                       <div>
-                        <p className="font-bold text-slate-900">{client.name}</p>
-                        <p className="text-xs text-slate-500">{formatPhone(client.phone)}</p>
+                        <p className="font-bold text-white">{client.name}</p>
+                        <p className="text-xs text-[#98989d]">{formatPhone(client.phone)}</p>
                       </div>
                     </div>
                   </td>
@@ -151,7 +151,7 @@ export default function ClientsView({ searchQuery }: ClientsViewProps) {
                             </button>
                           </>
                         )}
-                        <button className="p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-lg transition-all">
+                        <button className="p-2 text-[#98989d] hover:text-slate-600 hover:bg-[#0f0f11] rounded-lg transition-all">
                           <MoreHorizontal size={20} />
                         </button>
                       </div>

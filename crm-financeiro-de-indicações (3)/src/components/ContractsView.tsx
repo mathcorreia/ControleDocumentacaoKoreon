@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { FileText, ExternalLink, CheckCircle2, Clock, AlertCircle, UserCheck, Wallet } from 'lucide-react';
-import { Contract } from '../types';
-import { formatCurrency, cn } from '../utils/utils';
+import { Contract } from '../../types';
+import { formatCurrency, cn } from '../../utils/utils';
 
 export default function ContractsView() {
   const [contracts, setContracts] = useState<Contract[]>([]);
@@ -22,16 +22,16 @@ export default function ContractsView() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
         {loading ? (
-          [1,2,3].map(i => <div key={i} className="h-64 bg-slate-100 animate-pulse rounded-2xl"></div>)
+          [1,2,3].map(i => <div key={i} className="h-64 bg-[#0f0f11] animate-pulse rounded-2xl"></div>)
         ) : contracts.map((contract) => (
-          <div key={contract.id} className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-all group flex flex-col">
+          <div key={contract.id} className="bg-[#1c1c1e] p-6 rounded-2xl border border-[#333336] shadow-sm hover:shadow-md transition-all group flex flex-col">
             <div className="flex items-start justify-between mb-6">
               <div className="p-3 bg-indigo-50 text-indigo-600 rounded-xl">
                 <FileText size={24} />
               </div>
               <span className={cn(
                 "px-2 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider",
-                contract.status === 'ativo' ? "bg-emerald-50 text-emerald-600" : "bg-slate-50 text-slate-500"
+                contract.status === 'ativo' ? "bg-emerald-50 text-emerald-600" : "bg-[#0f0f11] text-[#98989d]"
               )}>
                 {contract.status}
               </span>
@@ -39,17 +39,17 @@ export default function ContractsView() {
 
             <div className="space-y-4 flex-grow">
               <div>
-                <p className="text-xs text-slate-400 uppercase font-bold tracking-wider">Cliente</p>
+                <p className="text-xs text-[#98989d] uppercase font-bold tracking-wider">Cliente</p>
                 <h3 className="font-bold text-lg">{contract.client?.name || 'Cliente Desconhecido'}</h3>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <p className="text-xs text-slate-400 uppercase font-bold tracking-wider">Valor Total</p>
+                  <p className="text-xs text-[#98989d] uppercase font-bold tracking-wider">Valor Total</p>
                   <p className="font-bold text-indigo-600">{formatCurrency(contract.totalValue)}</p>
                 </div>
                 <div>
-                  <p className="text-xs text-slate-400 uppercase font-bold tracking-wider">Parcelas</p>
+                  <p className="text-xs text-[#98989d] uppercase font-bold tracking-wider">Parcelas</p>
                   <p className="font-bold">{contract.installmentsCount}x</p>
                 </div>
               </div>
@@ -77,21 +77,21 @@ export default function ContractsView() {
                 </div>
               )}
 
-              <div className="pt-4 border-t border-slate-100 flex items-center justify-between mt-auto">
+              <div className="pt-4 border-t border-[#333336] flex items-center justify-between mt-auto">
                 <div className="flex -space-x-2">
                   {contract.installments?.slice(0, 4).map((inst, i) => (
                     <div 
                       key={inst.id} 
                       className={cn(
                         "w-6 h-6 rounded-full border-2 border-white flex items-center justify-center text-[8px] font-bold",
-                        inst.status === 'pago' ? "bg-emerald-500 text-white" : "bg-slate-200 text-slate-500"
+                        inst.status === 'pago' ? "bg-emerald-500 text-white" : "bg-slate-200 text-[#98989d]"
                       )}
                     >
                       {inst.number}
                     </div>
                   ))}
                   {(contract.installments?.length || 0) > 4 && (
-                    <div className="w-6 h-6 rounded-full border-2 border-white bg-slate-100 flex items-center justify-center text-[8px] font-bold text-slate-500">
+                    <div className="w-6 h-6 rounded-full border-2 border-white bg-[#0f0f11] flex items-center justify-center text-[8px] font-bold text-[#98989d]">
                       +{(contract.installments?.length || 0) - 4}
                     </div>
                   )}

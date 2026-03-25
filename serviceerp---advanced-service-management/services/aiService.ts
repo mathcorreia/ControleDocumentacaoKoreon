@@ -1,6 +1,6 @@
 
 import { GoogleGenAI } from "@google/genai";
-import { Cliente, ServicoContratado } from "../types";
+import { Cliente, ServicoContratado } from "../../types";
 
 export const getSugestoesUpsell = async (cliente: Cliente, servicos: ServicoContratado[]): Promise<string> => {
   const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });

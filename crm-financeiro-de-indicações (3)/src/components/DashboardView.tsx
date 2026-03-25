@@ -21,8 +21,8 @@ import {
   AreaChart,
   Area
 } from 'recharts';
-import { DashboardStats } from '../types';
-import { formatCurrency } from '../utils/utils';
+import { DashboardStats } from '../../types';
+import { formatCurrency } from '../../utils/utils';
 
 const data = [
   { name: 'Jan', vendas: 4000, lucro: 2400 },
@@ -62,7 +62,7 @@ export default function DashboardView() {
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-2xl font-bold">Visão Geral</h2>
-          <p className="text-slate-500">Bem-vindo de volta ao seu painel de controle.</p>
+          <p className="text-[#98989d]">Bem-vindo de volta ao seu painel de controle.</p>
         </div>
         <div className="flex items-center gap-2">
           <button 
@@ -71,13 +71,13 @@ export default function DashboardView() {
                 .then(res => res.json())
                 .then(data => alert(`Processado: ${data.processed} cobranças enviadas.`));
             }}
-            className="flex items-center gap-2 bg-white p-2 px-4 rounded-xl border border-slate-200 shadow-sm hover:bg-slate-50 text-sm font-bold text-indigo-600"
+            className="flex items-center gap-2 bg-[#1c1c1e] p-2 px-4 rounded-xl border border-[#333336] shadow-sm hover:bg-[#0f0f11] text-sm font-bold text-indigo-600"
           >
             <Bell size={18} />
             Executar Cobrança
           </button>
-          <div className="flex items-center gap-2 bg-white p-2 rounded-xl border border-slate-200 shadow-sm">
-            <Calendar size={18} className="text-slate-400" />
+          <div className="flex items-center gap-2 bg-[#1c1c1e] p-2 rounded-xl border border-[#333336] shadow-sm">
+            <Calendar size={18} className="text-[#98989d]" />
             <span className="text-sm font-medium">Últimos 30 dias</span>
           </div>
         </div>
@@ -85,7 +85,7 @@ export default function DashboardView() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {cards.map((card, i) => (
-          <div key={i} className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+          <div key={i} className="bg-[#1c1c1e] p-6 rounded-2xl border border-[#333336] shadow-sm hover:shadow-md transition-shadow">
             <div className="flex items-center justify-between mb-4">
               <div className={cn("p-3 rounded-xl", card.bg)}>
                 <card.icon className={card.color} size={24} />
@@ -95,24 +95,24 @@ export default function DashboardView() {
                 12%
               </span>
             </div>
-            <p className="text-slate-500 text-sm font-medium">{card.label}</p>
+            <p className="text-[#98989d] text-sm font-medium">{card.label}</p>
             <h3 className="text-2xl font-bold mt-1">{card.value}</h3>
           </div>
         ))}
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2 bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+        <div className="lg:col-span-2 bg-[#1c1c1e] p-6 rounded-2xl border border-[#333336] shadow-sm">
           <div className="flex items-center justify-between mb-8">
             <h3 className="font-bold text-lg">Desempenho de Vendas</h3>
             <div className="flex gap-4">
               <div className="flex items-center gap-2">
                 <div className="w-3 h-3 rounded-full bg-indigo-600"></div>
-                <span className="text-xs text-slate-500">Faturamento</span>
+                <span className="text-xs text-[#98989d]">Faturamento</span>
               </div>
               <div className="flex items-center gap-2">
                 <div className="w-3 h-3 rounded-full bg-emerald-500"></div>
-                <span className="text-xs text-slate-500">Lucro</span>
+                <span className="text-xs text-[#98989d]">Lucro</span>
               </div>
             </div>
           </div>
@@ -138,46 +138,46 @@ export default function DashboardView() {
           </div>
         </div>
 
-        <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+        <div className="bg-[#1c1c1e] p-6 rounded-2xl border border-[#333336] shadow-sm">
           <h3 className="font-bold text-lg mb-6">Resumo Financeiro</h3>
           <div className="space-y-6">
-            <div className="flex items-center justify-between p-4 bg-slate-50 rounded-xl">
+            <div className="flex items-center justify-between p-4 bg-[#0f0f11] rounded-xl">
               <div className="flex items-center gap-3">
                 <div className="p-2 bg-emerald-100 text-emerald-600 rounded-lg">
                   <ArrowDownRight size={20} />
                 </div>
                 <div>
-                  <p className="text-xs text-slate-500">Recebido</p>
+                  <p className="text-xs text-[#98989d]">Recebido</p>
                   <p className="font-bold">{formatCurrency(stats.receivedAmount)}</p>
                 </div>
               </div>
-              <span className="text-xs font-medium text-slate-400">85%</span>
+              <span className="text-xs font-medium text-[#98989d]">85%</span>
             </div>
 
-            <div className="flex items-center justify-between p-4 bg-slate-50 rounded-xl">
+            <div className="flex items-center justify-between p-4 bg-[#0f0f11] rounded-xl">
               <div className="flex items-center gap-3">
                 <div className="p-2 bg-amber-100 text-amber-600 rounded-lg">
                   <Clock size={20} />
                 </div>
                 <div>
-                  <p className="text-xs text-slate-500">Pendente</p>
+                  <p className="text-xs text-[#98989d]">Pendente</p>
                   <p className="font-bold">{formatCurrency(stats.totalRevenue - stats.receivedAmount)}</p>
                 </div>
               </div>
-              <span className="text-xs font-medium text-slate-400">15%</span>
+              <span className="text-xs font-medium text-[#98989d]">15%</span>
             </div>
 
-            <div className="pt-4 border-t border-slate-100">
+            <div className="pt-4 border-t border-[#333336]">
               <div className="flex justify-between items-end">
                 <div>
-                  <p className="text-sm text-slate-500">Lucro Estimado</p>
+                  <p className="text-sm text-[#98989d]">Lucro Estimado</p>
                   <h4 className="text-2xl font-bold text-indigo-600">
                     {formatCurrency(stats.totalRevenue - stats.totalExpenses - stats.pendingCommissions)}
                   </h4>
                 </div>
                 <div className="text-right">
                   <p className="text-xs text-emerald-600 font-medium">+5.4%</p>
-                  <p className="text-[10px] text-slate-400 uppercase tracking-wider">vs mês anterior</p>
+                  <p className="text-[10px] text-[#98989d] uppercase tracking-wider">vs mês anterior</p>
                 </div>
               </div>
             </div>

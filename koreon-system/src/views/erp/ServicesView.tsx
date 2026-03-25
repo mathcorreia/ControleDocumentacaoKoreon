@@ -5,7 +5,7 @@ import {
   ArrowUpRight, Users, Eye, MoreVertical, LayoutGrid, List as ListIcon
 } from 'lucide-react';
 /* Fix imports: updated types and enums to match types.ts */
-import { ServicoContratado as ContractedService, StatusServico as ServiceStatus } from '../types';
+import { ServicoContratado as ContractedService, StatusServico as ServiceStatus } from '../../types';
 
 interface ServicesViewProps {
   db: any;
@@ -30,7 +30,7 @@ const ServicesView: React.FC<ServicesViewProps> = ({ db }) => {
     <div className="space-y-6">
       {/* Metrics Row */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex items-center gap-4">
+        <div className="bg-[#1c1c1e] p-6 rounded-2xl border border-gray-100 shadow-sm flex items-center gap-4">
           <div className="w-12 h-12 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center">
             <Clock size={24} />
           </div>
@@ -42,7 +42,7 @@ const ServicesView: React.FC<ServicesViewProps> = ({ db }) => {
             </p>
           </div>
         </div>
-        <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex items-center gap-4">
+        <div className="bg-[#1c1c1e] p-6 rounded-2xl border border-gray-100 shadow-sm flex items-center gap-4">
           <div className="w-12 h-12 bg-green-50 text-green-600 rounded-xl flex items-center justify-center">
             <CheckCircle2 size={24} />
           </div>
@@ -54,7 +54,7 @@ const ServicesView: React.FC<ServicesViewProps> = ({ db }) => {
             </p>
           </div>
         </div>
-        <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex items-center gap-4">
+        <div className="bg-[#1c1c1e] p-6 rounded-2xl border border-gray-100 shadow-sm flex items-center gap-4">
           <div className="w-12 h-12 bg-red-50 text-red-600 rounded-xl flex items-center justify-center animate-pulse">
             <AlertCircle size={24} />
           </div>
@@ -69,7 +69,7 @@ const ServicesView: React.FC<ServicesViewProps> = ({ db }) => {
       </div>
 
       {/* Filters Header */}
-      <div className="bg-white p-4 rounded-2xl border border-gray-100 shadow-sm flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+      <div className="bg-[#1c1c1e] p-4 rounded-2xl border border-gray-100 shadow-sm flex flex-col lg:flex-row lg:items-center justify-between gap-4">
         <div className="flex flex-wrap gap-2">
           {/* Fix enum values: mapped English statuses to Portuguese enums from types.ts */}
           {['ALL', ServiceStatus.INICIO, ServiceStatus.EM_ANDAMENTO, ServiceStatus.FASE_FINAL, ServiceStatus.CONCLUIDO, ServiceStatus.ATRASADO].map(status => (
@@ -99,7 +99,7 @@ const ServicesView: React.FC<ServicesViewProps> = ({ db }) => {
       </div>
 
       {/* Services Table */}
-      <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+      <div className="bg-[#1c1c1e] rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left">
             <thead>

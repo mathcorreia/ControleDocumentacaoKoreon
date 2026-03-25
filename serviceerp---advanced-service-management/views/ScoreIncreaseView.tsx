@@ -9,8 +9,8 @@ import {
 } from 'lucide-react';
 import { 
   Cliente, ServicoContratado, TipoServicoStrict, Documento, StatusServico 
-} from '../types';
-import { saveDB, getDB } from '../db';
+} from '../../types';
+import { saveDB, getDB } from '../../db';
 
 const CHECKLIST_STORAGE_KEY = 'service_erp_score_metadata_v2';
 
@@ -110,7 +110,7 @@ const ScoreIncreaseView: React.FC<ScoreIncreaseViewProps> = ({ db, onSync }) => 
 
   return (
     <div className="space-y-8 animate-in fade-in duration-500">
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 bg-white p-6 rounded-[35px] border border-slate-100 shadow-sm">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 bg-[#1c1c1e] p-6 rounded-[35px] border border-[#333336] shadow-sm">
         <div className="flex items-center gap-4 flex-1">
           <div className="relative flex-1 max-w-xl group">
             <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-blue-600 transition-colors" size={20} />
@@ -119,7 +119,7 @@ const ScoreIncreaseView: React.FC<ScoreIncreaseViewProps> = ({ db, onSync }) => 
               placeholder="Pesquisar cliente no roteiro de Score..." 
               value={busca}
               onChange={(e) => setBusca(e.target.value)}
-              className="w-full pl-14 pr-8 py-4 bg-slate-50 border-none rounded-2xl outline-none focus:ring-2 focus:ring-blue-500/20 font-bold transition-all text-sm"
+              className="w-full pl-14 pr-8 py-4 bg-[#0f0f11] border-none rounded-2xl outline-none focus:ring-2 focus:ring-blue-500/20 font-bold transition-all text-sm"
             />
           </div>
         </div>
@@ -130,10 +130,10 @@ const ScoreIncreaseView: React.FC<ScoreIncreaseViewProps> = ({ db, onSync }) => 
         </div>
       </div>
 
-      <div className="bg-white rounded-[40px] border border-slate-100 shadow-sm overflow-hidden">
+      <div className="bg-[#1c1c1e] rounded-[40px] border border-[#333336] shadow-sm overflow-hidden">
          <table className="w-full text-left">
             <thead>
-              <tr className="bg-slate-50/50 text-[10px] font-black text-slate-400 uppercase tracking-widest">
+              <tr className="bg-[#0f0f11]/50 text-[10px] font-black text-[#98989d] uppercase tracking-widest">
                 <th className="px-8 py-6">Cliente / Procedimento</th>
                 <th className="px-8 py-6 text-center">Status Automático</th>
                 <th className="px-8 py-6 text-center">Progresso Checklist</th>
@@ -141,26 +141,26 @@ const ScoreIncreaseView: React.FC<ScoreIncreaseViewProps> = ({ db, onSync }) => 
                 <th className="px-8 py-6 text-right">Ação</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-50">
+            <tbody className="divide-y divide-[#333336]">
                {services.map((s: any) => {
                  const checkedCount = s.metadata.steps.filter(Boolean).length;
                  return (
-                   <tr key={s.id} onClick={() => setSelectedServiceId(s.id)} className="hover:bg-slate-50/80 transition-all cursor-pointer group">
+                   <tr key={s.id} onClick={() => setSelectedServiceId(s.id)} className="hover:bg-[#0f0f11]/80 transition-all cursor-pointer group">
                       <td className="px-8 py-6">
                          <div className="flex items-center gap-4">
-                            <div className="w-12 h-12 bg-slate-100 rounded-2xl flex items-center justify-center font-black text-slate-400 group-hover:bg-blue-600 group-hover:text-white transition-all">
+                            <div className="w-12 h-12 bg-[#0f0f11] rounded-2xl flex items-center justify-center font-black text-[#98989d] group-hover:bg-blue-600 group-hover:text-white transition-all">
                                {s.client?.nome.charAt(0)}
                             </div>
                             <div>
-                               <p className="font-black text-slate-800 text-sm">{s.client?.nome}</p>
-                               <p className="text-[10px] font-bold text-slate-400 uppercase">{s.client?.documento}</p>
+                               <p className="font-black text-white text-sm">{s.client?.nome}</p>
+                               <p className="text-[10px] font-bold text-[#98989d] uppercase">{s.client?.documento}</p>
                             </div>
                          </div>
                       </td>
                       <td className="px-8 py-6 text-center">
                          <span className={`px-4 py-1.5 rounded-full text-[9px] font-black uppercase tracking-widest border ${
                            s.computedLabel === 'Concluído' ? 'bg-emerald-50 text-emerald-600 border-emerald-100' :
-                           s.computedLabel === 'Não Iniciado' ? 'bg-slate-50 text-slate-400 border-slate-100' :
+                           s.computedLabel === 'Não Iniciado' ? 'bg-[#0f0f11] text-[#98989d] border-[#333336]' :
                            'bg-blue-50 text-blue-600 border-blue-100'
                          }`}>
                            {s.computedLabel}
@@ -168,14 +168,14 @@ const ScoreIncreaseView: React.FC<ScoreIncreaseViewProps> = ({ db, onSync }) => 
                       </td>
                       <td className="px-8 py-6">
                          <div className="flex flex-col items-center gap-2">
-                            <div className="w-32 bg-slate-100 h-1.5 rounded-full overflow-hidden">
+                            <div className="w-32 bg-[#0f0f11] h-1.5 rounded-full overflow-hidden">
                                <div className="h-full bg-blue-600 transition-all duration-700" style={{ width: `${s.progress}%` }}></div>
                             </div>
-                            <p className="text-[9px] font-black text-slate-500 uppercase tracking-widest">{checkedCount} de 7 etapas</p>
+                            <p className="text-[9px] font-black text-[#98989d] uppercase tracking-widest">{checkedCount} de 7 etapas</p>
                          </div>
                       </td>
                       <td className="px-8 py-6 text-center">
-                         <p className="text-[10px] font-bold text-slate-400 uppercase">Etapa {checkedCount}</p>
+                         <p className="text-[10px] font-bold text-[#98989d] uppercase">Etapa {checkedCount}</p>
                       </td>
                       <td className="px-8 py-6 text-right">
                          <button className="p-3 text-slate-300 hover:text-blue-600 transition-all">
@@ -225,15 +225,15 @@ const ScoreWorkspace: React.FC<{ service: any, onBack: () => void, onUpdateMetad
   return (
     <div className="animate-in slide-in-from-right-10 duration-500 space-y-8 pb-20">
       <div className="flex items-center justify-between">
-        <button onClick={onBack} className="flex items-center gap-3 text-slate-400 hover:text-blue-600 font-black transition-all group">
-          <div className="p-2 bg-white rounded-xl border border-slate-100 group-hover:bg-blue-50">
+        <button onClick={onBack} className="flex items-center gap-3 text-[#98989d] hover:text-blue-600 font-black transition-all group">
+          <div className="p-2 bg-[#1c1c1e] rounded-xl border border-[#333336] group-hover:bg-blue-50">
             <ChevronRight size={20} className="rotate-180" />
           </div>
           VOLTAR PARA LISTA OPERACIONAL
         </button>
         <div className="flex items-center gap-4">
            <div className="flex flex-col items-end">
-              <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Status Atual</p>
+              <p className="text-[10px] font-black text-[#98989d] uppercase tracking-widest">Status Atual</p>
               <p className="text-sm font-black text-blue-600 uppercase tracking-tight">{service.computedLabel}</p>
            </div>
            <div className="w-12 h-12 bg-slate-900 text-white rounded-2xl flex items-center justify-center font-black shadow-xl">
@@ -245,13 +245,13 @@ const ScoreWorkspace: React.FC<{ service: any, onBack: () => void, onUpdateMetad
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         {/* Left Column: Data & Docs */}
         <div className="lg:col-span-4 space-y-6">
-          <div className="bg-white p-8 rounded-[40px] border border-slate-100 shadow-sm">
+          <div className="bg-[#1c1c1e] p-8 rounded-[40px] border border-[#333336] shadow-sm">
              <div className="flex flex-col items-center text-center">
                 <div className="w-20 h-20 bg-blue-600 text-white rounded-[28px] flex items-center justify-center text-3xl font-black mb-6">
                    {client.nome.charAt(0)}
                 </div>
-                <h2 className="text-xl font-black text-slate-800 tracking-tight">{client.nome}</h2>
-                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mt-1">{client.documento}</p>
+                <h2 className="text-xl font-black text-white tracking-tight">{client.nome}</h2>
+                <p className="text-[10px] font-black text-[#98989d] uppercase tracking-widest mt-1">{client.documento}</p>
                 <div className="mt-6 flex gap-3">
                    <button 
                     onClick={() => handleWhatsApp(`Olá ${client.nome}, estou cuidando do seu procedimento de Score.`)}
@@ -276,14 +276,14 @@ const ScoreWorkspace: React.FC<{ service: any, onBack: () => void, onUpdateMetad
              </div>
           </div>
 
-          <div className="bg-white p-8 rounded-[40px] border border-slate-100 shadow-sm">
-             <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-6">Repositório de Documentos</h3>
+          <div className="bg-[#1c1c1e] p-8 rounded-[40px] border border-[#333336] shadow-sm">
+             <h3 className="text-[10px] font-black text-[#98989d] uppercase tracking-widest mb-6">Repositório de Documentos</h3>
              <div className="space-y-3">
                 {docsSrv.map((d: Documento) => (
-                  <div key={d.id} className="p-4 bg-slate-50 rounded-2xl flex items-center justify-between group hover:bg-blue-50 transition-all cursor-pointer border border-transparent hover:border-blue-100">
+                  <div key={d.id} className="p-4 bg-[#0f0f11] rounded-2xl flex items-center justify-between group hover:bg-blue-50 transition-all cursor-pointer border border-transparent hover:border-blue-100">
                     <div className="flex items-center gap-3 overflow-hidden">
                        <FileText className="text-blue-500 shrink-0" size={18} />
-                       <p className="text-[10px] font-black text-slate-700 truncate uppercase">{d.nomeArquivo}</p>
+                       <p className="text-[10px] font-black text-[#e5e5ea] truncate uppercase">{d.nomeArquivo}</p>
                     </div>
                     <ExternalLink size={14} className="text-slate-300 group-hover:text-blue-500" />
                   </div>
@@ -295,19 +295,19 @@ const ScoreWorkspace: React.FC<{ service: any, onBack: () => void, onUpdateMetad
 
         {/* Right Column: The Engine */}
         <div className="lg:col-span-8 space-y-6">
-          <div className="bg-white p-10 rounded-[45px] border border-slate-100 shadow-sm space-y-10">
+          <div className="bg-[#1c1c1e] p-10 rounded-[45px] border border-[#333336] shadow-sm space-y-10">
              <div className="flex items-center gap-4">
                 <div className="w-12 h-12 rounded-2xl bg-blue-600 text-white flex items-center justify-center shadow-lg shadow-blue-500/20">
                   <Play size={22} fill="currentColor" />
                 </div>
                 <div>
-                   <h3 className="text-xl font-black text-slate-800 tracking-tight">Fluxo Sequencial de Execução</h3>
-                   <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mt-1">O preenchimento altera o status global do sistema</p>
+                   <h3 className="text-xl font-black text-white tracking-tight">Fluxo Sequencial de Execução</h3>
+                   <p className="text-[10px] font-black text-[#98989d] uppercase tracking-widest mt-1">O preenchimento altera o status global do sistema</p>
                 </div>
              </div>
 
              <div className="space-y-6 relative">
-                <div className="absolute left-[23px] top-6 bottom-6 w-0.5 bg-slate-100 -z-0"></div>
+                <div className="absolute left-[23px] top-6 bottom-6 w-0.5 bg-[#0f0f11] -z-0"></div>
 
                 {/* STEP 1 */}
                 <WorkStep 
@@ -318,14 +318,14 @@ const ScoreWorkspace: React.FC<{ service: any, onBack: () => void, onUpdateMetad
                   onToggle={() => toggleStep(0)}
                 >
                   <div className="space-y-4">
-                     <p className="text-xs text-slate-500 font-medium">Verificar se o cliente possui senha do App Serasa e se a assinatura Premium está ativa.</p>
+                     <p className="text-xs text-[#98989d] font-medium">Verificar se o cliente possui senha do App Serasa e se a assinatura Premium está ativa.</p>
                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <input 
                           type="password" 
                           placeholder="Senha App Serasa" 
                           value={meta.serasaPassword || ''}
                           onChange={(e) => updateMetaField('serasaPassword', e.target.value)}
-                          className="px-5 py-3 bg-white border border-slate-200 rounded-xl font-bold text-sm outline-none focus:ring-2 focus:ring-blue-500/20"
+                          className="px-5 py-3 bg-[#1c1c1e] border border-[#333336] rounded-xl font-bold text-sm outline-none focus:ring-2 focus:ring-blue-500/20"
                         />
                         <button 
                           onClick={() => handleWhatsApp(`Olá ${client.nome}, preciso confirmar sua senha do Serasa e se o plano Premium está ativo para iniciarmos.`)}
@@ -345,7 +345,7 @@ const ScoreWorkspace: React.FC<{ service: any, onBack: () => void, onUpdateMetad
                   disabled={isStepDisabled(1)}
                   onToggle={() => toggleStep(1)}
                 >
-                  <p className="text-xs text-slate-500 font-medium">Acessar o App e atualizar manualmente todos os endereços e contatos cadastrados.</p>
+                  <p className="text-xs text-[#98989d] font-medium">Acessar o App e atualizar manualmente todos os endereços e contatos cadastrados.</p>
                 </WorkStep>
 
                 {/* STEP 3 */}
@@ -357,14 +357,14 @@ const ScoreWorkspace: React.FC<{ service: any, onBack: () => void, onUpdateMetad
                   onToggle={() => toggleStep(2)}
                 >
                    <div className="space-y-4">
-                      <p className="text-xs text-slate-500 font-medium">Identificar e remover propostas de negociação que possam travar o score.</p>
+                      <p className="text-xs text-[#98989d] font-medium">Identificar e remover propostas de negociação que possam travar o score.</p>
                       <label className="flex items-center gap-3 cursor-pointer group w-fit">
                         {/* Fix: used proposalsIdentified from the updated ScoreMetadata interface */}
                         <input 
                           type="checkbox" 
                           checked={!!meta.proposalsIdentified}
                           onChange={(e) => updateMetaField('proposalsIdentified', e.target.checked)}
-                          className="w-5 h-5 rounded border-2 border-slate-200 text-blue-600 focus:ring-blue-500"
+                          className="w-5 h-5 rounded border-2 border-[#333336] text-blue-600 focus:ring-blue-500"
                         />
                         <span className="text-[10px] font-black text-slate-600 uppercase tracking-widest">Propostas Identificadas</span>
                       </label>
@@ -375,7 +375,7 @@ const ScoreWorkspace: React.FC<{ service: any, onBack: () => void, onUpdateMetad
                           placeholder="Número Contato Serasa Usado" 
                           value={meta.serasaContactNumber || ''}
                           onChange={(e) => updateMetaField('serasaContactNumber', e.target.value)}
-                          className="w-full px-5 py-3 bg-white border border-slate-200 rounded-xl font-bold text-sm outline-none"
+                          className="w-full px-5 py-3 bg-[#1c1c1e] border border-[#333336] rounded-xl font-bold text-sm outline-none"
                         />
                       )}
                    </div>
@@ -390,7 +390,7 @@ const ScoreWorkspace: React.FC<{ service: any, onBack: () => void, onUpdateMetad
                   onToggle={() => toggleStep(3)}
                 >
                   <div className="space-y-4">
-                     <p className="text-xs text-slate-500 font-medium">Imprimir CNH/RG e o Termo de Responsabilidade para remoção de consultas.</p>
+                     <p className="text-xs text-[#98989d] font-medium">Imprimir CNH/RG e o Termo de Responsabilidade para remoção de consultas.</p>
                      <button className="flex items-center gap-2 px-5 py-3 bg-slate-900 text-white rounded-xl text-[9px] font-black uppercase tracking-widest hover:bg-slate-800 transition-all">
                         <Printer size={16} /> Imprimir Termo de Responsabilidade
                      </button>
@@ -405,7 +405,7 @@ const ScoreWorkspace: React.FC<{ service: any, onBack: () => void, onUpdateMetad
                   disabled={isStepDisabled(4)}
                   onToggle={() => toggleStep(4)}
                 >
-                  <p className="text-xs text-slate-500 font-medium">Confirmar se o cliente assinou o formulário de exclusão de consultas conforme os prints.</p>
+                  <p className="text-xs text-[#98989d] font-medium">Confirmar se o cliente assinou o formulário de exclusão de consultas conforme os prints.</p>
                 </WorkStep>
 
                 {/* STEP 6 */}
@@ -417,20 +417,20 @@ const ScoreWorkspace: React.FC<{ service: any, onBack: () => void, onUpdateMetad
                   onToggle={() => toggleStep(5)}
                 >
                   <div className="space-y-4">
-                     <p className="text-xs text-slate-500 font-medium">Postar documentos via Correios e inserir código de rastreio para iniciar monitoramento de 10 dias.</p>
+                     <p className="text-xs text-[#98989d] font-medium">Postar documentos via Correios e inserir código de rastreio para iniciar monitoramento de 10 dias.</p>
                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <input 
                           type="text" 
                           placeholder="Código de Rastreio" 
                           value={meta.trackingNumber || ''}
                           onChange={(e) => updateMetaField('trackingNumber', e.target.value)}
-                          className="px-5 py-3 bg-white border border-slate-200 rounded-xl font-bold text-sm outline-none"
+                          className="px-5 py-3 bg-[#1c1c1e] border border-[#333336] rounded-xl font-bold text-sm outline-none"
                         />
                         <input 
                           type="date" 
                           value={meta.postingDate || ''}
                           onChange={(e) => updateMetaField('postingDate', e.target.value)}
-                          className="px-5 py-3 bg-white border border-slate-200 rounded-xl font-bold text-sm outline-none"
+                          className="px-5 py-3 bg-[#1c1c1e] border border-[#333336] rounded-xl font-bold text-sm outline-none"
                         />
                      </div>
                      {meta.steps[5] && (
@@ -451,12 +451,12 @@ const ScoreWorkspace: React.FC<{ service: any, onBack: () => void, onUpdateMetad
                   onToggle={() => toggleStep(6)}
                 >
                   <div className="space-y-4">
-                     <p className="text-xs text-slate-500 font-medium">Validar no App do cliente se as consultas foram removidas e o score subiu para o patamar acordado.</p>
+                     <p className="text-xs text-[#98989d] font-medium">Validar no App do cliente se as consultas foram removidas e o score subiu para o patamar acordado.</p>
                      <input 
                         type="date" 
                         value={meta.confirmationDate || ''}
                         onChange={(e) => updateMetaField('confirmationDate', e.target.value)}
-                        className="w-full md:w-auto px-5 py-3 bg-white border border-slate-200 rounded-xl font-bold text-sm outline-none"
+                        className="w-full md:w-auto px-5 py-3 bg-[#1c1c1e] border border-[#333336] rounded-xl font-bold text-sm outline-none"
                       />
                   </div>
                 </WorkStep>
@@ -474,17 +474,17 @@ const WorkStep = ({ index, title, children, checked, disabled, onToggle }: any) 
       onClick={!disabled ? onToggle : undefined}
       className={`w-12 h-12 rounded-[18px] flex items-center justify-center cursor-pointer transition-all border-4 ${
         checked ? 'bg-emerald-500 border-emerald-100 text-white shadow-lg' : 
-        disabled ? 'bg-slate-100 border-slate-50 text-slate-300' : 'bg-white border-blue-100 text-blue-600 hover:scale-105'
+        disabled ? 'bg-[#0f0f11] border-slate-50 text-slate-300' : 'bg-[#1c1c1e] border-blue-100 text-blue-600 hover:scale-105'
       }`}
      >
         {checked ? <CheckCircle size={24} /> : <span className="text-sm font-black">{index + 1}</span>}
      </div>
      <div className="flex-1 space-y-4">
         <div className="flex items-center justify-between">
-           <h4 className="text-base font-black text-slate-800 tracking-tight uppercase">{title}</h4>
+           <h4 className="text-base font-black text-white tracking-tight uppercase">{title}</h4>
            {checked && <span className="text-[9px] font-black text-emerald-600 uppercase tracking-widest flex items-center gap-1"><ShieldCheck size={12}/> Etapa Validada</span>}
         </div>
-        <div className="bg-slate-50/50 p-6 rounded-3xl border border-slate-50">
+        <div className="bg-[#0f0f11]/50 p-6 rounded-3xl border border-slate-50">
            {children}
         </div>
      </div>

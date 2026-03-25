@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Truck, Plus, Phone, Hammer } from 'lucide-react';
-import { Supplier } from '../types';
-import { formatCurrency, formatPhone } from '../utils/utils';
+import { Supplier } from '../../types';
+import { formatCurrency, formatPhone } from '../../utils/utils';
 
 export default function SuppliersView() {
   const [suppliers, setSuppliers] = useState<Supplier[]>([]);
@@ -28,16 +28,16 @@ export default function SuppliersView() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {loading ? (
-          [1,2,3].map(i => <div key={i} className="h-40 bg-slate-100 animate-pulse rounded-2xl"></div>)
+          [1,2,3].map(i => <div key={i} className="h-40 bg-[#0f0f11] animate-pulse rounded-2xl"></div>)
         ) : suppliers.map((sup) => (
-          <div key={sup.id} className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+          <div key={sup.id} className="bg-[#1c1c1e] p-6 rounded-2xl border border-[#333336] shadow-sm">
             <div className="flex items-center gap-4 mb-4">
-              <div className="p-3 bg-slate-100 text-slate-600 rounded-xl">
+              <div className="p-3 bg-[#0f0f11] text-slate-600 rounded-xl">
                 <Truck size={24} />
               </div>
               <div>
                 <h3 className="font-bold text-lg">{sup.name}</h3>
-                <p className="text-xs text-slate-500 flex items-center gap-1">
+                <p className="text-xs text-[#98989d] flex items-center gap-1">
                   <Phone size={12} />
                   {formatPhone(sup.phone)}
                 </p>
@@ -45,11 +45,11 @@ export default function SuppliersView() {
             </div>
             <div className="space-y-2">
               <div className="flex justify-between text-sm">
-                <span className="text-slate-500">Serviço:</span>
+                <span className="text-[#98989d]">Serviço:</span>
                 <span className="font-medium">{sup.service}</span>
               </div>
               <div className="flex justify-between text-sm">
-                <span className="text-slate-500">Preço Médio:</span>
+                <span className="text-[#98989d]">Preço Médio:</span>
                 <span className="font-bold text-indigo-600">{formatCurrency(sup.price)}</span>
               </div>
             </div>

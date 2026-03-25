@@ -15,8 +15,8 @@ import {
   Phone
 } from 'lucide-react';
 import { motion } from 'motion/react';
-import { Client, ClientService, Contract, Installment } from '../types';
-import { formatCurrency, formatCPF, formatPhone, cn } from '../utils/utils';
+import { Client, ClientService, Contract, Installment } from '../../types';
+import { formatCurrency, formatCPF, formatPhone, cn } from '../../utils/utils';
 
 interface ClientDetailsViewProps {
   client: Client;
@@ -91,7 +91,7 @@ export default function ClientDetailsView({ client, onBack }: ClientDetailsViewP
       <div className="flex items-center justify-between">
         <button 
           onClick={onBack}
-          className="flex items-center gap-2 text-slate-500 hover:text-slate-900 transition-colors font-medium"
+          className="flex items-center gap-2 text-[#98989d] hover:text-white transition-colors font-medium"
         >
           <ArrowLeft size={20} />
           Voltar para Clientes
@@ -123,7 +123,7 @@ export default function ClientDetailsView({ client, onBack }: ClientDetailsViewP
         )}
       </div>
 
-      <div className="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm">
+      <div className="bg-[#1c1c1e] p-8 rounded-3xl border border-[#333336] shadow-sm">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="flex items-center gap-6">
             <div className="w-20 h-20 rounded-full bg-indigo-600 flex items-center justify-center text-white text-3xl font-bold">
@@ -131,7 +131,7 @@ export default function ClientDetailsView({ client, onBack }: ClientDetailsViewP
             </div>
             <div>
               <h2 className="text-3xl font-bold">{client.name}</h2>
-              <div className="flex flex-wrap gap-4 mt-2 text-slate-500 text-sm">
+              <div className="flex flex-wrap gap-4 mt-2 text-[#98989d] text-sm">
                 <span className="flex items-center gap-1"><FileText size={14} /> {formatCPF(client.cpf)}</span>
                 <span className="flex items-center gap-1"><Phone size={14} /> {formatPhone(client.phone)}</span>
                 <span className={cn(
@@ -145,18 +145,18 @@ export default function ClientDetailsView({ client, onBack }: ClientDetailsViewP
           </div>
           <div className="flex gap-4">
             <div className="text-right">
-              <p className="text-xs text-slate-400 uppercase font-bold">Total Contratado</p>
+              <p className="text-xs text-[#98989d] uppercase font-bold">Total Contratado</p>
               <p className="text-2xl font-bold text-indigo-600">{formatCurrency(client.totalContracted)}</p>
             </div>
-            <div className="text-right border-l border-slate-100 pl-4">
-              <p className="text-xs text-slate-400 uppercase font-bold">Pendente</p>
+            <div className="text-right border-l border-[#333336] pl-4">
+              <p className="text-xs text-[#98989d] uppercase font-bold">Pendente</p>
               <p className="text-2xl font-bold text-red-600">{formatCurrency(client.pending)}</p>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="flex gap-2 p-1 bg-slate-100 rounded-2xl w-fit">
+      <div className="flex gap-2 p-1 bg-[#0f0f11] rounded-2xl w-fit">
         {[
           { id: 'statement', label: 'Extrato de Pagamento', icon: DollarSign },
           { id: 'services', label: 'Serviços Contratados', icon: Settings },
@@ -167,7 +167,7 @@ export default function ClientDetailsView({ client, onBack }: ClientDetailsViewP
             onClick={() => setActiveTab(tab.id as any)}
             className={cn(
               "flex items-center gap-2 px-6 py-2.5 rounded-xl text-sm font-bold transition-all",
-              activeTab === tab.id ? "bg-white text-indigo-600 shadow-sm" : "text-slate-500 hover:text-slate-900"
+              activeTab === tab.id ? "bg-[#1c1c1e] text-indigo-600 shadow-sm" : "text-[#98989d] hover:text-white"
             )}
           >
             <tab.icon size={18} />
@@ -176,23 +176,23 @@ export default function ClientDetailsView({ client, onBack }: ClientDetailsViewP
         ))}
       </div>
 
-      <div className="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
+      <div className="bg-[#1c1c1e] rounded-3xl border border-[#333336] shadow-sm overflow-hidden">
         {activeTab === 'statement' && (
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="bg-slate-50 border-b border-slate-200">
-                <th className="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-wider">Parcela</th>
-                <th className="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-wider">Vencimento</th>
-                <th className="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-wider">Pagamento</th>
-                <th className="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-wider">Status</th>
-                <th className="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-wider">Atraso</th>
-                <th className="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-wider text-right">Valor</th>
+              <tr className="bg-[#0f0f11] border-b border-[#333336]">
+                <th className="px-6 py-4 text-xs font-bold text-[#98989d] uppercase tracking-wider">Parcela</th>
+                <th className="px-6 py-4 text-xs font-bold text-[#98989d] uppercase tracking-wider">Vencimento</th>
+                <th className="px-6 py-4 text-xs font-bold text-[#98989d] uppercase tracking-wider">Pagamento</th>
+                <th className="px-6 py-4 text-xs font-bold text-[#98989d] uppercase tracking-wider">Status</th>
+                <th className="px-6 py-4 text-xs font-bold text-[#98989d] uppercase tracking-wider">Atraso</th>
+                <th className="px-6 py-4 text-xs font-bold text-[#98989d] uppercase tracking-wider text-right">Valor</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
               {allInstallments.map((inst) => (
-                <tr key={inst.id} className="hover:bg-slate-50 transition-colors">
-                  <td className="px-6 py-4 font-bold text-slate-900">#{inst.number}</td>
+                <tr key={inst.id} className="hover:bg-[#0f0f11] transition-colors">
+                  <td className="px-6 py-4 font-bold text-white">#{inst.number}</td>
                   <td className="px-6 py-4 text-sm text-slate-600">{new Date(inst.dueDate).toLocaleDateString()}</td>
                   <td className="px-6 py-4 text-sm text-slate-600">
                     {inst.paymentDate ? new Date(inst.paymentDate).toLocaleDateString() : '-'}
@@ -239,30 +239,30 @@ export default function ClientDetailsView({ client, onBack }: ClientDetailsViewP
             <motion.div 
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              className="bg-white rounded-3xl p-8 max-w-md w-full shadow-2xl space-y-6"
+              className="bg-[#1c1c1e] rounded-3xl p-8 max-w-md w-full shadow-2xl space-y-6"
             >
               <div className="flex items-center justify-between">
                 <h3 className="text-xl font-bold">Confirmar Pagamento</h3>
-                <button onClick={() => setPayingInstallment(null)} className="text-slate-400 hover:text-slate-600">
+                <button onClick={() => setPayingInstallment(null)} className="text-[#98989d] hover:text-slate-600">
                   <X size={24} />
                 </button>
               </div>
               
-              <div className="p-4 bg-slate-50 rounded-2xl border border-slate-100">
-                <p className="text-xs text-slate-400 uppercase font-bold">Parcela #{payingInstallment.number}</p>
+              <div className="p-4 bg-[#0f0f11] rounded-2xl border border-[#333336]">
+                <p className="text-xs text-[#98989d] uppercase font-bold">Parcela #{payingInstallment.number}</p>
                 <p className="text-2xl font-bold text-indigo-600">{formatCurrency(payingInstallment.value)}</p>
               </div>
 
               <div className="space-y-4">
                 <div className="space-y-2">
-                  <label className="text-sm font-bold text-slate-700 flex items-center gap-2">
+                  <label className="text-sm font-bold text-[#e5e5ea] flex items-center gap-2">
                     <Upload size={16} />
                     Anexar Comprovante
                   </label>
                   <div className="flex flex-col gap-3">
-                    <label className="w-full flex flex-col items-center justify-center p-6 border-2 border-dashed border-slate-200 rounded-2xl hover:bg-slate-50 cursor-pointer transition-all">
-                      <Upload className="text-slate-400 mb-2" size={24} />
-                      <span className="text-xs font-medium text-slate-500">Clique para selecionar arquivo</span>
+                    <label className="w-full flex flex-col items-center justify-center p-6 border-2 border-dashed border-[#333336] rounded-2xl hover:bg-[#0f0f11] cursor-pointer transition-all">
+                      <Upload className="text-[#98989d] mb-2" size={24} />
+                      <span className="text-xs font-medium text-[#98989d]">Clique para selecionar arquivo</span>
                       <input 
                         type="file" 
                         className="hidden" 
@@ -279,22 +279,22 @@ export default function ClientDetailsView({ client, onBack }: ClientDetailsViewP
                     
                     <div className="relative">
                       <div className="absolute inset-0 flex items-center">
-                        <span className="w-full border-t border-slate-200"></span>
+                        <span className="w-full border-t border-[#333336]"></span>
                       </div>
                       <div className="relative flex justify-center text-xs uppercase">
-                        <span className="bg-white px-2 text-slate-400">Ou use um link</span>
+                        <span className="bg-[#1c1c1e] px-2 text-[#98989d]">Ou use um link</span>
                       </div>
                     </div>
 
                     <input 
                       type="text"
                       placeholder="https://exemplo.com/comprovante.pdf"
-                      className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/20 text-sm"
+                      className="w-full p-3 bg-[#0f0f11] border border-[#333336] rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/20 text-sm"
                       value={proofUrl.startsWith('data:') ? 'Arquivo selecionado' : proofUrl}
                       onChange={(e) => setProofUrl(e.target.value)}
                     />
                   </div>
-                  <p className="text-[10px] text-slate-400 italic">* Obrigatório anexar comprovante para baixa no sistema.</p>
+                  <p className="text-[10px] text-[#98989d] italic">* Obrigatório anexar comprovante para baixa no sistema.</p>
                 </div>
               </div>
 
@@ -312,14 +312,14 @@ export default function ClientDetailsView({ client, onBack }: ClientDetailsViewP
         {activeTab === 'services' && (
           <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
             {services.map((cs) => (
-              <div key={cs.id} className="p-6 bg-slate-50 rounded-2xl border border-slate-100 flex items-center justify-between">
+              <div key={cs.id} className="p-6 bg-[#0f0f11] rounded-2xl border border-[#333336] flex items-center justify-between">
                 <div className="flex items-center gap-4">
-                  <div className="p-3 bg-white text-indigo-600 rounded-xl shadow-sm">
+                  <div className="p-3 bg-[#1c1c1e] text-indigo-600 rounded-xl shadow-sm">
                     <Settings size={24} />
                   </div>
                   <div>
                     <h4 className="font-bold text-lg">{cs.service?.name || 'Serviço Desconhecido'}</h4>
-                    <p className="text-xs text-slate-500">Início: {new Date(cs.startDate).toLocaleDateString()}</p>
+                    <p className="text-xs text-[#98989d]">Início: {new Date(cs.startDate).toLocaleDateString()}</p>
                   </div>
                 </div>
                 <span className={cn(
@@ -330,33 +330,33 @@ export default function ClientDetailsView({ client, onBack }: ClientDetailsViewP
                 </span>
               </div>
             ))}
-            {services.length === 0 && <p className="col-span-2 text-center py-12 text-slate-400">Nenhum serviço vinculado.</p>}
+            {services.length === 0 && <p className="col-span-2 text-center py-12 text-[#98989d]">Nenhum serviço vinculado.</p>}
           </div>
         )}
 
         {activeTab === 'contracts' && (
           <div className="p-6 space-y-4">
             {contracts.map((contract) => (
-              <div key={contract.id} className="p-6 bg-slate-50 rounded-2xl border border-slate-100 flex items-center justify-between">
+              <div key={contract.id} className="p-6 bg-[#0f0f11] rounded-2xl border border-[#333336] flex items-center justify-between">
                 <div>
                   <h4 className="font-bold text-lg">Contrato #{contract.id.slice(-6)}</h4>
-                  <p className="text-sm text-slate-500">{contract.installmentsCount} parcelas • {formatCurrency(contract.totalValue)}</p>
+                  <p className="text-sm text-[#98989d]">{contract.installmentsCount} parcelas • {formatCurrency(contract.totalValue)}</p>
                   {contract.contractDate && (
-                    <p className="text-xs text-slate-400 mt-1">Data: {new Date(contract.contractDate).toLocaleDateString()}</p>
+                    <p className="text-xs text-[#98989d] mt-1">Data: {new Date(contract.contractDate).toLocaleDateString()}</p>
                   )}
                 </div>
                 {contract.contractUrl && (
                   <a 
                     href={contract.contractUrl} 
                     download={`contrato-${client.name}.png`}
-                    className="p-2 bg-white text-indigo-600 rounded-xl shadow-sm hover:bg-indigo-50 transition-colors"
+                    className="p-2 bg-[#1c1c1e] text-indigo-600 rounded-xl shadow-sm hover:bg-indigo-50 transition-colors"
                   >
                     <Download size={20} />
                   </a>
                 )}
               </div>
             ))}
-            {contracts.length === 0 && <p className="text-center py-12 text-slate-400">Nenhum contrato encontrado.</p>}
+            {contracts.length === 0 && <p className="text-center py-12 text-[#98989d]">Nenhum contrato encontrado.</p>}
           </div>
         )}
       </div>

@@ -6,7 +6,7 @@ import {
   Calendar, Users, ArrowUpRight
 } from 'lucide-react';
 /* Fix imports: updated types and enums to match types.ts */
-import { ListaProcessual as List, ListaOrgao as ListOrgan, StatusOrgao as OrganStatus } from '../types';
+import { ListaProcessual as List, ListaOrgao as ListOrgan, StatusOrgao as OrganStatus } from '../../types';
 
 interface ListsViewProps {
   db: any;
@@ -31,7 +31,7 @@ const ListsView: React.FC<ListsViewProps> = ({ db }) => {
             <ChevronRight size={20} className="rotate-180" /> All Batch Lists
           </button>
           <div className="flex gap-2">
-            <button className="px-4 py-2 bg-white border border-gray-200 rounded-xl text-gray-600 font-medium hover:bg-gray-50 transition-all">
+            <button className="px-4 py-2 bg-[#1c1c1e] border border-gray-200 rounded-xl text-gray-600 font-medium hover:bg-gray-50 transition-all">
               Batch Update
             </button>
             <button className="px-4 py-2 bg-blue-600 text-white rounded-xl font-bold shadow-lg shadow-blue-200 hover:bg-blue-700 transition-all">
@@ -52,30 +52,30 @@ const ListsView: React.FC<ListsViewProps> = ({ db }) => {
                 {selectedList.statusGeral}
               </span>
               {/* Fix property: dataAbertura changed to dataInicio to match types.ts */}
-              <span className="text-slate-500 text-xs">• Created {selectedList.dataInicio}</span>
+              <span className="text-[#98989d] text-xs">• Created {selectedList.dataInicio}</span>
             </div>
             {/* Fix property: nome */}
             <h2 className="text-3xl font-bold mb-2">{selectedList.nome}</h2>
             {/* Fix property: observacoes */}
-            <p className="text-slate-400 max-w-xl">{selectedList.observacoes}</p>
+            <p className="text-[#98989d] max-w-xl">{selectedList.observacoes}</p>
           </div>
           
           <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-6 relative z-10 border-t border-slate-800 pt-8">
              <div className="space-y-1">
-              <p className="text-xs text-slate-500 uppercase font-bold tracking-tighter">Service Type</p>
+              <p className="text-xs text-[#98989d] uppercase font-bold tracking-tighter">Service Type</p>
               {/* Fix property: tipoServico */}
               <p className="text-lg font-bold">{selectedList.tipoServico}</p>
             </div>
             <div className="space-y-1">
-              <p className="text-xs text-slate-500 uppercase font-bold tracking-tighter">Total Clients</p>
+              <p className="text-xs text-[#98989d] uppercase font-bold tracking-tighter">Total Clients</p>
               <p className="text-lg font-bold">{listClients.length}</p>
             </div>
             <div className="space-y-1">
-              <p className="text-xs text-slate-500 uppercase font-bold tracking-tighter">Organs Connected</p>
+              <p className="text-xs text-[#98989d] uppercase font-bold tracking-tighter">Organs Connected</p>
               <p className="text-lg font-bold">{listOrgans.length}</p>
             </div>
             <div className="space-y-1">
-              <p className="text-xs text-slate-500 uppercase font-bold tracking-tighter">Completed</p>
+              <p className="text-xs text-[#98989d] uppercase font-bold tracking-tighter">Completed</p>
               <p className="text-lg font-bold text-green-400">
                 {/* Fix property: situacao */}
                 {listClients.filter((c: any) => c.situacao === 'Baixado').length} / {listClients.length}
@@ -92,7 +92,7 @@ const ListsView: React.FC<ListsViewProps> = ({ db }) => {
             </h3>
             <div className="space-y-3">
               {listOrgans.map(organ => (
-                <div key={organ.id} className="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm flex items-center justify-between group hover:border-blue-200 transition-all">
+                <div key={organ.id} className="bg-[#1c1c1e] p-5 rounded-2xl border border-gray-100 shadow-sm flex items-center justify-between group hover:border-blue-200 transition-all">
                   <div className="flex items-center gap-4">
                     <div className={`w-10 h-10 rounded-xl flex items-center justify-center font-bold ${
                       organ.status === OrganStatus.CONCLUIDO ? 'bg-green-50 text-green-600' :
@@ -126,7 +126,7 @@ const ListsView: React.FC<ListsViewProps> = ({ db }) => {
               </div>
             </div>
             
-            <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+            <div className="bg-[#1c1c1e] rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
                <table className="w-full text-left">
                   <thead className="bg-gray-50/50 border-b border-gray-100">
                     <tr className="text-xs font-bold text-gray-400 uppercase tracking-wider">
@@ -193,7 +193,7 @@ const ListsView: React.FC<ListsViewProps> = ({ db }) => {
             <div 
               key={list.id} 
               onClick={() => setSelectedList(list)}
-              className="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm hover:shadow-xl hover:border-blue-100 transition-all cursor-pointer group flex flex-col"
+              className="bg-[#1c1c1e] p-6 rounded-3xl border border-gray-100 shadow-sm hover:shadow-xl hover:border-blue-100 transition-all cursor-pointer group flex flex-col"
             >
               <div className="flex items-center justify-between mb-6">
                 <div className="p-3 bg-blue-50 text-blue-600 rounded-2xl group-hover:bg-blue-600 group-hover:text-white transition-all">

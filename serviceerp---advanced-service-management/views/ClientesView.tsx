@@ -14,7 +14,7 @@ import {
   Cliente, TipoPessoa, ServicoContratado, Pagamento, 
   Documento, StatusPagamento, StatusServico, TipoServicoStrict,
   ClientePorLista, ListaProcessual, TipoDocumento, HistoricoAcompanhamento, NivelRisco, PrioridadeOperacional
-} from '../types';
+} from '../../types';
 import { getSugestoesUpsell } from '../services/aiService';
 import { 
   inserirClienteCompleto, 
@@ -26,7 +26,7 @@ import {
   deletarDocumento,
   atualizarServico,
   registrarAcaoAcompanhamento
-} from '../db';
+} from '../../db';
 
 const CHECKLIST_CONFIG: Record<string, string[]> = {
   [TipoServicoStrict.LIMPA_NOME]: ["Comprovante de Pagamento", "RG or CNH", "Comprovante de endereço", "Consulta inicial"],
@@ -253,14 +253,14 @@ const ClientesView: React.FC<ClientesViewProps> = ({ db, setDb }) => {
     return (
       <div className="animate-in slide-in-from-right-10 duration-500 space-y-8 pb-20">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
-          <button onClick={() => setClienteSelecionado(null)} className="flex items-center gap-3 text-slate-400 hover:text-blue-600 font-black transition-all group">
-            <div className="p-2 bg-white rounded-xl border border-slate-100 group-hover:bg-blue-50">
+          <button onClick={() => setClienteSelecionado(null)} className="flex items-center gap-3 text-[#98989d] hover:text-blue-600 font-black transition-all group">
+            <div className="p-2 bg-[#1c1c1e] rounded-xl border border-[#333336] group-hover:bg-blue-50">
               <ChevronRight size={20} className="rotate-180" />
             </div>
             VOLTAR PARA LISTAGEM
           </button>
           <div className="flex gap-3">
-             <button onClick={() => { setAnexoState({ tipo: TipoDocumento.DOCUMENTO_CLIENTE, servicoId: '', arquivo: null, uploading: false }); setMostrarModalAnexo(true); }} className="px-6 py-3 bg-white border border-slate-200 text-slate-700 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-slate-50 flex items-center gap-2 transition-all">
+             <button onClick={() => { setAnexoState({ tipo: TipoDocumento.DOCUMENTO_CLIENTE, servicoId: '', arquivo: null, uploading: false }); setMostrarModalAnexo(true); }} className="px-6 py-3 bg-[#1c1c1e] border border-[#333336] text-[#e5e5ea] rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-[#0f0f11] flex items-center gap-2 transition-all">
                 <Upload size={16} /> Anexar Documento
              </button>
              <button 
@@ -309,7 +309,7 @@ const ClientesView: React.FC<ClientesViewProps> = ({ db, setDb }) => {
                     {servicosAutorizados ? 'Serviços Liberados' : 'Aguardando Liberação'}
                  </div>
                </div>
-               <p className="text-slate-400 font-bold flex flex-wrap justify-center md:justify-start gap-4">
+               <p className="text-[#98989d] font-bold flex flex-wrap justify-center md:justify-start gap-4">
                  <span className="flex items-center gap-1.5"><IdCard size={16} className="text-blue-500" /> {clienteSelecionado.documento}</span>
                  <span className="flex items-center gap-1.5"><Calendar size={16} className="text-blue-500" /> Cadastro: {clienteSelecionado.dataCadastro}</span>
                  {statusFinanceiroHeader && (
@@ -353,7 +353,7 @@ const ClientesView: React.FC<ClientesViewProps> = ({ db, setDb }) => {
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id as any)}
                 className={`px-6 py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest flex items-center gap-2 transition-all border-2 ${
-                  activeTab === tab.id ? 'bg-blue-600 border-blue-600 text-white shadow-lg' : 'bg-slate-800 border-slate-800 text-slate-400 hover:border-slate-700'
+                  activeTab === tab.id ? 'bg-blue-600 border-blue-600 text-white shadow-lg' : 'bg-slate-800 border-slate-800 text-[#98989d] hover:border-slate-700'
                 }`}
               >
                 <tab.icon size={14} /> {tab.label}
@@ -365,10 +365,10 @@ const ClientesView: React.FC<ClientesViewProps> = ({ db, setDb }) => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           <div className="lg:col-span-8 space-y-8">
             {activeTab === 'perfil' && (
-              <div className="bg-white p-10 rounded-[40px] border border-slate-100 shadow-sm animate-in fade-in zoom-in-95">
+              <div className="bg-[#1c1c1e] p-10 rounded-[40px] border border-[#333336] shadow-sm animate-in fade-in zoom-in-95">
                 <div className="flex justify-between items-center mb-10">
-                  <h3 className="text-xl font-black text-slate-800 uppercase tracking-tighter">Ficha Cadastral</h3>
-                  <button className="p-3 bg-slate-50 text-slate-400 rounded-2xl hover:bg-blue-50 hover:text-blue-600 transition-all"><Edit3 size={20} /></button>
+                  <h3 className="text-xl font-black text-white uppercase tracking-tighter">Ficha Cadastral</h3>
+                  <button className="p-3 bg-[#0f0f11] text-[#98989d] rounded-2xl hover:bg-blue-50 hover:text-blue-600 transition-all"><Edit3 size={20} /></button>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                    <DataField label="Nome Completo" value={clienteSelecionado.nome} />
@@ -399,24 +399,24 @@ const ClientesView: React.FC<ClientesViewProps> = ({ db, setDb }) => {
             {activeTab === 'servicos' && (
               <div className="space-y-6">
                 <div className="flex justify-between items-center mb-4">
-                   <h3 className="text-xl font-black text-slate-800 uppercase tracking-tighter">Contratos Ativos</h3>
+                   <h3 className="text-xl font-black text-white uppercase tracking-tighter">Contratos Ativos</h3>
                 </div>
                 {servicos.length > 0 ? servicos.map(srv => (
-                  <div key={srv.id} className="bg-white p-8 rounded-[40px] border border-slate-100 shadow-sm flex flex-col md:flex-row justify-between items-center gap-6 group hover:border-blue-200 transition-all">
+                  <div key={srv.id} className="bg-[#1c1c1e] p-8 rounded-[40px] border border-[#333336] shadow-sm flex flex-col md:flex-row justify-between items-center gap-6 group hover:border-blue-200 transition-all">
                     <div className="flex items-center gap-6">
                        <div className={`w-16 h-16 rounded-3xl flex items-center justify-center transition-all ${!servicosAutorizados ? 'bg-amber-50 text-amber-600' : 'bg-blue-50 text-blue-600'}`}>
                           {!servicosAutorizados ? <Lock size={28} /> : <Briefcase size={28} />}
                        </div>
                        <div>
-                         <h4 className="text-xl font-black text-slate-800">{srv.tipo}</h4>
-                         <p className="text-xs text-slate-400 font-bold uppercase tracking-widest">Contrato {srv.formaPagamento}</p>
+                         <h4 className="text-xl font-black text-white">{srv.tipo}</h4>
+                         <p className="text-xs text-[#98989d] font-bold uppercase tracking-widest">Contrato {srv.formaPagamento}</p>
                        </div>
                     </div>
                     <div className="flex items-center gap-8">
                        <span className={`px-4 py-1.5 rounded-full text-[9px] font-black uppercase tracking-widest ${!servicosAutorizados ? 'bg-amber-50 text-amber-600' : 'bg-blue-50 text-blue-600'}`}>
                          {!servicosAutorizados ? 'AGUARDANDO LIBERAÇÃO' : 'AUTORIZADO PARA PROCEDIMENTO'}
                        </span>
-                       <span className={`px-4 py-1.5 rounded-full text-[9px] font-black uppercase tracking-widest ${srv.status === StatusServico.CONCLUIDO ? 'bg-emerald-50 text-emerald-600' : 'bg-slate-50 text-slate-400'}`}>
+                       <span className={`px-4 py-1.5 rounded-full text-[9px] font-black uppercase tracking-widest ${srv.status === StatusServico.CONCLUIDO ? 'bg-emerald-50 text-emerald-600' : 'bg-[#0f0f11] text-[#98989d]'}`}>
                          {srv.status}
                        </span>
                     </div>
@@ -436,13 +436,13 @@ const ClientesView: React.FC<ClientesViewProps> = ({ db, setDb }) => {
                   const procedimentosVinculados = servicos.filter(s => s.id.startsWith(batchPrefix)).map(s => s.tipo);
 
                   return (
-                    <div key={masterSrv.id} className="bg-white p-10 rounded-[45px] border border-slate-100 shadow-sm space-y-8">
+                    <div key={masterSrv.id} className="bg-[#1c1c1e] p-10 rounded-[45px] border border-[#333336] shadow-sm space-y-8">
                        <div className="flex justify-between items-start">
                           <div className="flex items-center gap-4">
                              <div className="w-12 h-12 rounded-2xl bg-emerald-600 text-white flex items-center justify-center shadow-lg"><DollarSign size={24} /></div>
                              <div>
-                                <h4 className="text-xl font-black text-slate-800 tracking-tight">Fluxo Financeiro: Contrato Único</h4>
-                                <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2">Forma: {masterSrv.formaPagamento}</p>
+                                <h4 className="text-xl font-black text-white tracking-tight">Fluxo Financeiro: Contrato Único</h4>
+                                <p className="text-[10px] font-black text-[#98989d] uppercase tracking-[0.2em] mb-2">Forma: {masterSrv.formaPagamento}</p>
                                 <div className="flex flex-wrap gap-2">
                                    {procedimentosVinculados.map(proc => (
                                       <span key={proc} className="px-3 py-1 bg-blue-50 text-blue-600 rounded-lg text-[9px] font-black uppercase tracking-widest border border-blue-100">
@@ -453,15 +453,15 @@ const ClientesView: React.FC<ClientesViewProps> = ({ db, setDb }) => {
                              </div>
                           </div>
                           <div className="text-right">
-                             <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Valor Consolidado</p>
-                             <p className="text-2xl font-black text-slate-800">R$ {totalContrato.toFixed(2)}</p>
+                             <p className="text-[10px] font-black text-[#98989d] uppercase tracking-widest">Valor Consolidado</p>
+                             <p className="text-2xl font-black text-white">R$ {totalContrato.toFixed(2)}</p>
                           </div>
                        </div>
 
                        <div className="overflow-x-auto">
                           <table className="w-full text-left">
                              <thead>
-                               <tr className="bg-slate-50 text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                               <tr className="bg-[#0f0f11] text-[10px] font-black text-[#98989d] uppercase tracking-widest">
                                   <th className="px-6 py-4">Parcela</th>
                                   <th className="px-6 py-4">Valor</th>
                                   <th className="px-6 py-4">Vencimento</th>
@@ -469,17 +469,17 @@ const ClientesView: React.FC<ClientesViewProps> = ({ db, setDb }) => {
                                   <th className="px-6 py-4 text-right">Status</th>
                                </tr>
                              </thead>
-                             <tbody className="divide-y divide-slate-50">
+                             <tbody className="divide-y divide-[#333336]">
                                 {srvPayments.map(p => {
                                   const isOverdue = !p.comprovanteId && new Date(p.dataVencimento) < new Date() && p.status !== StatusPagamento.PAGO;
                                   const isPaid = !!p.comprovanteId || p.status === StatusPagamento.PAGO;
                                   return (
-                                    <tr key={p.id} className="hover:bg-slate-50/50 transition-all group">
-                                       <td className="px-6 py-4 font-black text-slate-700">
+                                    <tr key={p.id} className="hover:bg-[#0f0f11]/50 transition-all group">
+                                       <td className="px-6 py-4 font-black text-[#e5e5ea]">
                                           {p.numParcela === 1 && masterSrv.formaPagamento === 'Parcelado' ? 'Entrada' : `Parc. ${p.numParcela}`}
                                        </td>
-                                       <td className="px-6 py-4 font-black text-slate-900">R$ {p.valorParcela.toFixed(2)}</td>
-                                       <td className="px-6 py-4 text-sm font-bold text-slate-500">{new Date(p.dataVencimento).toLocaleDateString('pt-BR')}</td>
+                                       <td className="px-6 py-4 font-black text-white">R$ {p.valorParcela.toFixed(2)}</td>
+                                       <td className="px-6 py-4 text-sm font-bold text-[#98989d]">{new Date(p.dataVencimento).toLocaleDateString('pt-BR')}</td>
                                        <td className="px-6 py-4">
                                           {p.comprovanteId ? (
                                             <button onClick={() => {
@@ -535,30 +535,30 @@ const ClientesView: React.FC<ClientesViewProps> = ({ db, setDb }) => {
                   {servicos.map(srv => {
                     const checklist = (clienteSelecionado.tipo === TipoPessoa.JURIDICA && srv.tipo === TipoServicoStrict.RATING) ? CHECKLIST_CONFIG_PJ[srv.tipo] : CHECKLIST_CONFIG[srv.tipo];
                     return (
-                      <div key={srv.id} className="bg-white p-10 rounded-[45px] border border-slate-100 shadow-sm space-y-8 mb-8">
+                      <div key={srv.id} className="bg-[#1c1c1e] p-10 rounded-[45px] border border-[#333336] shadow-sm space-y-8 mb-8">
                         <div className="flex items-center gap-4">
                             <div className="w-12 h-12 rounded-2xl bg-blue-600 text-white flex items-center justify-center shadow-lg"><ClipboardCheck size={24} /></div>
                             <div>
-                              <h4 className="text-xl font-black text-slate-800 tracking-tight">Checklist Operacional: {srv.tipo}</h4>
-                              <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Exigências para Processamento</p>
+                              <h4 className="text-xl font-black text-white tracking-tight">Checklist Operacional: {srv.tipo}</h4>
+                              <p className="text-[10px] font-black text-[#98989d] uppercase tracking-[0.2em]">Exigências para Processamento</p>
                             </div>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             {checklist.map(item => {
                               const anexo = documentos.find(d => d.servicoId === srv.id && d.nomeArquivo.includes(`[CHECKLIST] ${item}`));
                               return (
-                                <div key={item} className={`p-6 rounded-[30px] border-2 transition-all flex flex-col justify-between h-full group ${anexo ? 'border-emerald-100 bg-emerald-50/20' : 'border-slate-50 bg-slate-50/30'}`}>
+                                <div key={item} className={`p-6 rounded-[30px] border-2 transition-all flex flex-col justify-between h-full group ${anexo ? 'border-emerald-100 bg-emerald-50/20' : 'border-slate-50 bg-[#0f0f11]/30'}`}>
                                   <div className="flex justify-between items-start mb-4">
                                       <div className="flex-1">
-                                        <p className={`text-[10px] font-black uppercase tracking-widest mb-1 ${anexo ? 'text-emerald-600' : 'text-slate-400'}`}>Item Requerido</p>
-                                        <p className="text-sm font-black text-slate-700 leading-tight">{item}</p>
+                                        <p className={`text-[10px] font-black uppercase tracking-widest mb-1 ${anexo ? 'text-emerald-600' : 'text-[#98989d]'}`}>Item Requerido</p>
+                                        <p className="text-sm font-black text-[#e5e5ea] leading-tight">{item}</p>
                                       </div>
                                       {anexo ? <CheckCircle2 className="text-emerald-500" size={20} /> : <AlertCircle className="text-amber-400" size={20} />}
                                   </div>
                                   <div className="mt-auto">
                                     {anexo ? (
                                       <div className="flex items-center gap-2">
-                                          <button onClick={() => window.open(`data:${anexo.tipoMime};base64,${anexo.conteudoBase64}`, '_blank')} className="flex-1 py-3 bg-white text-emerald-600 border border-emerald-100 rounded-xl text-[9px] font-black uppercase tracking-widest hover:bg-emerald-600 hover:text-white transition-all">Ver Arquivo</button>
+                                          <button onClick={() => window.open(`data:${anexo.tipoMime};base64,${anexo.conteudoBase64}`, '_blank')} className="flex-1 py-3 bg-[#1c1c1e] text-emerald-600 border border-emerald-100 rounded-xl text-[9px] font-black uppercase tracking-widest hover:bg-emerald-600 hover:text-white transition-all">Ver Arquivo</button>
                                           <button onClick={() => setDb(deletarDocumento(anexo.id))} className="p-3 text-red-300 hover:text-red-500 transition-all"><Trash2 size={16} /></button>
                                       </div>
                                     ) : (
@@ -582,21 +582,21 @@ const ClientesView: React.FC<ClientesViewProps> = ({ db, setDb }) => {
             )}
 
             {activeTab === 'documentos' && (
-              <div className="bg-white p-10 rounded-[45px] border border-slate-100 shadow-sm animate-in fade-in duration-300">
+              <div className="bg-[#1c1c1e] p-10 rounded-[45px] border border-[#333336] shadow-sm animate-in fade-in duration-300">
                  <div className="flex justify-between items-center mb-10">
-                    <h3 className="text-xl font-black text-slate-800 uppercase tracking-tighter">Acervo de Documentos</h3>
-                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{documentos.length} Arquivos totais</p>
+                    <h3 className="text-xl font-black text-white uppercase tracking-tighter">Acervo de Documentos</h3>
+                    <p className="text-[10px] font-black text-[#98989d] uppercase tracking-widest">{documentos.length} Arquivos totais</p>
                  </div>
                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {documentos.map(doc => (
-                      <div key={doc.id} className="p-6 bg-slate-50 border border-slate-100 rounded-[30px] flex items-center gap-5 group hover:border-blue-200 transition-all">
-                         <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center text-blue-500 shadow-sm group-hover:bg-blue-600 group-hover:text-white transition-all">
+                      <div key={doc.id} className="p-6 bg-[#0f0f11] border border-[#333336] rounded-[30px] flex items-center gap-5 group hover:border-blue-200 transition-all">
+                         <div className="w-12 h-12 bg-[#1c1c1e] rounded-2xl flex items-center justify-center text-blue-500 shadow-sm group-hover:bg-blue-600 group-hover:text-white transition-all">
                             <FileIcon size={24} />
                          </div>
                          <div className="flex-1 min-w-0">
                             <p className="text-[9px] font-black text-blue-600 uppercase tracking-widest mb-1">{doc.tipo}</p>
-                            <p className="text-sm font-black text-slate-800 truncate">{doc.nomeArquivo}</p>
-                            <p className="text-[9px] font-bold text-slate-400 uppercase mt-1">{doc.dataUpload}</p>
+                            <p className="text-sm font-black text-white truncate">{doc.nomeArquivo}</p>
+                            <p className="text-[9px] font-bold text-[#98989d] uppercase mt-1">{doc.dataUpload}</p>
                          </div>
                          <div className="flex items-center gap-2">
                             <button onClick={() => window.open(`data:${doc.tipoMime};base64,${doc.conteudoBase64}`, '_blank')} className="p-3 text-slate-300 hover:text-blue-600 transition-all"><Eye size={18} /></button>
@@ -640,33 +640,33 @@ const ClientesView: React.FC<ClientesViewProps> = ({ db, setDb }) => {
 
         {mostrarModalAnexo && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/80 backdrop-blur-sm p-6 overflow-y-auto">
-             <div className="bg-white w-full max-w-lg rounded-[40px] shadow-2xl p-10 animate-in zoom-in-95 duration-200">
+             <div className="bg-[#1c1c1e] w-full max-w-lg rounded-[40px] shadow-2xl p-10 animate-in zoom-in-95 duration-200">
                 <div className="flex justify-between items-center mb-10">
                    <div>
-                      <h3 className="text-2xl font-black text-slate-800">Anexar Documento</h3>
-                      <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mt-1">Acervo Digital do Cliente</p>
+                      <h3 className="text-2xl font-black text-white">Anexar Documento</h3>
+                      <p className="text-xs font-bold text-[#98989d] uppercase tracking-widest mt-1">Acervo Digital do Cliente</p>
                    </div>
                    <button onClick={() => setMostrarModalAnexo(false)} className="text-slate-300 hover:text-red-500 transition-all"><X size={32} /></button>
                 </div>
                 <div className="space-y-6">
                    <div className="space-y-2">
-                      <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-2">Tipo de Documento</label>
-                      <select value={anexoState.tipo} onChange={e => setAnexoState({...anexoState, tipo: e.target.value as any})} className="w-full px-5 py-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold outline-none focus:border-blue-600">
+                      <label className="text-[10px] font-black text-[#98989d] uppercase tracking-widest ml-2">Tipo de Documento</label>
+                      <select value={anexoState.tipo} onChange={e => setAnexoState({...anexoState, tipo: e.target.value as any})} className="w-full px-5 py-4 bg-[#0f0f11] border-2 border-[#333336] rounded-2xl font-bold outline-none focus:border-blue-600">
                          {Object.values(TipoDocumento).map(t => <option key={t} value={t}>{t}</option>)}
                       </select>
                    </div>
                    <div className="space-y-2">
-                      <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-2">Serviço Relacionado (Opcional)</label>
-                      <select value={anexoState.servicoId} onChange={e => setAnexoState({...anexoState, servicoId: e.target.value})} className="w-full px-5 py-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold outline-none focus:border-blue-600">
+                      <label className="text-[10px] font-black text-[#98989d] uppercase tracking-widest ml-2">Serviço Relacionado (Opcional)</label>
+                      <select value={anexoState.servicoId} onChange={e => setAnexoState({...anexoState, servicoId: e.target.value})} className="w-full px-5 py-4 bg-[#0f0f11] border-2 border-[#333336] rounded-2xl font-bold outline-none focus:border-blue-600">
                          <option value="">Não vincular a serviço específico</option>
                          {servicos.map(s => <option key={s.id} value={s.id}>{s.tipo}</option>)}
                       </select>
                    </div>
                    <div className="relative group">
                       <input type="file" onChange={(e) => handleFileUpload(e, anexoState.tipo, anexoState.servicoId)} className="absolute inset-0 opacity-0 cursor-pointer z-20" />
-                      <div className="w-full h-40 border-4 border-dashed border-slate-100 rounded-[35px] flex flex-col items-center justify-center gap-4 group-hover:bg-slate-50 group-hover:border-blue-100 transition-all">
+                      <div className="w-full h-40 border-4 border-dashed border-[#333336] rounded-[35px] flex flex-col items-center justify-center gap-4 group-hover:bg-[#0f0f11] group-hover:border-blue-100 transition-all">
                          <div className="w-12 h-12 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center shadow-inner group-hover:bg-blue-600 group-hover:text-white transition-all"><Paperclip size={24} /></div>
-                         <p className="text-xs font-black text-slate-400 uppercase tracking-widest">Clique ou arraste para enviar</p>
+                         <p className="text-xs font-black text-[#98989d] uppercase tracking-widest">Clique ou arraste para enviar</p>
                       </div>
                    </div>
                 </div>
@@ -676,22 +676,22 @@ const ClientesView: React.FC<ClientesViewProps> = ({ db, setDb }) => {
 
         {mostrarModalNovoServico && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/80 backdrop-blur-sm p-6 overflow-y-auto">
-             <div className="bg-white w-full max-w-2xl rounded-[40px] shadow-2xl p-10 animate-in zoom-in-95 duration-200">
+             <div className="bg-[#1c1c1e] w-full max-w-2xl rounded-[40px] shadow-2xl p-10 animate-in zoom-in-95 duration-200">
                 <div className="flex justify-between items-center mb-10">
-                  <h3 className="text-2xl font-black text-slate-800 tracking-tighter uppercase">Adicionar Serviço</h3>
+                  <h3 className="text-2xl font-black text-white tracking-tighter uppercase">Adicionar Serviço</h3>
                   <button onClick={() => setMostrarModalNovoServico(false)} className="text-slate-300 hover:text-red-500"><X size={32} /></button>
                 </div>
                 <form onSubmit={handleAddServicoAvulso} className="space-y-6">
-                   <select value={formServico.tipo} onChange={e => setFormServico({...formServico, tipo: e.target.value as any})} className="w-full px-5 py-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold">
+                   <select value={formServico.tipo} onChange={e => setFormServico({...formServico, tipo: e.target.value as any})} className="w-full px-5 py-4 bg-[#0f0f11] border-2 border-[#333336] rounded-2xl font-bold">
                      {Object.values(TipoServicoStrict).map(v => <option key={v} value={v}>{v}</option>)}
                    </select>
                    <div className="grid grid-cols-2 gap-4">
-                      <input type="number" required placeholder="Valor Total" value={formServico.valor} onChange={e => setFormServico({...formServico, valor: e.target.value})} className="w-full px-5 py-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold" />
+                      <input type="number" required placeholder="Valor Total" value={formServico.valor} onChange={e => setFormServico({...formServico, valor: e.target.value})} className="w-full px-5 py-4 bg-[#0f0f11] border-2 border-[#333336] rounded-2xl font-bold" />
                       <select 
                         value={isAltoRisco ? 'À Vista' : formServico.formaPagamento} 
                         disabled={isAltoRisco}
                         onChange={e => setFormServico({...formServico, formaPagamento: e.target.value as any})} 
-                        className={`w-full px-5 py-4 border-2 rounded-2xl font-bold ${isAltoRisco ? 'bg-red-50 border-red-200 text-red-700' : 'bg-slate-50 border-slate-100'}`}
+                        className={`w-full px-5 py-4 border-2 rounded-2xl font-bold ${isAltoRisco ? 'bg-red-50 border-red-200 text-red-700' : 'bg-[#0f0f11] border-[#333336]'}`}
                       >
                         <option value="À Vista">À Vista</option>
                         <option value="Parcelado">Parcelado</option>
@@ -711,7 +711,7 @@ const ClientesView: React.FC<ClientesViewProps> = ({ db, setDb }) => {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-8">
         <div className="relative group flex-1 max-w-xl">
           <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-blue-600 transition-colors" size={20} />
-          <input type="text" placeholder="Buscar por nome ou documento..." value={busca} onChange={(e) => setBusca(e.target.value)} className="w-full pl-14 pr-8 py-4 bg-white border-2 border-slate-100 rounded-[25px] outline-none focus:border-blue-500/50 font-bold transition-all shadow-sm" />
+          <input type="text" placeholder="Buscar por nome ou documento..." value={busca} onChange={(e) => setBusca(e.target.value)} className="w-full pl-14 pr-8 py-4 bg-[#1c1c1e] border-2 border-[#333336] rounded-[25px] outline-none focus:border-blue-500/50 font-bold transition-all shadow-sm" />
         </div>
         <button 
           onClick={handleNovoCadastroClick} 
@@ -723,15 +723,15 @@ const ClientesView: React.FC<ClientesViewProps> = ({ db, setDb }) => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {clientesFiltrados.map((cliente: Cliente) => (
-          <div key={cliente.id} onClick={() => handleOpenPasta(cliente)} className="bg-white p-8 rounded-[45px] border border-slate-100 shadow-sm hover:shadow-2xl hover:border-blue-200 transition-all cursor-pointer group flex flex-col h-full relative overflow-hidden">
+          <div key={cliente.id} onClick={() => handleOpenPasta(cliente)} className="bg-[#1c1c1e] p-8 rounded-[45px] border border-[#333336] shadow-sm hover:shadow-2xl hover:border-blue-200 transition-all cursor-pointer group flex flex-col h-full relative overflow-hidden">
             {cliente.riskLevel === NivelRisco.ALTO && <div className="absolute top-0 right-0 px-4 py-1 bg-red-600 text-white text-[8px] font-black uppercase tracking-widest rounded-bl-2xl">Bloqueado</div>}
             <div className="flex items-center gap-5 mb-8">
               <div className={`w-16 h-16 rounded-[22px] flex items-center justify-center text-2xl font-black transition-all shadow-inner ${cliente.riskLevel === NivelRisco.ALTO ? 'bg-red-50 text-red-600' : 'bg-blue-50 text-blue-600'}`}>
                 {cliente.nome.charAt(0)}
               </div>
               <div className="flex-1 min-w-0">
-                <h3 className="text-xl font-black text-slate-800 tracking-tight truncate">{cliente.nome}</h3>
-                <p className="text-[11px] font-black text-slate-400 uppercase tracking-widest">{cliente.riskLevel} • {cliente.riskScore} pts</p>
+                <h3 className="text-xl font-black text-white tracking-tight truncate">{cliente.nome}</h3>
+                <p className="text-[11px] font-black text-[#98989d] uppercase tracking-widest">{cliente.riskLevel} • {cliente.riskScore} pts</p>
                 <p className="text-[10px] font-bold text-slate-300 mt-1 uppercase">Cadastrado em: {cliente.dataCadastro}</p>
               </div>
             </div>
@@ -745,10 +745,10 @@ const ClientesView: React.FC<ClientesViewProps> = ({ db, setDb }) => {
 
       {mostrarModalNovoCliente && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/80 backdrop-blur-sm p-6 overflow-y-auto">
-          <div className="bg-white w-full max-w-3xl rounded-[40px] shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200">
+          <div className="bg-[#1c1c1e] w-full max-w-3xl rounded-[40px] shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200">
              <form onSubmit={handleSalvarNovoCliente} className="p-10 space-y-8">
-                <div className="flex justify-between items-center border-b border-slate-100 pb-6">
-                  <h3 className="text-2xl font-black text-slate-800 tracking-tighter uppercase">Novo Cadastro Estruturado</h3>
+                <div className="flex justify-between items-center border-b border-[#333336] pb-6">
+                  <h3 className="text-2xl font-black text-white tracking-tighter uppercase">Novo Cadastro Estruturado</h3>
                   <button type="button" onClick={() => setMostrarModalNovoCliente(false)} className="text-slate-300 hover:text-red-500"><X size={32} /></button>
                 </div>
 
@@ -756,23 +756,23 @@ const ClientesView: React.FC<ClientesViewProps> = ({ db, setDb }) => {
                    <h4 className="text-xs font-black text-blue-800 uppercase tracking-widest flex items-center gap-2"><User size={16} /> Identificação Pessoal</h4>
                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-1">
-                      <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-2">Nome Completo *</label>
-                      <input required value={formCliente.nome} onChange={e => setFormCliente({...formCliente, nome: e.target.value})} className="w-full px-6 py-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold outline-none focus:border-blue-500 transition-all" />
+                      <label className="text-[10px] font-black text-[#98989d] uppercase tracking-widest ml-2">Nome Completo *</label>
+                      <input required value={formCliente.nome} onChange={e => setFormCliente({...formCliente, nome: e.target.value})} className="w-full px-6 py-4 bg-[#0f0f11] border-2 border-[#333336] rounded-2xl font-bold outline-none focus:border-blue-500 transition-all" />
                     </div>
                     <div className="space-y-1">
-                      <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-2">CPF / CNPJ *</label>
-                      <input required value={formCliente.documento} onChange={e => setFormCliente({...formCliente, documento: e.target.value})} className="w-full px-6 py-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold outline-none focus:border-blue-500 transition-all" />
+                      <label className="text-[10px] font-black text-[#98989d] uppercase tracking-widest ml-2">CPF / CNPJ *</label>
+                      <input required value={formCliente.documento} onChange={e => setFormCliente({...formCliente, documento: e.target.value})} className="w-full px-6 py-4 bg-[#0f0f11] border-2 border-[#333336] rounded-2xl font-bold outline-none focus:border-blue-500 transition-all" />
                     </div>
                     <div className="space-y-1">
-                      <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-2">Data de Nascimento</label>
+                      <label className="text-[10px] font-black text-[#98989d] uppercase tracking-widest ml-2">Data de Nascimento</label>
                       <div className="flex items-center gap-3">
-                        <input type="date" value={formCliente.dataNascimento} onChange={e => setFormCliente({...formCliente, dataNascimento: e.target.value})} className="flex-1 px-6 py-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold outline-none focus:border-blue-500 transition-all" />
+                        <input type="date" value={formCliente.dataNascimento} onChange={e => setFormCliente({...formCliente, dataNascimento: e.target.value})} className="flex-1 px-6 py-4 bg-[#0f0f11] border-2 border-[#333336] rounded-2xl font-bold outline-none focus:border-blue-500 transition-all" />
                         {idadeCalculada !== null && <span className="px-4 py-4 bg-blue-50 text-blue-600 rounded-2xl font-black text-xs">{idadeCalculada} anos</span>}
                       </div>
                     </div>
                     <div className="space-y-1">
-                      <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-2">Tipo de Pessoa</label>
-                      <select value={formCliente.tipo} onChange={e => setFormCliente({...formCliente, tipo: e.target.value as any})} className="w-full px-6 py-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold outline-none">
+                      <label className="text-[10px] font-black text-[#98989d] uppercase tracking-widest ml-2">Tipo de Pessoa</label>
+                      <select value={formCliente.tipo} onChange={e => setFormCliente({...formCliente, tipo: e.target.value as any})} className="w-full px-6 py-4 bg-[#0f0f11] border-2 border-[#333336] rounded-2xl font-bold outline-none">
                          <option value={TipoPessoa.FISICA}>Física</option>
                          <option value={TipoPessoa.JURIDICA}>Jurídica</option>
                       </select>
@@ -784,30 +784,30 @@ const ClientesView: React.FC<ClientesViewProps> = ({ db, setDb }) => {
                    <h4 className="text-xs font-black text-blue-800 uppercase tracking-widest flex items-center gap-2"><MapPin size={16} /> Dados Residenciais</h4>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                       <div className="space-y-1">
-                        <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-2">CEP</label>
-                        <input value={formCliente.cep} onChange={e => setFormCliente({...formCliente, cep: e.target.value})} className="w-full px-6 py-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold outline-none focus:border-blue-500 transition-all" />
+                        <label className="text-[10px] font-black text-[#98989d] uppercase tracking-widest ml-2">CEP</label>
+                        <input value={formCliente.cep} onChange={e => setFormCliente({...formCliente, cep: e.target.value})} className="w-full px-6 py-4 bg-[#0f0f11] border-2 border-[#333336] rounded-2xl font-bold outline-none focus:border-blue-500 transition-all" />
                       </div>
                       <div className="space-y-1">
-                        <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-2">Cidade</label>
-                        <input value={formCliente.cidade} onChange={e => setFormCliente({...formCliente, cidade: e.target.value})} className="w-full px-6 py-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold outline-none focus:border-blue-500 transition-all" />
+                        <label className="text-[10px] font-black text-[#98989d] uppercase tracking-widest ml-2">Cidade</label>
+                        <input value={formCliente.cidade} onChange={e => setFormCliente({...formCliente, cidade: e.target.value})} className="w-full px-6 py-4 bg-[#0f0f11] border-2 border-[#333336] rounded-2xl font-bold outline-none focus:border-blue-500 transition-all" />
                       </div>
                       <div className="space-y-1">
-                        <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-2">Estado</label>
-                        <input placeholder="Ex: SP" maxLength={2} value={formCliente.estado} onChange={e => setFormCliente({...formCliente, estado: e.target.value.toUpperCase()})} className="w-full px-6 py-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold outline-none focus:border-blue-500 transition-all" />
+                        <label className="text-[10px] font-black text-[#98989d] uppercase tracking-widest ml-2">Estado</label>
+                        <input placeholder="Ex: SP" maxLength={2} value={formCliente.estado} onChange={e => setFormCliente({...formCliente, estado: e.target.value.toUpperCase()})} className="w-full px-6 py-4 bg-[#0f0f11] border-2 border-[#333336] rounded-2xl font-bold outline-none focus:border-blue-500 transition-all" />
                       </div>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
                       <div className="md:col-span-2 space-y-1">
-                        <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-2">Endereço / Rua</label>
-                        <input value={formCliente.endereco} onChange={e => setFormCliente({...formCliente, endereco: e.target.value})} className="w-full px-6 py-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold outline-none focus:border-blue-500 transition-all" />
+                        <label className="text-[10px] font-black text-[#98989d] uppercase tracking-widest ml-2">Endereço / Rua</label>
+                        <input value={formCliente.endereco} onChange={e => setFormCliente({...formCliente, endereco: e.target.value})} className="w-full px-6 py-4 bg-[#0f0f11] border-2 border-[#333336] rounded-2xl font-bold outline-none focus:border-blue-500 transition-all" />
                       </div>
                       <div className="space-y-1">
-                        <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-2">Número</label>
-                        <input value={formCliente.numero} onChange={e => setFormCliente({...formCliente, numero: e.target.value})} className="w-full px-6 py-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold outline-none focus:border-blue-500 transition-all" />
+                        <label className="text-[10px] font-black text-[#98989d] uppercase tracking-widest ml-2">Número</label>
+                        <input value={formCliente.numero} onChange={e => setFormCliente({...formCliente, numero: e.target.value})} className="w-full px-6 py-4 bg-[#0f0f11] border-2 border-[#333336] rounded-2xl font-bold outline-none focus:border-blue-500 transition-all" />
                       </div>
                       <div className="space-y-1">
-                        <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-2">Bairro</label>
-                        <input value={formCliente.bairro} onChange={e => setFormCliente({...formCliente, bairro: e.target.value})} className="w-full px-6 py-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold outline-none focus:border-blue-500 transition-all" />
+                        <label className="text-[10px] font-black text-[#98989d] uppercase tracking-widest ml-2">Bairro</label>
+                        <input value={formCliente.bairro} onChange={e => setFormCliente({...formCliente, bairro: e.target.value})} className="w-full px-6 py-4 bg-[#0f0f11] border-2 border-[#333336] rounded-2xl font-bold outline-none focus:border-blue-500 transition-all" />
                       </div>
                     </div>
                 </div>
@@ -816,12 +816,12 @@ const ClientesView: React.FC<ClientesViewProps> = ({ db, setDb }) => {
                    <h4 className="text-sm font-black text-blue-800 uppercase tracking-widest flex items-center gap-2"><Briefcase size={18} /> Seleção de Serviços e Financeiro</h4>
                    
                    <div className="space-y-2">
-                     <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-2">Tipo de Serviço Contratado</label>
+                     <label className="text-[10px] font-black text-[#98989d] uppercase tracking-widest ml-2">Tipo de Serviço Contratado</label>
                      <select 
                       required 
                       value={formCliente.tipoServicoContratado} 
                       onChange={e => setFormCliente({...formCliente, tipoServicoContratado: e.target.value})} 
-                      className="w-full px-5 py-4 bg-white border-2 border-slate-100 rounded-2xl font-bold text-sm outline-none focus:border-blue-600 transition-all"
+                      className="w-full px-5 py-4 bg-[#1c1c1e] border-2 border-[#333336] rounded-2xl font-bold text-sm outline-none focus:border-blue-600 transition-all"
                      >
                         <option value="">Selecione o serviço...</option>
                         <optgroup label="🔹 Serviços Individuais">
@@ -848,32 +848,32 @@ const ClientesView: React.FC<ClientesViewProps> = ({ db, setDb }) => {
 
                    <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                       <div className="space-y-1">
-                        <label className="text-[9px] font-black text-slate-400 uppercase ml-2">Valor Total (R$)</label>
-                        <input required type="number" placeholder="0,00" value={formCliente.valorTotal} onChange={e => setFormCliente({...formCliente, valorTotal: e.target.value})} className="w-full px-5 py-4 bg-white border border-slate-200 rounded-2xl font-bold" />
+                        <label className="text-[9px] font-black text-[#98989d] uppercase ml-2">Valor Total (R$)</label>
+                        <input required type="number" placeholder="0,00" value={formCliente.valorTotal} onChange={e => setFormCliente({...formCliente, valorTotal: e.target.value})} className="w-full px-5 py-4 bg-[#1c1c1e] border border-[#333336] rounded-2xl font-bold" />
                       </div>
                       <div className="space-y-1">
-                        <label className="text-[9px] font-black text-slate-400 uppercase ml-2">Entrada (R$)</label>
-                        <input type="number" placeholder="0,00" value={formCliente.valorEntrada} onChange={e => setFormCliente({...formCliente, valorEntrada: e.target.value})} className="w-full px-5 py-4 bg-white border border-slate-200 rounded-2xl font-bold text-emerald-600" />
+                        <label className="text-[9px] font-black text-[#98989d] uppercase ml-2">Entrada (R$)</label>
+                        <input type="number" placeholder="0,00" value={formCliente.valorEntrada} onChange={e => setFormCliente({...formCliente, valorEntrada: e.target.value})} className="w-full px-5 py-4 bg-[#1c1c1e] border border-[#333336] rounded-2xl font-bold text-emerald-600" />
                       </div>
                       <div className="space-y-1">
-                        <label className="text-[9px] font-black text-slate-400 uppercase ml-2">Forma</label>
-                        <select value={formCliente.formaPagamento} onChange={e => setFormCliente({...formCliente, formaPagamento: e.target.value})} className="w-full px-5 py-4 bg-white border border-slate-200 rounded-2xl font-bold">
+                        <label className="text-[9px] font-black text-[#98989d] uppercase ml-2">Forma</label>
+                        <select value={formCliente.formaPagamento} onChange={e => setFormCliente({...formCliente, formaPagamento: e.target.value})} className="w-full px-5 py-4 bg-[#1c1c1e] border border-[#333336] rounded-2xl font-bold">
                            <option value="À Vista">À Vista</option>
                            <option value="Parcelado">Parcelado</option>
                         </select>
                       </div>
                       {formCliente.formaPagamento === 'Parcelado' && (
                         <div className="space-y-1">
-                          <label className="text-[9px] font-black text-slate-400 uppercase ml-2">Parcelas</label>
-                          <input type="number" min="1" max="12" placeholder="Qtd" value={formCliente.qtdParcelas} onChange={e => setFormCliente({...formCliente, qtdParcelas: e.target.value})} className="w-full px-5 py-4 bg-white border border-slate-200 rounded-2xl font-bold" />
+                          <label className="text-[9px] font-black text-[#98989d] uppercase ml-2">Parcelas</label>
+                          <input type="number" min="1" max="12" placeholder="Qtd" value={formCliente.qtdParcelas} onChange={e => setFormCliente({...formCliente, qtdParcelas: e.target.value})} className="w-full px-5 py-4 bg-[#1c1c1e] border border-[#333336] rounded-2xl font-bold" />
                         </div>
                       )}
                    </div>
                 </div>
 
                 <div className="space-y-1">
-                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-2">Observações Gerais</label>
-                    <textarea value={formCliente.observacoesGerais} onChange={e => setFormCliente({...formCliente, observacoesGerais: e.target.value})} className="w-full px-6 py-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold outline-none focus:border-blue-500 transition-all" rows={2} />
+                    <label className="text-[10px] font-black text-[#98989d] uppercase tracking-widest ml-2">Observações Gerais</label>
+                    <textarea value={formCliente.observacoesGerais} onChange={e => setFormCliente({...formCliente, observacoesGerais: e.target.value})} className="w-full px-6 py-4 bg-[#0f0f11] border-2 border-[#333336] rounded-2xl font-bold outline-none focus:border-blue-500 transition-all" rows={2} />
                 </div>
 
                 <button type="submit" className="w-full py-6 bg-blue-600 text-white font-black uppercase tracking-[0.3em] rounded-[25px] shadow-2xl hover:bg-blue-700 transition-all flex items-center justify-center gap-4 active:scale-95">
@@ -889,8 +889,8 @@ const ClientesView: React.FC<ClientesViewProps> = ({ db, setDb }) => {
 
 const DataField = ({ label, value }: { label: string, value: string }) => (
   <div className="space-y-1">
-    <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{label}</p>
-    <p className="text-base font-bold text-slate-700">{value || "Não informado"}</p>
+    <p className="text-[10px] font-black text-[#98989d] uppercase tracking-widest">{label}</p>
+    <p className="text-base font-bold text-[#e5e5ea]">{value || "Não informado"}</p>
   </div>
 );
 
