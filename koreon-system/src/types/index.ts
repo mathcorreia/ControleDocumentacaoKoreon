@@ -15,10 +15,8 @@ export interface DashboardStats {
 export interface Client {
   id: string;
   name: string;
-  nome?: string; 
   phone: string;
   cpf: string;
-  documento?: string; 
   status: string;
   totalContracted: number;
   paid: number;
@@ -26,9 +24,6 @@ export interface Client {
   createdAt: string;
   services?: ClientService[];
   referralReceived?: Referral;
-  riskScore?: number;
-  riskLevel?: NivelRisco;
-  prioridade?: PrioridadeOperacional;
 }
 
 export interface Affiliate {
@@ -130,63 +125,167 @@ export interface Referral {
 // TIPOS DO ERP
 // ==========================================
 
+export enum TipoPessoa {
+  FISICA = 'Pessoa Física',
+  JURIDICA = 'Pessoa Jurídica'
+}
+
 export enum TipoServicoStrict {
   LIMPA_NOME = 'Limpa Nome',
   SCORE = 'Aumento de Score',
-  RATING = 'Restabelecimento de Rating',
-  JUSBRASIL = 'Blindagem JusBrasil'
+  RATING = 'Rating Bancário',
+  REDUCAO = 'Redução de Parcelas',
+  JUSBRASIL = 'JusBrasil',
+  LIMPA_TELA = 'Limpa Tela'
+}
+
+export enum StatusServico {
+  INICIO = 'Início',
+  EM_ANDAMENTO = 'Em Andamento',
+  FASE_FINAL = 'Fase Final',
+  CONCLUIDO = 'Concluído',
+  ATRASADO = 'Atrasado',
+  SUSPENSO = 'Suspenso por Risco'
+}
+
+export enum StatusPagamento {
+  PAGO = 'Pago',
+  PENDENTE = 'Pendente',
+  ATRASADO = 'Atrasado'
+}
+
+export enum TipoDocumento {
+  CONTRATO = 'Contrato',
+  DOCUMENTO_CLIENTE = 'Documento do Cliente',
+  FICHA_ASSOCIATIVA = 'Ficha Associativa',
+  CONSULTA = 'Consulta',
+  NADA_CONSTA = 'Nada Consta'
 }
 
 export enum StatusOrgao {
   NAO_INICIADO = 'Não Iniciado',
-  INICIADO = 'Em Andamento',
+  INICIADO = 'Iniciado',
   CONCLUIDO = 'Concluído'
 }
 
-export enum TipoDocumento {
-  FICHA_ASSOCIATIVA = 'Ficha Associativa',
-  DOCUMENTO_PESSOAL = 'Documento Pessoal',
-  COMPROVANTE_RESIDENCIA = 'Comprovante de Residência',
-  CONTRATO = 'Contrato',
-  OUTROS = 'Outros'
+export enum StatusLista {
+  EM_ANDAMENTO = 'Em andamento',
+  CONCLUIDO = '100% Baixado',
+  REPROTOCOLO = 'Reprotocolo'
 }
 
 export enum StatusFornecedor {
   ATIVO = 'Ativo',
-  INATIVO = 'Inativo',
-  BLOQUEADO = 'Bloqueado',
-  EM_AVALIACAO = 'Em Avaliação'
+  OBSERVACAO = 'Em Observação',
+  BLOQUEADO = 'Bloqueado Automaticamente'
 }
 
 export enum NivelRisco {
-  BAIXO = 'Baixo',
-  MEDIO = 'Médio',
-  ALTO = 'Alto',
-  CRITICO = 'Crítico'
+  BAIXO = 'Risco Baixo',
+  MEDIO = 'Risco Médio',
+  ALTO = 'Alto Risco',
+  CRITICO = 'Risco Crítico'
 }
 
 export enum PrioridadeOperacional {
-  BAIXA = 'Baixa',
-  NORMAL = 'Normal',
-  ALTA = 'Alta',
-  URGENTE = 'Urgente',
-  CONGELADO = 'Congelado'
+  ALTA = 'Alta Prioridade',
+  NORMAL = 'Prioridade Normal',
+  CONGELADO = 'Operação Congelada'
 }
 
-export type StatusLista = 'Em andamento' | '100% Baixado' | 'Reprotocolo';
-export type StatusServico = 'Pendente' | 'Em Andamento' | 'Concluído' | 'Cancelado';
-export type StatusPagamento = 'Pendente' | 'Pago' | 'Atrasado';
+export interface Fornecedor {
+  id: string;
+  nome: string;
+  contato: string;
+  status: StatusFornecedor;
+  scoreAtual: number;
+  tendencia: 'up' | 'down' | 'stable';
+  posicaoRank: number;
+  slaCumprimento: number; 
+  atrasoMedioDias: number;
+  taxaRetrabalho: number; 
+  custoMedioMercadoRelativo: number; 
+  capacidadeVolume: number; 
+}
+
+export interface Documento {
+  id: string;
+  clienteId: string;
+  servicoId?: string;
+  tipo: TipoDocumento;
+  nomeArquivo: string;
+  conteudoBase64: string;
+  tipoMime: string;
+  tamanhoArquivo: number;
+  dataUpload: string;
+  url?: string;
+}
+
+export interface ServicoContratado {
+  id: string;
+  clienteId: string;
+  tipo: TipoServicoStrict; 
+  valorContratado: number;
+  formaPagamento: 'À Vista' | 'Parcelado' | string;
+  qtdParcelas: number;
+  dataContrato: string;
+  prazoAcordado: string;
+  status: StatusServico;
+  progresso: number; 
+  obsTecnicas: string;
+  responsavel: string;
+  margemLiquida?: number;
+  nivelRisco?: NivelRisco;
+}
+
+export interface Cliente {
+  id: string;
+  nome: string;
+  tipo: TipoPessoa;
+  documento: string; 
+  rgIe: string;
+  dataNascimento?: string;
+  endereco: string;
+  bairro?: string;
+  estado?: string;
+  cep: string;
+  numero: string;
+  cidade: string;
+  telefone: string;
+  email: string;
+  dataCadastro: string;
+  observacoes: string;
+  riskScore: number;
+  riskLevel: NivelRisco;
+  prioridade: PrioridadeOperacional;
+}
+
+export interface Pagamento {
+  id: string;
+  clienteId: string;
+  servicoId: string;
+  valorTotal: number;
+  numParcela: number;
+  qtdParcelas: number;
+  valorParcela: number;
+  dataVencimento: string;
+  status: StatusPagamento;
+  comprovanteId?: string; 
+}
 
 export interface ListaProcessual {
   id: string;
   nome: string;
-  tipoServico: TipoServicoStrict | string;
-  observacoes: string;
+  tipoServico: TipoServicoStrict;
   dataInicio: string;
-  fornecedor?: string;
-  custoAcao?: number;
-  statusGeral: string;
+  statusGeral: 'Em andamento' | '100% Baixado' | 'Reprotocolo' | string;
   ultimaAtualizacao: string;
+  observacoes: string;
+  fornecedor?: string; 
+  custoAcao?: number;
+  margemBruta?: number;
+  margemLiquida?: number;
+  riscoCalculado?: NivelRisco;
 }
 
 export interface ListaOrgao {
@@ -199,54 +298,22 @@ export interface ListaOrgao {
 
 export interface ClientePorLista {
   id?: string;
+  clienteId: string;
+  servicoId: string;
   listaId: string;
-  clienteId: string;
-  servicoId: string;
-  observacoesIndividuais?: string;
-  situacao?: string;
+  situacao: 'Aguardando' | 'Em andamento' | 'Finalizado' | 'Baixado' | 'Reprotocolo' | string;
   nadaConstaAnexado?: boolean;
+  observacoesIndividuais: string;
 }
 
-export interface Documento {
-  id: string;
-  clienteId: string;
-  servicoId?: string;
-  tipo: TipoDocumento | string;
-  nomeArquivo: string;
-  dataUpload: string;
-  url?: string;
-  conteudoBase64?: string;
-  tipoMime?: string;
-  tamanhoArquivo?: number;
-}
-
-export interface ServicoContratado {
-  id: string;
-  clienteId: string;
-  tipo: string;
-  valorContratado?: number;
-  formaPagamento?: string;
-  qtdParcelas?: number;
-  dataContrato?: string;
-  prazoAcordado?: string;
-  obsTecnicas?: string;
-  responsavel?: string;
-  progresso?: number;
-  status?: StatusServico | string;
-}
-
-export interface Pagamento {
+export interface HistoricoAcompanhamento {
   id: string;
   clienteId: string;
   servicoId: string;
-  valorTotal: number;
-  numParcela: number;
-  qtdParcelas: number;
-  valorParcela: number;
-  dataVencimento: string;
-  status: StatusPagamento | string;
-  comprovanteId?: string;
+  tipoServico: TipoServicoStrict;
+  tipoAcao: 'Status' | 'WhatsApp' | string;
+  conteudo: string;
+  statusNovo?: StatusServico;
+  dataHora: string;
+  responsavel: string;
 }
-
-// --- ALIAS DE COMPATIBILIDADE CRM <-> ERP ---
-export interface Cliente extends Client {}

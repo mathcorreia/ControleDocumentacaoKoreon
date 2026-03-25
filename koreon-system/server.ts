@@ -1,10 +1,10 @@
 import express from "express";
 import { createServer as createViteServer } from "vite";
-import { prisma } from "./src/lib/prisma";
+import { prisma } from "../crm-financeiro-de-indicações (3)/src/lib/prisma";
 import dotenv from "dotenv";
 import path from "path";
 import { fileURLToPath } from "url";
-import { SystemManager } from "./src/utils/systemManager";
+import { SystemManager } from "../crm-financeiro-de-indicações (3)/src/utils/systemManager";
 
 dotenv.config();
 
