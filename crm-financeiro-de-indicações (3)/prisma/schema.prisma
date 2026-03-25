@@ -1,0 +1,177 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       String @id @default(cuid())
+  email    String @unique
+  password String
+  name     String
+}
+
+model Client {
+  id               String          @id @default(cuid())
+  name             String
+  phone            String
+  cpf              String          @unique
+  status           String          @default("lead")
+  totalContracted  Float           @default(0)
+  paid             Float           @default(0)
+  pending          Float           @default(0)
+  createdAt        DateTime        @default(now())
+  updatedAt        DateTime        @updatedAt
+  affiliateId      String?
+  affiliate        Affiliate?      @relation(fields: [affiliateId], references: [id])
+  services         ClientService[]
+  contracts        Contract[]
+  referralReceived Referral?       @relation("Referred")
+  referralsMade    Referral[]      @relation("Referrer")
+}
+
+model Affiliate {
+  id                            String     @id @default(cuid())
+  name                          String
+  phone                         String
+  cpf                           String     @unique
+  referralsCount                Int        @default(0)
+  commissionsTotal              Float      @default(0)
+  commissionsPaid               Float      @default(0)
+  commissionsPending            Float      @default(0)
+  defaultCommissionValue        Float      @default(0)
+  defaultCommissionInstallments Int        @default(1)
+  commissionType                String     @default("upfront")
+  createdAt                     DateTime   @default(now())
+  clients                       Client[]
+  referrals                     Referral[]
+}
+
+model Contract {
+  id                String        @id @default(cuid())
+  clientId          String
+  totalValue        Float
+  entryValue        Float
+  paymentMethod     String
+  installmentsCount Int
+  status            String        @default("ativo")
+  contractDate      DateTime?
+  contractUrl       String?
+  createdAt         DateTime      @default(now())
+  client            Client        @relation(fields: [clientId], references: [id])
+  installments      Installment[]
+}
+
+model Installment {
+  id            String    @id @default(cuid())
+  contractId    String
+  number        Int
+  value         Float
+  dueDate       DateTime
+  status        String    @default("pendente")
+  paymentDate   DateTime?
+  proofUrl      String?
+  delayDays     Int?
+  billingSentAt DateTime?
+  contract      Contract  @relation(fields: [contractId], references: [id])
+}
+
+model Referral {
+  id                     String     @id @default(cuid())
+  referrerId             String?
+  affiliateId            String?
+  referredClientId       String     @unique
+  contractValue          Float
+  commission             Float
+  commissionValue        Float      @default(0)
+  commissionInstallments Int        @default(1)
+  commissionType         String     @default("upfront")
+  status                 String     @default("pendente")
+  paidAt                 DateTime?
+  paymentMethod          String?
+  receiptUrl             String?
+  createdAt              DateTime   @default(now())
+  referredClient         Client     @relation("Referred", fields: [referredClientId], references: [id])
+  affiliate              Affiliate? @relation(fields: [affiliateId], references: [id])
+  referrer               Client?    @relation("Referrer", fields: [referrerId], references: [id])
+}
+
+model FinancialMovement {
+  id          String   @id @default(cuid())
+  date        DateTime @default(now())
+  type        String
+  description String
+  value       Float
+  category    String
+  referenceId String?
+  createdAt   DateTime @default(now())
+}
+
+model SystemUpdate {
+  id          String   @id @default(cuid())
+  version     String   @unique
+  description String
+  appliedAt   DateTime @default(now())
+}
+
+model SystemLog {
+  id          String   @id @default(cuid())
+  type        String
+  description String
+  user        String?
+  data        String?
+  createdAt   DateTime @default(now())
+}
+
+model Expense {
+  id          String   @id @default(cuid())
+  description String
+  value       Float
+  date        DateTime @default(now())
+  dueDate     DateTime @default(now())
+  category    String
+  status      String   @default("pendente")
+  isRecurring Boolean  @default(false)
+}
+
+model Supplier {
+  id        String   @id @default(cuid())
+  name      String
+  phone     String
+  service   String
+  price     Float
+  createdAt DateTime @default(now())
+}
+
+model NameList {
+  id            String   @id @default(cuid())
+  name          String
+  count         Int
+  pricePaid     Float    @default(0)
+  marketingCost Float    @default(0)
+  costPerName   Float    @default(0)
+  createdAt     DateTime @default(now())
+}
+
+model Service {
+  id          String          @id @default(cuid())
+  name        String
+  price       Float
+  avgDuration Int
+  status      String          @default("ativo")
+  clients     ClientService[]
+}
+
+model ClientService {
+  id        String    @id @default(cuid())
+  clientId  String
+  serviceId String
+  status    String    @default("em_andamento")
+  startDate DateTime  @default(now())
+  endDate   DateTime?
+  service   Service   @relation(fields: [serviceId], references: [id])
+  client    Client    @relation(fields: [clientId], references: [id])
+}
