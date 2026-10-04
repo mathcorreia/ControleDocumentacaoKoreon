@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
 import './KoreonTheme.css';
-import { getDB } from './db'; // <-- Importamos o banco de dados
+import { getDB } from './db';
 
 // --- IMPORTAÇÕES DO MÓDULO CRM ---
 import CrmDashboard from './views/crm/DashboardView';
@@ -24,27 +24,22 @@ import ErpFinanceCFO from './views/erp/FinanceiroCFO';
 function AppContent() {
   const [searchTerm, setSearchTerm] = useState('');
   const location = useLocation();
-  
-  // Inicializamos o estado global do banco de dados do ERP
   const [db, setDb] = useState<any>(null);
 
   useEffect(() => {
-    // Carrega os dados reais do localStorage assim que o App abre
     setDb(getDB());
   }, []);
 
   const isCrmActive = location.pathname.startsWith('/crm');
   const isErpActive = location.pathname.startsWith('/erp');
 
-  // Evita renderizar as telas antes do banco carregar
   if (!db) return <div style={{ color: 'white', padding: '50px', textAlign: 'center' }}>Carregando Sistema...</div>;
 
   return (
     <div className="dashboard-container">
-      {/* HEADER KOREON */}
       <header className="dashboard-header">
         <div className="header-brand">
-          <Link to="/" className="logo-area" style={{ textDecoration: 'none', color: 'inherit' }} title="Koreon System">
+          <Link to="/" className="logo-area" style={{ textDecoration: 'none', color: 'inherit' }}>
             <img src="/icons.svg" alt="Koreon Logo" style={{ width: 45, height: 45, objectFit: 'contain' }} />
             <h1>KOREON <span className="thin">BUSINESS</span></h1>
             <div className="system-status-light"></div>
@@ -63,19 +58,17 @@ function AppContent() {
               placeholder="Pesquisa global..." 
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="bg-[#0f0f11] border border-[#333336] text-white px-4 py-2 rounded-xl focus:border-[#0071e3] outline-none"
+              className="bg-[#0f0f11] border border-[#333336] text-white px-4 py-2 rounded-xl outline-none"
             />
           </div>
-          <button className="btn btn-primary bg-[#0071e3] hover:bg-[#005bb5] text-white px-4 py-2 rounded-xl transition-all">
-            + Novo Registo
+          <button className="btn btn-primary bg-[#0071e3] text-white px-4 py-2 rounded-xl">
+            + Novo Registro
           </button>
         </div>
       </header>
 
       <div className="layout-body" style={{ display: 'flex', gap: '25px', flex: 1 }}>
-        {/* SIDEBAR DE NAVEGAÇÃO */}
         <aside className="koreon-sidebar" style={{ width: '250px', background: '#1c1c1e', border: '1px solid #333336', borderRadius: '16px', padding: '20px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
-          
           <div className="sidebar-section">
             <h3 style={{ color: '#0071e3', fontSize: '0.75rem', textTransform: 'uppercase', marginBottom: '10px' }}>Gestão & CRM</h3>
             <Link to="/crm/dashboard" className="sidebar-link">Dashboard Gestão</Link>
@@ -97,10 +90,8 @@ function AppContent() {
             <Link to="/erp/listas" className="sidebar-link">Listas e Lotes</Link>
             <Link to="/erp/financeiro-cfo" className="sidebar-link">Financeiro Avançado (CFO)</Link>
           </div>
-
         </aside>
 
-        {/* ÁREA DE RENDERIZAÇÃO DAS TELAS */}
         <main className="main-content" style={{ flex: 1, background: '#1c1c1e', border: '1px solid #333336', borderRadius: '16px', padding: '25px', overflowY: 'auto' }}>
           <Routes>
             <Route path="/" element={
@@ -110,16 +101,16 @@ function AppContent() {
               </div>
             } />
 
-            {/* ROTAS DO CRM (Sem props de db, pois o CRM original não as usava) */}
-            <Route path="/crm/dashboard" element={<CrmDashboard />} />
-            <Route path="/crm/clientes" element={<CrmClients />} />
-            <Route path="/crm/afiliados" element={<CrmAffiliates />} />
-            <Route path="/crm/comissoes" element={<CrmCommissions />} />
-            <Route path="/crm/contratos" element={<CrmContracts />} />
-            <Route path="/crm/automacao" element={<CrmContractAutomation />} />
-            <Route path="/crm/financeiro" element={<CrmFinance />} />
+            {/* CRM ROUTES - CORRIGIDAS: Agora recebem db e setDb */}
+            <Route path="/crm/dashboard" element={<CrmDashboard db={db} />} />
+            <Route path="/crm/clientes" element={<CrmClients db={db} setDb={setDb} />} />
+            <Route path="/crm/afiliados" element={<CrmAffiliates db={db} setDb={setDb} />} />
+            <Route path="/crm/comissoes" element={<CrmCommissions db={db} setDb={setDb} />} />
+            <Route path="/crm/contratos" element={<CrmContracts db={db} setDb={setDb} />} />
+            <Route path="/crm/automacao" element={<CrmContractAutomation db={db} setDb={setDb} />} />
+            <Route path="/crm/financeiro" element={<CrmFinance db={db} setDb={setDb} />} />
 
-            {/* ROTAS DO ERP (Passando o db real e a função de atualizar) */}
+            {/* ERP ROUTES */}
             <Route path="/erp/dashboard" element={<ErpDashboard db={db} />} />
             <Route path="/erp/operacoes" element={<ErpOperationsCenter db={db} setDb={setDb} />} />
             <Route path="/erp/servicos" element={<ErpServices db={db} setDb={setDb} />} />

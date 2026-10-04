@@ -21,7 +21,7 @@ import {
   AreaChart,
   Area
 } from 'recharts';
-import { DashboardStats } from '../../types';
+import type { DashboardStats } from '../../types';
 import { formatCurrency } from '../../utils/utils';
 
 const data = [

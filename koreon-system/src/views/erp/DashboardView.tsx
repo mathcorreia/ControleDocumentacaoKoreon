@@ -1,129 +1,138 @@
-
 import React from 'react';
 import { 
-  Users, Briefcase, TrendingUp, AlertCircle, 
-  CheckCircle2, Clock, DollarSign, ArrowRight, ShieldAlert, Zap, Ban, TrendingDown
+  Users, 
+  FileCheck, 
+  TrendingUp, 
+  Wallet, 
+  ArrowUpRight, 
+  ArrowDownRight,
+  Calendar,
+  Clock,
+  Bell
 } from 'lucide-react';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell, PieChart, Pie } from 'recharts';
-import { StatusServico, StatusPagamento, NivelRisco } from '../../types';
+import { 
+  AreaChart,
+  Area,
+  XAxis, 
+  YAxis, 
+  CartesianGrid, 
+  Tooltip, 
+  ResponsiveContainer
+} from 'recharts';
+import { formatCurrency } from '../../utils/utils';
 
-interface DashboardProps {
-  db: any;
-}
+// Dados estáticos para o gráfico (pode ser movido para o db.ts futuramente)
+const chartData = [
+  { name: 'Jan', vendas: 4000, lucro: 2400 },
+  { name: 'Fev', vendas: 3000, lucro: 1398 },
+  { name: 'Mar', vendas: 2000, lucro: 9800 },
+  { name: 'Abr', vendas: 2780, lucro: 3908 },
+  { name: 'Mai', vendas: 1890, lucro: 4800 },
+  { name: 'Jun', vendas: 2390, lucro: 3800 },
+];
 
-const DashboardView: React.FC<DashboardProps> = ({ db }) => {
-  const totalClientes = db.clientes.length;
-  const servicosAtivos = db.servicos.filter((s: any) => s.status !== StatusServico.CONCLUIDO).length;
+export default function DashboardView({ db }: { db: any }) {
+  // Lógica de cálculo em tempo real baseada no localStorage
+  const totalRevenue = db.servicos.reduce((acc: number, s: any) => acc + (s.valorContratado || 0), 0);
+  const receivedAmount = db.pagamentos
+    .filter((p: any) => p.status === 'Pago')
+    .reduce((acc: number, p: any) => acc + (p.valorParcela || 0), 0);
   
-  // Risk Metrics
-  const highRiskCount = db.clientes.filter((c: any) => c.riskLevel === NivelRisco.ALTO).length;
-  const revenueAtRisk = db.pagamentos
-    .filter((p: any) => (p.status === StatusPagamento.ATRASADO || (p.status === StatusPagamento.PENDENTE && new Date(p.dataVencimento) < new Date())))
-    .reduce((acc: number, curr: any) => acc + curr.valorParcela, 0);
+  const overdueCount = db.pagamentos.filter((p: any) => 
+    p.status === 'Atrasado' || (p.status === 'Pendente' && new Date(p.dataVencimento) < new Date())
+  ).length;
 
-  const blockedServicesCount = db.servicos.filter((s: any) => s.status === StatusServico.SUSPENSO).length;
-  const upsellEligibleCount = db.clientes.filter((c: any) => c.riskLevel === NivelRisco.BAIXO).length;
-
-  const statusData = [
-    { name: 'Início', count: db.servicos.filter((s: any) => s.status === StatusServico.INICIO).length },
-    { name: 'Andamento', count: db.servicos.filter((s: any) => s.status === StatusServico.EM_ANDAMENTO).length },
-    { name: 'Fase Final', count: db.servicos.filter((s: any) => s.status === StatusServico.FASE_FINAL).length },
-    { name: 'Concluído', count: db.servicos.filter((s: any) => s.status === StatusServico.CONCLUIDO).length },
+  const cards = [
+    { label: 'Total de Clientes', value: db.clientes.length, icon: Users, color: 'text-blue-600', bg: 'bg-blue-50' },
+    { label: 'Contratos Ativos', value: db.servicos.filter((s: any) => s.status !== 'Concluído').length, icon: FileCheck, color: 'text-emerald-600', bg: 'bg-emerald-50' },
+    { label: 'Parcelas Vencidas', value: overdueCount, icon: Clock, color: 'text-red-600', bg: 'bg-red-50' },
+    { label: 'Faturamento Total', value: formatCurrency(totalRevenue), icon: TrendingUp, color: 'text-indigo-600', bg: 'bg-indigo-50' },
   ];
 
-  const COLORS = ['#2563eb', '#10b981', '#f59e0b', '#8b5cf6'];
-
   return (
-    <div className="space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-500">
-      {/* RISK COMMAND CENTER (NEW) */}
-      <div className="bg-[#1c1c1e] p-8 rounded-[45px] border-2 border-red-50 shadow-xl">
-        <div className="flex items-center gap-3 mb-8">
-           <ShieldAlert className="text-red-600" size={28} />
-           <h2 className="text-2xl font-black text-white tracking-tighter uppercase">Risk Command Center</h2>
+    <div className="space-y-8">
+      <div className="flex items-center justify-between">
+        <div>
+          <h2 className="text-2xl font-bold text-white">Visão Geral CRM</h2>
+          <p className="text-[#98989d]">Estatísticas consolidadas do banco de dados local.</p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-            <RiskMetric label="Alto Risco (Bloqueados)" value={highRiskCount} icon={Ban} color="text-red-600" bg="bg-red-50" />
-            <RiskMetric label="Receita em Risco (Atraso)" value={`R$ ${revenueAtRisk.toLocaleString('pt-BR')}`} icon={TrendingDown} color="text-amber-600" bg="bg-amber-50" />
-            <RiskMetric label="Serviços Suspensos" value={blockedServicesCount} icon={Lock} color="text-slate-600" bg="bg-[#0f0f11]" />
-            <RiskMetric label="Elegíveis para Upsell" value={upsellEligibleCount} icon={Zap} color="text-emerald-600" bg="bg-emerald-50" />
+        <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 bg-[#1c1c1e] p-2 rounded-xl border border-[#333336]">
+            <Calendar size={18} className="text-[#98989d]" />
+            <span className="text-sm font-medium text-white">Últimos 30 dias</span>
+          </div>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-        <MetricCard icon={Users} label="Total de Clientes" value={totalClientes} color="bg-blue-600" />
-        <MetricCard icon={Briefcase} label="Serviços Ativos" value={servicosAtivos} color="bg-emerald-500" />
-        <MetricCard icon={Clock} label="Ações em Atraso" value={db.servicos.filter((s: any) => s.status === StatusServico.ATRASADO).length} color="bg-amber-500" urgent />
-        <MetricCard icon={DollarSign} label="Pagamentos Pendentes" value={db.pagamentos.filter((p: any) => p.status !== StatusPagamento.PAGO).length} color="bg-indigo-600" />
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {cards.map((card, i) => (
+          <div key={i} className="bg-[#1c1c1e] p-6 rounded-2xl border border-[#333336] shadow-sm">
+            <div className="flex items-center justify-between mb-4">
+              <div className={cn("p-3 rounded-xl", card.bg)}>
+                <card.icon className={card.color} size={24} />
+              </div>
+            </div>
+            <p className="text-[#98989d] text-sm font-medium">{card.label}</p>
+            <h3 className="text-2xl font-bold mt-1 text-white">{card.value}</h3>
+          </div>
+        ))}
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
-        <div className="lg:col-span-2 bg-[#1c1c1e] p-8 rounded-3xl shadow-sm border border-[#333336]">
-          <h3 className="text-xl font-black text-white mb-8 flex items-center gap-3">
-            <TrendingUp size={24} className="text-blue-600" /> Distribuição de Status Operacional
-          </h3>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="lg:col-span-2 bg-[#1c1c1e] p-6 rounded-2xl border border-[#333336]">
+          <h3 className="font-bold text-lg text-white mb-8">Desempenho de Vendas</h3>
           <div className="h-80">
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={statusData}>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
-                <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{fill: '#94a3b8', fontSize: 13, fontWeight: 600}} />
-                <YAxis axisLine={false} tickLine={false} tick={{fill: '#94a3b8', fontSize: 13}} />
-                <Tooltip cursor={{fill: '#f8fafc'}} contentStyle={{ borderRadius: '16px', border: 'none' }} />
-                <Bar dataKey="count" radius={[8, 8, 0, 0]}>
-                  {statusData.map((entry, index) => <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />)}
-                </Bar>
-              </BarChart>
+              <AreaChart data={chartData}>
+                <defs>
+                  <linearGradient id="colorVendas" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor="#4F46E5" stopOpacity={0.1}/>
+                    <stop offset="95%" stopColor="#4F46E5" stopOpacity={0}/>
+                  </linearGradient>
+                </defs>
+                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#333336" />
+                <XAxis dataKey="name" tick={{fill: '#94A3B8', fontSize: 12}} />
+                <YAxis tick={{fill: '#94A3B8', fontSize: 12}} />
+                <Tooltip contentStyle={{ background: '#1c1c1e', border: '1px solid #333336', borderRadius: '12px' }} />
+                <Area type="monotone" dataKey="vendas" stroke="#4F46E5" strokeWidth={3} fill="url(#colorVendas)" />
+              </AreaChart>
             </ResponsiveContainer>
           </div>
         </div>
-        
-        <div className="bg-[#1c1c1e] p-8 rounded-3xl shadow-sm border border-[#333336] flex flex-col">
-          <h3 className="text-xl font-black text-white mb-8">Mix de Serviços Ativos</h3>
-          <div className="flex-1 flex flex-col items-center justify-center">
-             <ResponsiveContainer width="100%" height={250}>
-              <PieChart>
-                <Pie data={[
-                    { name: 'Limpa Nome', value: db.servicos.filter((s: any) => s.tipo === 'Limpa Nome').length },
-                    { name: 'Score', value: db.servicos.filter((s: any) => s.tipo === 'Aumento de Score').length },
-                    { name: 'Outros', value: db.servicos.filter((s: any) => !['Limpa Nome', 'Aumento de Score'].includes(s.tipo)).length },
-                  ]} innerRadius={70} outerRadius={100} paddingAngle={8} dataKey="value">
-                  {[0,1,2].map((entry, index) => <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />)}
-                </Pie>
-                <Tooltip />
-              </PieChart>
-            </ResponsiveContainer>
+
+        <div className="bg-[#1c1c1e] p-6 rounded-2xl border border-[#333336]">
+          <h3 className="font-bold text-lg text-white mb-6">Resumo Financeiro</h3>
+          <div className="space-y-6">
+            <div className="flex items-center justify-between p-4 bg-[#0f0f11] rounded-xl">
+              <div className="flex items-center gap-3">
+                <div className="p-2 bg-emerald-100 text-emerald-600 rounded-lg">
+                  <ArrowDownRight size={20} />
+                </div>
+                <div>
+                  <p className="text-xs text-[#98989d]">Recebido</p>
+                  <p className="font-bold text-white">{formatCurrency(receivedAmount)}</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex items-center justify-between p-4 bg-[#0f0f11] rounded-xl">
+              <div className="flex items-center gap-3">
+                <div className="p-2 bg-amber-100 text-amber-600 rounded-lg">
+                  <Clock size={20} />
+                </div>
+                <div>
+                  <p className="text-xs text-[#98989d]">Pendente</p>
+                  <p className="font-bold text-white">{formatCurrency(totalRevenue - receivedAmount)}</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   );
-};
+}
 
-const RiskMetric = ({ label, value, icon: Icon, color, bg }: any) => (
-    <div className={`${bg} p-6 rounded-3xl flex items-center gap-4 transition-all hover:scale-105 cursor-default`}>
-        <div className={`w-12 h-12 rounded-2xl bg-[#1c1c1e] flex items-center justify-center ${color} shadow-sm`}>
-            <Icon size={24} />
-        </div>
-        <div>
-            <p className="text-[10px] font-black text-[#98989d] uppercase tracking-widest">{label}</p>
-            <p className={`text-lg font-black ${color}`}>{value}</p>
-        </div>
-    </div>
-);
-
-const MetricCard = ({ icon: Icon, label, value, color, urgent }: any) => (
-  <div className={`p-8 rounded-3xl bg-[#1c1c1e] shadow-sm border-2 transition-all hover:shadow-xl ${urgent ? 'border-red-100' : 'border-white'}`}>
-    <div className="flex items-start justify-between">
-      <div className="space-y-1">
-        <p className="text-[11px] font-black text-[#98989d] uppercase tracking-widest">{label}</p>
-        <h4 className="text-3xl font-black text-white">{value}</h4>
-      </div>
-      <div className={`p-4 rounded-2xl ${color} text-white shadow-lg shadow-current/20`}>
-        <Icon size={28} />
-      </div>
-    </div>
-  </div>
-);
-
-const Lock = ({ size, className }: any) => <AlertCircle size={size} className={className} />;
-
-export default DashboardView;
+function cn(...inputs: any[]) {
+  return inputs.filter(Boolean).join(' ');
+}

@@ -6,8 +6,15 @@ import {
   Info, LayoutGrid, List
 } from 'lucide-react';
 import { 
-  StatusServico, StatusPagamento, TipoServicoStrict, 
-  Cliente, ServicoContratado, Pagamento, Documento 
+  StatusServico, 
+  TipoServicoStrict, 
+  NivelRisco 
+} from '../../types';
+import type { 
+  Cliente, 
+  ServicoContratado, 
+  Pagamento, 
+  ListaProcessual 
 } from '../../types';
 
 const CHECKLIST_CONFIG: Record<string, string[]> = {

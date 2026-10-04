@@ -15,8 +15,7 @@ import {
   Phone
 } from 'lucide-react';
 import { motion } from 'motion/react';
-import { Client, ClientService, Contract, Installment } from '../../types';
-import { formatCurrency, formatCPF, formatPhone, cn } from '../../utils/utils';
+import type { Client, ClientService, Contract, Installment } from '../../types';import { formatCurrency, formatCPF, formatPhone, cn } from '../../utils/utils';
 
 interface ClientDetailsViewProps {
   client: Client;

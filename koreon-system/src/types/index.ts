@@ -1,128 +1,5 @@
 // ==========================================
-// TIPOS DO CRM 
-// ==========================================
-
-export interface DashboardStats {
-  totalClients: number;
-  closedContracts: number;
-  totalRevenue: number;
-  pendingCommissions: number;
-  totalExpenses: number;
-  receivedAmount: number;
-  overdueInstallments: number;
-}
-
-export interface Client {
-  id: string;
-  name: string;
-  phone: string;
-  cpf: string;
-  status: string;
-  totalContracted: number;
-  paid: number;
-  pending: number;
-  createdAt: string;
-  services?: ClientService[];
-  referralReceived?: Referral;
-}
-
-export interface Affiliate {
-  id: string;
-  name: string;
-  phone: string;
-  cpf: string;
-  referralsCount: number;
-  commissionsTotal: number;
-  commissionsPaid: number;
-  commissionsPending: number;
-  defaultCommissionValue: number;
-  defaultCommissionInstallments: number;
-  commissionType: string;
-  createdAt: string;
-}
-
-export interface Supplier {
-  id: string;
-  name: string;
-  phone: string;
-  service: string;
-  price: number;
-}
-
-export interface NameList {
-  id: string;
-  name: string;
-  count: number;
-  pricePaid: number;
-  marketingCost: number;
-  costPerName: number;
-  createdAt: string;
-}
-
-export interface Service {
-  id: string;
-  name: string;
-  price: number;
-  avgDuration: number;
-  status: string;
-}
-
-export interface ClientService {
-  id: string;
-  clientId: string;
-  serviceId: string;
-  service: Service;
-  status: string;
-  startDate: string;
-  endDate?: string;
-}
-
-export interface Contract {
-  id: string;
-  clientId: string;
-  client: Client;
-  totalValue: number;
-  entryValue: number;
-  paymentMethod: string;
-  installmentsCount: number;
-  status: string;
-  contractDate?: string;
-  contractUrl?: string;
-  createdAt: string;
-  installments?: Installment[];
-}
-
-export interface Installment {
-  id: string;
-  contractId: string;
-  number: number;
-  value: number;
-  dueDate: string;
-  status: string;
-  paymentDate?: string;
-  proofUrl?: string;
-  delayDays?: number;
-}
-
-export interface Referral {
-  id: string;
-  referrerId?: string;
-  referrer?: Client;
-  affiliateId?: string;
-  affiliate?: Affiliate;
-  referredClientId: string;
-  referredClient: Client;
-  contractValue: number;
-  commission: number;
-  commissionValue: number;
-  commissionInstallments: number;
-  commissionType: string;
-  status: string;
-  createdAt: string;
-}
-
-// ==========================================
-// TIPOS DO ERP
+// ENUMS (VALORES REAIS - PODEM SER IMPORTADOS NORMALMENTE)
 // ==========================================
 
 export enum TipoPessoa {
@@ -162,24 +39,6 @@ export enum TipoDocumento {
   NADA_CONSTA = 'Nada Consta'
 }
 
-export enum StatusOrgao {
-  NAO_INICIADO = 'Não Iniciado',
-  INICIADO = 'Iniciado',
-  CONCLUIDO = 'Concluído'
-}
-
-export enum StatusLista {
-  EM_ANDAMENTO = 'Em andamento',
-  CONCLUIDO = '100% Baixado',
-  REPROTOCOLO = 'Reprotocolo'
-}
-
-export enum StatusFornecedor {
-  ATIVO = 'Ativo',
-  OBSERVACAO = 'Em Observação',
-  BLOQUEADO = 'Bloqueado Automaticamente'
-}
-
 export enum NivelRisco {
   BAIXO = 'Risco Baixo',
   MEDIO = 'Risco Médio',
@@ -193,127 +52,71 @@ export enum PrioridadeOperacional {
   CONGELADO = 'Operação Congelada'
 }
 
-export interface Fornecedor {
-  id: string;
-  nome: string;
-  contato: string;
-  status: StatusFornecedor;
-  scoreAtual: number;
-  tendencia: 'up' | 'down' | 'stable';
-  posicaoRank: number;
-  slaCumprimento: number; 
-  atrasoMedioDias: number;
-  taxaRetrabalho: number; 
-  custoMedioMercadoRelativo: number; 
-  capacidadeVolume: number; 
-}
+// ==========================================
+// INTERFACES (TIPAGEM - DEVEM SER IMPORTADAS COM 'type')
+// ==========================================
 
-export interface Documento {
-  id: string;
-  clienteId: string;
-  servicoId?: string;
-  tipo: TipoDocumento;
-  nomeArquivo: string;
-  conteudoBase64: string;
-  tipoMime: string;
-  tamanhoArquivo: number;
-  dataUpload: string;
-  url?: string;
-}
-
-export interface ServicoContratado {
-  id: string;
-  clienteId: string;
-  tipo: TipoServicoStrict; 
-  valorContratado: number;
-  formaPagamento: 'À Vista' | 'Parcelado' | string;
-  qtdParcelas: number;
-  dataContrato: string;
-  prazoAcordado: string;
-  status: StatusServico;
-  progresso: number; 
-  obsTecnicas: string;
-  responsavel: string;
-  margemLiquida?: number;
-  nivelRisco?: NivelRisco;
+export interface DashboardStats {
+  totalClients: number;
+  closedContracts: number;
+  totalRevenue: number;
+  pendingCommissions: number;
+  totalExpenses: number;
+  receivedAmount: number;
+  overdueInstallments: number;
 }
 
 export interface Cliente {
   id: string;
   nome: string;
   tipo: TipoPessoa;
-  documento: string; 
-  rgIe: string;
-  dataNascimento?: string;
-  endereco: string;
-  bairro?: string;
-  estado?: string;
-  cep: string;
-  numero: string;
-  cidade: string;
+  documento: string; // CPF/CNPJ
   telefone: string;
   email: string;
   dataCadastro: string;
-  observacoes: string;
   riskScore: number;
   riskLevel: NivelRisco;
   prioridade: PrioridadeOperacional;
+  // Campos extras para compatibilidade CRM
+  totalContracted?: number;
+  paid?: number;
+  pending?: number;
+  status?: string;
+  cpf?: string; // Alias para documento
+  name?: string; // Alias para nome
 }
+
+// ALIASES PARA COMPATIBILIDADE COM TELAS ANTIGAS
+export type Client = Cliente;
+
+export interface ServicoContratado {
+  id: string;
+  clienteId: string;
+  tipo: TipoServicoStrict; 
+  valorContratado: number;
+  formaPagamento: string;
+  qtdParcelas: number;
+  status: StatusServico;
+  progresso: number; 
+  responsavel: string;
+  prazoAcordado: string;
+}
+
+export type ClientService = ServicoContratado;
 
 export interface Pagamento {
   id: string;
   clienteId: string;
   servicoId: string;
-  valorTotal: number;
-  numParcela: number;
-  qtdParcelas: number;
   valorParcela: number;
+  numParcela: number;
   dataVencimento: string;
   status: StatusPagamento;
-  comprovanteId?: string; 
 }
 
-export interface ListaProcessual {
+export interface Affiliate {
   id: string;
-  nome: string;
-  tipoServico: TipoServicoStrict;
-  dataInicio: string;
-  statusGeral: 'Em andamento' | '100% Baixado' | 'Reprotocolo' | string;
-  ultimaAtualizacao: string;
-  observacoes: string;
-  fornecedor?: string; 
-  custoAcao?: number;
-  margemBruta?: number;
-  margemLiquida?: number;
-  riscoCalculado?: NivelRisco;
-}
-
-export interface ListaOrgao {
-  id: string;
-  listaId: string;
-  nomeOrgao: string;
-  status: StatusOrgao;
-  percentualConclusao: number;
-}
-
-export interface ClientePorLista {
-  id?: string;
-  clienteId: string;
-  servicoId: string;
-  listaId: string;
-  situacao: 'Aguardando' | 'Em andamento' | 'Finalizado' | 'Baixado' | 'Reprotocolo' | string;
-  nadaConstaAnexado?: boolean;
-  observacoesIndividuais: string;
-}
-
-export interface HistoricoAcompanhamento {
-  id: string;
-  clienteId: string;
-  servicoId: string;
-  tipoServico: TipoServicoStrict;
-  tipoAcao: 'Status' | 'WhatsApp' | string;
-  conteudo: string;
-  statusNovo?: StatusServico;
-  dataHora: string;
-  responsavel: string;
+  name: string;
+  phone: string;
+  commissionsTotal: number;
 }
